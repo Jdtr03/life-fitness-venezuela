@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Life Fitness Venezuela | Fuerza</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="config.js"></script>
+    
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..800&family=Montserrat:wght@100..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet" />
+    
+    <!-- External Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <script src="main.js" defer></script>
+</head>
+
+<body class="bg-surface text-on-surface font-body pt-20 catalog-body">
+    <!-- BEGIN: Navigation -->
+    <nav class="navbar">
+        <div class="nav-section red-bg">
+            <a href="index.html" class="flex items-center">
+                <img src="fotos\header-white-lf.svg" alt="Life Fitness" class="logo">
+            </a>
+        </div>
+
+        <div class="nav-section black-bg">
+            <a href="index.html" class="flex items-center">
+                <img src="fotos\header-white-hammer.svg" alt="Hammer Strength" class="logo">
+            </a>
+        </div>
+
+        <!-- Desktop Links -->
+        <div class="nav-links">
+            <div class="nav-dropdown">
+                <a class="nav-link" href="#products">Productos</a>
+                <div class="dropdown-content">
+                    <a href="cardio.html" class="dropdown-item">Cardio</a>
+                    <a href="fuerza.html" class="dropdown-item">Fuerza</a>
+                </div>
+            </div>
+            <a class="nav-link" href="#">Servicios</a>
+            <a class="nav-link" href="#">Digital</a>
+        </div>
+
+        <!-- CTA Button -->
+        <div class="nav-cta">
+            <a class="btn btn-primary" href="#contact">
+                cotizar
+            </a>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section class="section-hero relative h-[85dvh] w-full overflow-hidden flex items-center">
+        <div class="absolute inset-0 z-0">
+            <img alt="Professional Gym Environment" class="w-full h-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyFWCojLpZU5sMrajRy__X4AirT5abm6cLs0rMjjKvvqIa21AErFPPdu6kEsM67XEnfDMQQd0d8THD8rIIP8GEN_2ME3bV3ATN79yIgLsoKeuVGJw0egCvN8elWmDF00clsBkE_x7SEaWuSgFoi1V8eTzJEswq1F8y8h6sMNaNhWepQnuvaJJAX68inFOuoVyiizFX6dqsTRraQPxZdJxtBshd9XHIuv79NWkvbZnhwfLEikjxJ4ujK91J3BmDynHbmrq_6DeS9gY" />
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full">
+            <div class="max-w-3xl">
+                <span
+                    class="bg-primary-container text-on-primary-container font-label text-[10px] tracking-[0.3em] px-3 py-1 mb-6 inline-block">ENGINEERING
+                    EXCELLENCE</span>
+                <h1
+                    class="font-headline text-5xl md:text-7xl lg:text-8xl font-extrabold text-on-primary-container leading-tight mb-4 tracking-tighter italic">
+                    CATÁLOGO DE <br />FUERZA
+                </h1>
+                <p
+                    class="text-xl md:text-2xl text-on-surface/80 max-w-xl font-light leading-relaxed border-l-4 border-primary-container pl-6">
+                    Ingeniería Superior diseñada para el máximo rendimiento. Donde la biomecánica se encuentra con la
+                    durabilidad legendaria.
+                </p>
+                <div class="mt-10 flex gap-4">
+                    <button
+                        class="bg-primary-container text-on-primary-container px-10 py-4 font-headline font-extrabold uppercase tracking-widest hover:scale-105 transition-transform flex items-center gap-3">
+                        Explorar Equipos
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Grid Section -->
+    <section class="py-24 bg-surface">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <h2 class="font-headline text-3xl md:text-4xl font-bold uppercase tracking-tight text-on-surface">
+                        Selección de Élite</h2>
+                    <div class="h-1 w-20 bg-primary-container mt-2"></div>
+                </div>
+                <div class="hidden md:block text-outline font-label text-xs tracking-widest uppercase">
+                    4 Categorías Principales
+                </div>
+            </div>
+            <div class="category-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Product 1: Insignia Series -->
+                <div
+                    class="category-card zoom-card group relative bg-surface-container-low overflow-hidden h-[500px] flex flex-col">
+                    <div class="h-2/3 overflow-hidden">
+                        <img alt="Insignia Series" class="w-full h-full object-cover transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqJZS6UwgYq75fkLkX_98fZht42QJPx_1z6sSmujF2I9Pea7h4Beu4vCKJirL26meY00nJV_xQOh8fczFqLUJZW9W5ydDSm1mQoRdkexgM49r7i4W2boO-VRiXZcJp5-tfGuCz8cJ4Y65rcHzTj5JdldfyLimamoPAUQMx8hxBbE2Vx0SmJuT3Po7M2nws7GXI7fEm7nZM65eMsE7YJWFvnlCAWilvXOzLuVIWjLywTDFHjN8jiFkhqqmiXy8N9P_shvBs58e-LgA" />
+                    </div>
+                    <div class="absolute top-4 left-4">
+                        <span
+                            class="bg-surface-container-highest/80 backdrop-blur-md text-on-surface font-label text-[10px] px-3 py-1">LIFE
+                            FITNESS</span>
+                    </div>
+                    <div
+                        class="p-6 flex flex-col flex-grow justify-between border-l-2 border-transparent group-hover:border-primary-container transition-colors">
+                        <div>
+                            <h3 class="font-headline text-xl font-bold text-on-surface leading-none mb-3">Insignia
+                                Series Selectioned</h3>
+                            <p class="text-on-surface/60 text-sm leading-relaxed line-clamp-3">
+                                Movimiento natural y estética premium. Diseñadas para una experiencia de usuario
+                                intuitiva con torres de peso optimizadas.
+                            </p>
+                        </div>
+                        <button
+                            class="mt-4 border border-outline-variant/30 text-on-surface py-3 font-headline font-extrabold text-xs uppercase tracking-widest group-hover:bg-primary-container group-hover:text-on-primary-container group-hover:border-primary-container transition-all">
+                            Cotizar
+                        </button>
+                    </div>
+                </div>
+                <!-- Product 2: Hammer Strength Racks -->
+                <div
+                    class="category-card zoom-card group relative bg-surface-container-low overflow-hidden h-[500px] flex flex-col">
+                    <div class="h-2/3 overflow-hidden">
+                        <img alt="Hammer Strength Racks"
+                            class="w-full h-full object-cover transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKH5c2i5lYcU6wBT_wSQ9zT6GCoW-RCISvV866RRkgDaitMEa3jyubUxi997b3d-eM71yNTSK4qH4GhbSm1t_w81QK_QP3mW1snC6kZpkM1nw8D0tF1vL7Aea9I4WOVrFx-5JOrxxf5_NC3-eJsE-KwsGFXBbT2ambCaE5Syc_URH2LM0M2pG8w1FkoQt46QGF8a0mgrise598apDZ_yZyT8w0uXXaiCgOtZ07lyIa3N788PtbYvEzqD2azKhLnD-XJlDTWu2JZOA" />
+                    </div>
+                    <div class="absolute top-4 left-4">
+                        <span
+                            class="bg-surface-container-highest/80 backdrop-blur-md text-on-surface font-label text-[10px] px-3 py-1">HAMMER
+                            STRENGTH</span>
+                    </div>
+                    <div
+                        class="p-6 flex flex-col flex-grow justify-between border-l-2 border-transparent group-hover:border-primary-container transition-colors">
+                        <div>
+                            <h3 class="font-headline text-xl font-bold text-on-surface leading-none mb-3">Hammer
+                                Strength Racks</h3>
+                            <p class="text-on-surface/60 text-sm leading-relaxed line-clamp-3">
+                                El estándar de oro para el entrenamiento atlético. Estructuras de acero macizo
+                                construidas para resistir el castigo más extremo.
+                            </p>
+                        </div>
+                        <button
+                            class="mt-4 border border-outline-variant/30 text-on-surface py-3 font-headline font-extrabold text-xs uppercase tracking-widest group-hover:bg-primary-container group-hover:text-on-primary-container group-hover:border-primary-container transition-all">
+                            Cotizar
+                        </button>
+                    </div>
+                </div>
+                <!-- Product 3: Hammer Strength Benches -->
+                <div
+                    class="category-card zoom-card group relative bg-surface-container-low overflow-hidden h-[500px] flex flex-col">
+                    <div class="h-2/3 overflow-hidden">
+                        <img alt="Hammer Strength Benches"
+                            class="w-full h-full object-cover transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDICOLedAptGMfAEw5yR2Njgjf_RLOcKXp89_JykPMDvgSTSyDZHR1Ukj7lbJ6m6t1_34VABRuwXKSPnaGKfBFkVlqZCrHMV5BbJwe3a0YBBq27mlr7EZDBWW9ot1smkH-axC37rv4Ih-4XjWBqCrrdKJGxtdTMQbOOtoFA0nbohP9qDym4Cp-OxZ8XQGV1Ss2VESoo9xp4Nr798ySm4EtZeL_g7Kd-09cJChA5cqW9J3eeMg02vklQg6aeqYaZZpCLdG83LmCZn7A" />
+                    </div>
+                    <div class="absolute top-4 left-4">
+                        <span
+                            class="bg-surface-container-highest/80 backdrop-blur-md text-on-surface font-label text-[10px] px-3 py-1">HAMMER
+                            STRENGTH</span>
+                    </div>
+                    <div
+                        class="p-6 flex flex-col flex-grow justify-between border-l-2 border-transparent group-hover:border-primary-container transition-colors">
+                        <div>
+                            <h3 class="font-headline text-xl font-bold text-on-surface leading-none mb-3">Hammer
+                                Strength Benches</h3>
+                            <p class="text-on-surface/60 text-sm leading-relaxed line-clamp-3">
+                                Estabilidad inquebrantable y ajustes de precisión. Diseñados para complementar cualquier
+                                área de entrenamiento de fuerza.
+                            </p>
+                        </div>
+                        <button
+                            class="mt-4 border border-outline-variant/30 text-on-surface py-3 font-headline font-extrabold text-xs uppercase tracking-widest group-hover:bg-primary-container group-hover:text-on-primary-container group-hover:border-primary-container transition-all">
+                            Cotizar
+                        </button>
+                    </div>
+                </div>
+                <!-- Product 4: Free Weights -->
+                <div
+                    class="category-card zoom-card group relative bg-surface-container-low overflow-hidden h-[500px] flex flex-col">
+                    <div class="h-2/3 overflow-hidden">
+                        <img alt="Free Weights" class="w-full h-full object-cover transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8nQ3iF3oKSNesote91WqLX17CPlFye4BDtyNmDCkRVZjt5T-4eldHrBawxPV1VQxvGnxWOmllaywpGRF-JsqhfibJoaXKaCcLv3_dw8Ov2B1SHgk1IL1z560tSZeV_N6c4-Z5CvAOjP3RwWjiDwhWfpxpap4iek1w3Yar-u3X-a3jrTerhcq2s1cEIii4bt8Uoov4zhs0rWf8E6dxHu8Vnaz5lVUEkrFwsjIWjE3UzMWO506maWponVcThyM1CAzWN1nnBvCVVQo" />
+                    </div>
+                    <div class="absolute top-4 left-4">
+                        <span
+                            class="bg-surface-container-highest/80 backdrop-blur-md text-on-surface font-label text-[10px] px-3 py-1">PREMIUM
+                            ACCESSORIES</span>
+                    </div>
+                    <div
+                        class="p-6 flex flex-col flex-grow justify-between border-l-2 border-transparent group-hover:border-primary-container transition-colors">
+                        <div>
+                            <h3 class="font-headline text-xl font-bold text-on-surface leading-none mb-3">Free Weights
+                                (Pesas Libres)</h3>
+                            <p class="text-on-surface/60 text-sm leading-relaxed line-clamp-3">
+                                Discos, mancuernas y barras de grado olímpico. Durabilidad superior con acabados de
+                                uretano y acero de alta resistencia.
+                            </p>
+                        </div>
+                        <button
+                            class="mt-4 border border-outline-variant/30 text-on-surface py-3 font-headline font-extrabold text-xs uppercase tracking-widest group-hover:bg-primary-container group-hover:text-on-primary-container group-hover:border-primary-container transition-all">
+                            Cotizar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Brand Philosophy / Monolith Section -->
+    <section class="py-24 bg-surface-container-lowest border-t border-outline-variant/10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="font-headline text-4xl md:text-5xl font-extrabold text-on-surface mb-8 italic">EL ESTÁNDAR DE
+                    LOS CAMPEONES.</h2>
+                <div class="space-y-6 text-on-surface/70 leading-relaxed text-lg">
+                    <p>En Life Fitness Venezuela, no solo vendemos máquinas; equipamos visiones de grandeza. Hammer
+                        Strength es la marca elegida por los atletas profesionales de todo el mundo.</p>
+                    <p>Nuestra línea de fuerza combina una ergonomía avanzada con una resistencia estructural que
+                        sobrepasa los límites de la industria, asegurando que cada repetición cuente.</p>
+                </div>
+                <div class="mt-12 grid grid-cols-2 gap-8 border-t border-outline-variant/20 pt-8">
+                    <div>
+                        <div class="font-headline text-3xl font-bold text-primary-container">45+</div>
+                        <div class="font-label text-[10px] uppercase tracking-widest">Años de Innovación</div>
+                    </div>
+                    <div>
+                        <div class="font-headline text-3xl font-bold text-primary-container">100%</div>
+                        <div class="font-label text-[10px] uppercase tracking-widest">Acero Industrial</div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative group">
+                <div
+                    class="absolute -inset-4 bg-primary-container/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity">
+                </div>
+                <img alt="Hammer Strength Detail"
+                    class="relative w-full h-[600px] object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaciBFxOhA5aMD6niPm0zXqyptPjo_Bb0hDDRuotyEQ6xKWPFx0WdOEfWbpxYtz1UgOREfgcRKN6jRdwJpkxxG4aDUlLxlgfa8WduyHJbXFBYSp7qRfpPZ8TukPqMr0x7VdOc139qUnHI1qzR774wyrB0CawkatHrrZb5NgC_ZPxJwJnP5j6lGOWzFuITdhpdv12f0lkywjnC8OgIAgZ6wnUZlJjpDzo51pDnrEjZburiFqjMV-x3NBhWgBPGeTyaa0a9YuFcnGws" />
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-surface-container-lowest text-on-surface py-20 border-t border-outline-variant/20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="lg:col-span-1">
+                    <h3 class="font-headline font-extrabold text-2xl mb-6 flex items-center gap-2">
+                        <span class="w-8 h-8 bg-primary-container flex items-center justify-center text-xs">LF</span>
+                        Life Fitness Venezuela
+                    </h3>
+                    <p class="text-on-surface/50 text-sm leading-relaxed">
+                        Líderes mundiales en equipamiento de fitness comercial y residencial. Representación exclusiva
+                        en Venezuela.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-label text-xs uppercase tracking-[0.2em] mb-8 text-primary-container">Navegación
+                    </h4>
+                    <ul class="space-y-4 text-sm font-light">
+                        <li><a class="hover:text-primary-container transition-colors" href="#">About Us</a></li>
+                        <li><a class="hover:text-primary-container transition-colors" href="#">Products</a></li>
+                        <li><a class="hover:text-primary-container transition-colors" href="#">Solutions</a></li>
+                        <li><a class="hover:text-primary-container transition-colors" href="#">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-label text-xs uppercase tracking-[0.2em] mb-8 text-primary-container">Social</h4>
+                    <ul class="space-y-4 text-sm font-light">
+                        <li><a class="hover:text-primary-container transition-colors" href="#">Instagram</a></li>
+                        <li><a class="hover:text-primary-container transition-colors" href="#">Facebook</a></li>
+                        <li><a class="hover:text-primary-container transition-colors" href="#">LinkedIn</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-label text-xs uppercase tracking-[0.2em] mb-8 text-primary-container">Newsletter
+                    </h4>
+                    <div class="relative">
+                        <input
+                            class="w-full bg-transparent border-b-2 border-outline-variant/30 py-3 text-sm focus:border-primary-container outline-none transition-colors"
+                            placeholder="Email Address" type="email" />
+                        <button class="absolute right-0 top-1/2 -translate-y-1/2 text-primary-container">
+                            <span class="material-symbols-outlined">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-label uppercase tracking-widest text-on-surface/40">
+                <p>© 2024 Life Fitness Venezuela. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a class="hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+                    <a class="hover:text-on-surface transition-colors" href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
