@@ -7,6 +7,7 @@ const CTA = () => {
   const sectionWrapperStyle = {
     backgroundColor: '#ffffff', // Fondo blanco de la sección completa
     padding: '100px 20px', // Mucho padding arriba y abajo para crear espacio
+
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
