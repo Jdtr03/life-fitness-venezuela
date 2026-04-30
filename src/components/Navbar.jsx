@@ -1,37 +1,59 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Navbar() {
+const Navbar = () => {
+  const linkStyle = {
+    color: 'white',
+    textDecoration: 'none',
+    fontSize: '12px',
+    fontWeight: '700',
+    letterSpacing: '1.5px',
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    height: '100%',
+    padding: '0 5px',
+    transition: 'all 0.3s ease'
+  };
+
   return (
-    <nav className="navbar">
-        <div className="nav-section red-bg">
-            <Link to="/" className="flex items-center">
-                <img src="/fotos/header-white-lf.svg" alt="Life Fitness" className="logo" />
-            </Link>
+    <nav className="navbar-new">
+      <div className="nav-grid">
+        {/* COLUMNA 1: LOGOS */}
+        <div className="nav-logos-wrapper">
+          <Link to="/" className="brand-red-block">
+            <img src="/fotos/header-white-lf.svg" alt="Life Fitness" className="logo-lf" />
+          </Link>
+          <Link to="/" className="logo-hammer-link">
+            <img src="/fotos/header-white-hammer.svg" alt="Hammer Strength" className="logo-hammer" />
+          </Link>
         </div>
 
-        <div className="nav-section black-bg">
-            <Link to="/" className="flex items-center">
-                <img src="/fotos/header-white-hammer.svg" alt="Hammer Strength" className="logo" />
-            </Link>
+        {/* COLUMNA 2: NAVEGACIÓN */}
+        <div className="nav-menu-wrapper">
+          <ul className="nav-menu">
+            {['NOSOTROS', 'PRODUCTOS', 'SERVICIO TÉCNICO', 'CONTACTO'].map((text) => (
+              <li key={text} className="nav-menu-item">
+                <Link
+                  to={text === 'NOSOTROS' ? '/' : `/${text.toLowerCase().replace(' ', '-')}`}
+                  style={linkStyle}
+                  className="nav-menu-link"
+                >
+                  {text}
+                  <span className="hover-line"></span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <div className="nav-links">
-            <div className="nav-dropdown">
-                <a className="nav-link" href="/#products">Productos</a>
-                <div className="dropdown-content">
-                    <Link to="/cardio" className="dropdown-item">Cardio</Link>
-                    <Link to="/fuerza" className="dropdown-item">Fuerza</Link>
-                </div>
-            </div>
-            <a className="nav-link" href="#">Servicios</a>
-            <a className="nav-link" href="#">Digital</a>
+        {/* COLUMNA 3: BOTÓN DE ACCIÓN */}
+        <div className="nav-action">
+          <button className="btn btn-primary nav-btn-large">COTIZAR</button>
         </div>
-
-        <div className="nav-cta">
-            <a className="btn btn-primary" href="/#contact">
-                cotizar
-            </a>
-        </div>
+      </div>
     </nav>
   );
-}
+};
+
+export default Navbar;
