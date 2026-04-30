@@ -6,15 +6,15 @@ const Categories = () => {
       title: "EQUIPOS PARA HOGAR",
       desc: "Ingeniería de vanguardia y tecnología aplicada al entrenamiento cardiovascular de alto rendimiento.",
       img: "../../src/assets/GYM_HOGAR.JPEG",
-      btn1: "Saber más de cardio",
-      btn2: "Ver productos"
+      btn1: "Equipos de Fuerza",
+      btn2: "Equipo de Cardio "
     },
     {
       title: "EQUIPOS PARA GIMNASIOS",
       desc: "Biomecánica avanzada y durabilidad extrema para un entrenamiento de fuerza efectivo y seguro.",
       img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop",
-      btn1: "Ver todos los equipos",
-      btn2: "Ver productos"
+      btn1: "Equipos de Fuerza ",
+      btn2: "Equipos de CArdio "
     }
   ];
 
