@@ -19,7 +19,7 @@ const Categories = () => {
   ];
 
   return (
-    <section className="categories container" style={{
+    <section id="productos" className="categories container" style={{
       maxWidth: '1150px',
       margin: '0 auto',
       padding: '30px 20px'

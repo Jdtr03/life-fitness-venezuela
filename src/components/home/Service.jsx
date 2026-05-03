@@ -9,7 +9,7 @@ const Service = () => {
   ];
 
   return (
-    <section className="service">
+    <section id="servicio-tecnico" className="service">
       <div className="container service-grid">
         <div className="service-content">
           <h2 className="section-title text-white">

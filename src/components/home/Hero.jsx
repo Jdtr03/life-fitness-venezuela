@@ -5,7 +5,7 @@ const Hero = () => {
   const imagenFondo = "../../src/assets/hero_home.png";
 
   return (
-    <header className="hero" style={{
+    <header id="hero" className="hero" style={{
       position: 'relative',
       width: '100%',
       height: '100vh',
@@ -60,22 +60,26 @@ const Hero = () => {
             Transformamos espacios deportivos en Venezuela con tecnología de vanguardia y diseño ergonómico superior.
           </p>
           <div style={{ display: 'flex', gap: '15px' }}>
-            <button className="btn-primary" style={{
+            <a href="/#productos" className="btn-primary" style={{
               backgroundColor: '#e31837',
               color: 'white',
               padding: '15px 30px',
               border: 'none',
               fontWeight: 'bold',
-              cursor: 'pointer'
-            }}>Explorar Productos</button>
-            <button className="btn-outline" style={{
+              cursor: 'pointer',
+              textDecoration: 'none',
+              display: 'inline-block'
+            }}>Explorar Productos</a>
+            <a href="/#nosotros" className="btn-outline" style={{
               backgroundColor: 'transparent',
               color: 'white',
               padding: '15px 30px',
               border: '1px solid white',
               fontWeight: 'bold',
-              cursor: 'pointer'
-            }}>Nuestra Historia</button>
+              cursor: 'pointer',
+              textDecoration: 'none',
+              display: 'inline-block'
+            }}>Nuestra Historia</a>
           </div>
         </div>
       </div>
