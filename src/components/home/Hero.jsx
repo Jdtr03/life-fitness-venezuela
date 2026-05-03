@@ -40,6 +40,7 @@ const Hero = () => {
       }}>
         <div className="animate-fade">
           <h1 style={{
+
             color: 'white',
             fontSize: '3.5rem',
             lineHeight: '1.1',
@@ -86,7 +87,7 @@ const Hero = () => {
 
       {/* Columna Derecha (Vacía para lucir la imagen) */}
       <div style={{ zIndex: 2 }}></div>
-    </header>
+    </header >
   );
 };
 
