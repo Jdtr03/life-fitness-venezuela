@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,32 +16,32 @@ const Navbar = () => {
   const productData = [
     {
       mainTitle: "Equipamiento de Gimnasio",
-      mainHref: "#gimnasio",
+      mainHref: "/equipos-gimnasio#hero",
       subCategories: [
         {
           title: "Equipos de Cardio",
-          subHref: "#cardio-gym",
+          subHref: "/equipos-gimnasio#hero",
           items: ["Cintas de correr", "Elípticas", "Bicicletas", "Remos"]
         },
         {
           title: "Equipos de Fuerza",
-          subHref: "#fuerza-gym",
+          subHref: "/equipos-gimnasio#hero",
           items: ["Selectorizados", "Cargada con placas", "Bancos", "Racks"]
         }
       ]
     },
     {
       mainTitle: "Equipamiento de Hogar",
-      mainHref: "#hogar",
+      mainHref: "/equipos-hogar#hero",
       subCategories: [
         {
           title: "Equipo de cardio",
-          subHref: "#cardio-hogar",
+          subHref: "/equipos-hogar#hero",
           items: ["Cintas residenciales", "Bicis estáticas"]
         },
         {
           title: "Equipo de Fuerza",
-          subHref: "#fuerza-hogar",
+          subHref: "/equipos-hogar#hero",
           items: ["Mancuernas", "Barras", "Discos"]
         }
       ]
@@ -59,11 +60,11 @@ const Navbar = () => {
         {/* --- VERSIÓN MÓVIL (RESQUETANDO TU DISEÑO) --- */}
         <div className="mobile-nav-container">
           <div className="mobile-box-red">
-            <a href="#hero"><img src="/fotos/header-white-lf.svg" alt="Life Fitness" className="logo-mobile-lf" /></a>
+            <Link to="/"><img src="/fotos/header-white-lf.svg" alt="Life Fitness" className="logo-mobile-lf" /></Link>
           </div>
           <div className="mobile-box-black">
             <div className="mobile-content-right">
-              <a href="#hero"><img src="/fotos/header-white-hammer.svg" alt="Hammer Strength" className="logo-mobile-hammer" /></a>
+              <Link to="/"><img src="/fotos/header-white-hammer.svg" alt="Hammer Strength" className="logo-mobile-hammer" /></Link>
               <button className="hamburger-btn-new" onClick={() => setIsMenuOpen(true)}>
                 <span className="bar"></span><span className="bar"></span><span className="bar"></span>
               </button>
@@ -76,12 +77,11 @@ const Navbar = () => {
           <div className="nav-grid">
             {/* Polígono Rojo Izquierda */}
             <div className="brand-red-polygon">
-              <a href="#hero"><img src="/fotos/header-white-lf.svg" alt="Life Fitness" className="logo-lf" /></a>
+              <Link to="/"><img src="/fotos/header-white-lf.svg" alt="Life Fitness" className="logo-lf" /></Link>
             </div>
 
-            {/* Logo Hammer Strength al lado */}
             <div className="nav-logo-hammer-pc">
-              <a href="#hero"><img src="/fotos/header-white-hammer.svg" alt="Hammer Strength" className="logo-hammer" /></a>
+              <Link to="/"><img src="/fotos/header-white-hammer.svg" alt="Hammer Strength" className="logo-hammer" /></Link>
             </div>
 
             {/* Menú de Navegación */}
@@ -114,11 +114,11 @@ const Navbar = () => {
                         <div className="mega-menu-content">
                           {productData.map((section, idx) => (
                             <div key={section.mainTitle} className="main-section">
-                              <a href={section.mainHref} className="main-category-link">{section.mainTitle}</a>
+                              <Link to={section.mainHref} className="main-category-link" onClick={() => setIsProductsOpen(false)}>{section.mainTitle}</Link>
                               <div className="sub-grid">
                                 {section.subCategories.map(sub => (
                                   <div key={sub.title} className="sub-column">
-                                    <a href={sub.subHref} className="sub-category-link">{sub.title}</a>
+                                    <Link to={sub.subHref} className="sub-category-link" onClick={() => setIsProductsOpen(false)}>{sub.title}</Link>
                                     <ul>{sub.items.map(item => <li key={item}>{item}</li>)}</ul>
                                   </div>
                                 ))}
@@ -158,10 +158,10 @@ const Navbar = () => {
                   <div className={`mobile-submenu-acc ${isMobileProductsOpen ? 'open' : ''}`}>
                     {productData.map(section => (
                       <div key={section.mainTitle} style={{ marginBottom: '20px' }}>
-                        <a href={section.mainHref} className="mobile-main-t-link" onClick={() => setIsMenuOpen(false)}>{section.mainTitle}</a>
+                        <Link to={section.mainHref} className="mobile-main-t-link" onClick={() => setIsMenuOpen(false)}>{section.mainTitle}</Link>
                         {section.subCategories.map(sub => (
                           <div key={sub.title} style={{ paddingLeft: '15px', marginTop: '10px' }}>
-                            <a href={sub.subHref} className="mobile-sub-t-link" onClick={() => setIsMenuOpen(false)}>{sub.title}</a>
+                            <Link to={sub.subHref} className="mobile-sub-t-link" onClick={() => setIsMenuOpen(false)}>{sub.title}</Link>
                             {sub.items.map(item => <p key={item} style={{ color: '#888', fontSize: '13px', margin: '5px 0' }}>{item}</p>)}
                           </div>
                         ))}

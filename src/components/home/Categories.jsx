@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Categories = () => {
   const cats = [
@@ -6,6 +7,7 @@ const Categories = () => {
       title: "EQUIPOS PARA HOGAR",
       desc: "Ingeniería de vanguardia y tecnología aplicada al entrenamiento cardiovascular de alto rendimiento.",
       img: "../../src/assets/GYM_HOGAR.JPEG",
+      href: "/equipos-hogar#hero",
       btn1: "Equipos de Fuerza",
       btn2: "Equipo de Cardio "
     },
@@ -13,6 +15,7 @@ const Categories = () => {
       title: "EQUIPOS PARA GIMNASIOS",
       desc: "Biomecánica avanzada y durabilidad extrema para un entrenamiento de fuerza efectivo y seguro.",
       img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop",
+      href: "/equipos-gimnasio#hero",
       btn1: "Equipos de Fuerza ",
       btn2: "Equipos de CArdio "
     }
@@ -93,26 +96,17 @@ const Categories = () => {
               </p>
 
               <div className="cat-btns" style={{ display: 'flex', gap: '8px' }}>
-                <button className="btn btn-primary" style={{
+                <Link to={cat.href} className="btn btn-primary" style={{
                   padding: '10px 20px',
                   fontSize: '0.7rem',
                   fontWeight: '700',
                   textTransform: 'uppercase',
-                  border: 'none'
+                  border: 'none',
+                  textDecoration: 'none',
+                  display: 'inline-block'
                 }}>
-                  {cat.btn1}
-                </button>
-                <button className="btn btn-outline-small" style={{
-                  padding: '10px 20px',
-                  fontSize: '0.7rem',
-                  fontWeight: '700',
-                  textTransform: 'uppercase',
-                  border: '1px solid white',
-                  background: 'rgba(255,255,255,0.1)', // Un poco de fondo para notar el botón
-                  color: 'white'
-                }}>
-                  {cat.btn2}
-                </button>
+                  Ver Catálogo
+                </Link>
               </div>
             </div>
           </div>

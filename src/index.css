@@ -865,9 +865,415 @@ ul {
     gap: 1rem;
     text-align: center;
   }
-
   .bottom-links {
     flex-wrap: wrap;
     justify-content: center;
+  }
+}
+
+/* --- Catalog Pages (Gimnasio & Hogar) --- */
+.catalog-page {
+  background-color: #0a0a0a;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.catalog-hero {
+  position: relative;
+  height: 85vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: #000;
+  padding-top: 100px; /* Stronger Navbar compensation */
+}
+
+.catalog-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) brightness(0.3);
+  z-index: 0;
+}
+
+.catalog-hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, #000 0%, rgba(0,0,0,0.7) 50%, transparent 100%);
+  z-index: 1;
+}
+
+.catalog-hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.catalog-badge {
+  display: inline-block;
+  background-color: var(--primary);
+  color: #fff;
+  font-family: var(--font-accent);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  padding: 8px 20px;
+  margin-bottom: 2rem;
+  clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
+}
+
+.catalog-title {
+  font-family: var(--font-accent);
+  font-weight: 900;
+  font-size: clamp(3rem, 10vw, 6rem);
+  line-height: 0.9;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+}
+
+.catalog-title span {
+  color: var(--primary);
+  font-style: italic;
+  display: block;
+}
+
+.catalog-subtitle {
+  font-size: 1.25rem;
+  color: rgba(255,255,255,0.6);
+  max-width: 550px;
+  line-height: 1.8;
+  border-left: 4px solid var(--primary);
+  padding-left: 2rem;
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+/* Catalog Footer Spacing */
+.catalog-page .footer {
+  margin-top: auto;
+  border-top: 2px solid var(--primary);
+  background-color: #000;
+}
+
+/* Product Grid Adjustments */
+.product-section {
+  background-color: #0a0a0a;
+  padding: 10rem 0;
+  transition: background-color 0.4s ease;
+}
+
+.product-section.light {
+  background-color: #f4f4f4; /* Slightly off-white for better contrast with white cards */
+  color: #000;
+}
+
+.product-section.light .section-title {
+  color: #000;
+}
+
+.product-section.light .product-card {
+  background-color: #ffffff;
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05); /* Soft shadow for contrast */
+}
+
+.product-section.light .product-name {
+  color: #000;
+}
+
+.product-section.light .product-description {
+  color: #555;
+}
+
+.product-section.light .btn-cotizar {
+  border-color: rgba(0,0,0,0.1);
+  color: #000;
+  background-color: transparent;
+}
+
+.product-section.light .btn-cotizar:hover {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2.5rem;
+}
+
+/* Carousel Styles */
+.carousel-container {
+  position: relative;
+  width: 100%;
+}
+
+.product-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: 20px;
+  padding: 20px 0 40px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.product-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-item {
+  flex: 0 0 calc(25% - 15px); /* 4 items in PC */
+  scroll-snap-align: start;
+  min-width: 280px;
+}
+
+.carousel-legend {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.carousel-legend::before, .carousel-legend::after {
+  content: '';
+  height: 1px;
+  width: 30px;
+  background-color: var(--primary);
+}
+
+.product-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.btn-info {
+  background: #000;
+  color: #fff;
+  padding: 14px 0;
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: block;
+}
+
+.product-section.light .btn-info {
+  background: #222;
+}
+
+.btn-info:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.product-card {
+  background-color: #1a1a1a;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  border-left: 4px solid transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  border-left-color: var(--primary);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.product-img-wrapper {
+  aspect-ratio: 1/1;
+  position: relative;
+  overflow: hidden;
+  background-color: #fff; /* White background for images as requested */
+}
+
+.product-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Contain to show the whole white background product */
+  transition: transform 0.6s ease;
+}
+
+.product-card:hover .product-img-wrapper img {
+  transform: scale(1.05);
+}
+
+.product-tag {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
+  padding: 5px 14px;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #fff;
+  z-index: 2;
+}
+
+.product-tag.premium {
+  background-color: var(--primary);
+}
+
+.product-info {
+  padding: 2.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.product-description {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+.btn-cotizar {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  padding: 14px 0;
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-cotizar:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* Bento Specs */
+.specs-section {
+  background-color: #0a0a0a;
+  padding: 8rem 0;
+}
+
+.specs-bento {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 3rem;
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  margin-top: 4rem;
+}
+
+.spec-item .value {
+  display: block;
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+  margin-bottom: 0.75rem;
+  font-family: var(--font-accent);
+}
+
+.spec-item .label {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.45);
+  font-weight: 700;
+}
+
+@media (max-width: 1200px) {
+  .specs-bento {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 992px) {
+  .catalog-hero {
+    height: auto;
+    padding: 10rem 0 6rem;
+  }
+  
+  .glass-card {
+    padding: 4rem 2rem;
+  }
+  
+  .spec-grid {
+    margin-top: 2.5rem;
+  }
+  
+  .carousel-item {
+    flex: 0 0 calc(50% - 10px); /* 2 items in tablet */
+  }
+}
+
+@media (max-width: 768px) {
+  .catalog-title {
+    font-size: 3.5rem;
+  }
+  
+  .catalog-subtitle {
+    font-size: 1.1rem;
+    padding-left: 1.5rem;
+  }
+  
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .spec-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .carousel-item {
+    flex: 0 0 100%; /* 1 item in mobile */
   }
 }
