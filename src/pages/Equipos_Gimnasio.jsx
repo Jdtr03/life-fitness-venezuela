@@ -1,17 +1,32 @@
 import React from 'react';
 import Footer from '../components/home/Footer';
 import GimnasioHero from '../components/gimnasio/GimnasioHero';
-import GimnasioProducts from '../components/gimnasio/GimnasioProducts';
 import GimnasioSpecs from '../components/gimnasio/GimnasioSpecs';
-import GimnasioProductsB from '../components/gimnasio/GimnasioProductsB';
+import DynamicCatalog from '../components/DynamicCatalog';
+import { gymData } from '../data/gym_data';
 
 export default function EquiposGimnasio() {
+  // Filtrar productos para Gimnasio
+  const gimnasioProducts = gymData.filter(p => p.usage === 'Gimnasio');
+
+  // Bloque A: Fuerza
+  const fuerzaProducts = gimnasioProducts.filter(p => p.Category === 'Fuerza');
+
+  // Bloque B: Cardio
+  const cardioProducts = gimnasioProducts.filter(p => p.Category === 'Cardio');
+
   return (
     <div className="catalog-page">
       <GimnasioHero />
-      <GimnasioProducts />
+      
+      {/* BLOQUE A: FUERZA */}
+      <DynamicCatalog products={fuerzaProducts} title="Fuerza" />
+
       <GimnasioSpecs />
-      <GimnasioProductsB />
+
+      {/* BLOQUE B: CARDIO */}
+      <DynamicCatalog products={cardioProducts} title="Cardio" />
+      
       <Footer />
     </div>
   );

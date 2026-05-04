@@ -2,40 +2,38 @@ import React from 'react';
 
 const GimnasioSpecs = () => {
   return (
-    <section className="specs-section">
+    <section className="specs-section-v3">
       <div className="container">
-        <div className="specs-bento">
-          <div className="glass-card">
-            <h2 className="section-title">Especificaciones <span>Industriales</span></h2>
-            <p className="text-muted" style={{marginTop: '1rem'}}>
-              Nuestros equipos no solo se ven premium, están construidos para durar décadas 
-              con el mínimo mantenimiento bajo condiciones extremas.
+        <div className="specs-layout-v3">
+          <div className="specs-info-v3">
+            <h2 className="specs-title-v3">Excelencia en <span>Ingeniería</span></h2>
+            <p className="specs-desc-v3">
+              Cada equipo Hammer Strength y Life Fitness está diseñado para soportar el uso más intenso, 
+              garantizando una biomecánica perfecta en cada repetición.
             </p>
-            <div className="spec-grid">
-              <div className="spec-item">
+            
+            <div className="spec-grid-v3">
+              <div className="spec-item-v3">
                 <span className="value">11 GA</span>
-                <span className="label">Acero Estructural</span>
+                <span className="label">Acero Industrial</span>
               </div>
-              <div className="spec-item">
-                <span className="value">Urethane</span>
-                <span className="label">Recubrimiento Élite</span>
+              <div className="spec-item-v3">
+                <span className="value">+200</span>
+                <span className="label">Pruebas de Impacto</span>
               </div>
-              <div className="spec-item">
-                <span className="value">LifeConn</span>
-                <span className="label">Ecosistema Digital</span>
+              <div className="spec-item-v3">
+                <span className="value">ISO</span>
+                <span className="label">Certificación Global</span>
               </div>
-              <div className="spec-item">
-                <span className="value">ISO-9001</span>
-                <span className="label">Calidad Certificada</span>
+              <div className="spec-item-v3">
+                <span className="value">24/7</span>
+                <span className="label">Uso Continuo</span>
               </div>
             </div>
           </div>
-          <div style={{position: 'relative', overflow: 'hidden', borderRadius: '4px'}}>
-            <img 
-              src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?q=80&w=1974&auto=format&fit=crop" 
-              alt="Technical Detail" 
-              style={{width: '100%', height: '100%', objectFit: 'cover'}}
-            />
+          
+          <div className="specs-image-v3">
+            <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=2070&auto=format&fit=crop" alt="Hammer Strength Engineering" />
           </div>
         </div>
       </div>

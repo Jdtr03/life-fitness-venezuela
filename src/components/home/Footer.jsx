@@ -6,14 +6,14 @@ const Footer = () => {
     <footer className="footer">
       <div className="container footer-grid">
         <div className="footer-brand">
-          <div className="brand-logo">
+          <div className="brand-logo" translate="no">
             Life<span>Fitness</span>
           </div>
           <p className="brand-desc">
             Líder mundial en la fabricación de equipos de fitness comerciales y para el hogar. Innovando para cada cuerpo en movimiento.
           </p>
         </div>
-        
+
         <div className="footer-links">
           <h4>EQUIPOS</h4>
           <ul>

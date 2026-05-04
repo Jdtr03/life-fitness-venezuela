@@ -2,40 +2,38 @@ import React from 'react';
 
 const HogarSpecs = () => {
   return (
-    <section className="specs-section">
+    <section className="specs-section-v3">
       <div className="container">
-        <div className="specs-bento">
-          <div className="glass-card">
-            <h2 className="section-title">Tecnología <span>Residencial</span></h2>
-            <p className="text-muted" style={{marginTop: '1rem'}}>
-              La misma ingeniería que encuentras en los gimnasios de clase mundial, 
-              optimizada para la comodidad y estética de tu hogar.
+        <div className="specs-layout-v3">
+          <div className="specs-info-v3">
+            <h2 className="specs-title-v3">Calidad de <span>Gimnasio</span></h2>
+            <p className="specs-desc-v3">
+              No comprometemos el rendimiento por el espacio. Nuestros equipos para el hogar mantienen 
+              los mismos estándares de calidad que encontrarías en los mejores clubes del mundo.
             </p>
-            <div className="spec-grid">
-              <div className="spec-item">
-                <span className="value">Whisper</span>
-                <span className="label">Motor Ultra Silencioso</span>
+            
+            <div className="spec-grid-v3">
+              <div className="spec-item-v3">
+                <span className="value">Quiet</span>
+                <span className="label">Motor Silencioso</span>
               </div>
-              <div className="spec-item">
-                <span className="value">Compact</span>
-                <span className="label">Ahorro de Espacio</span>
+              <div className="spec-item-v3">
+                <span className="value">Space</span>
+                <span className="label">Diseño Compacto</span>
               </div>
-              <div className="spec-item">
-                <span className="value">HD Cons</span>
-                <span className="label">Streaming & Apps</span>
+              <div className="spec-item-v3">
+                <span className="value">Flex</span>
+                <span className="label">Amortiguación</span>
               </div>
-              <div className="spec-item">
-                <span className="value">Warranty</span>
-                <span className="label">Soporte Premium</span>
+              <div className="spec-item-v3">
+                <span className="value">Connect</span>
+                <span className="label">Apps de Fitness</span>
               </div>
             </div>
           </div>
-          <div style={{position: 'relative', overflow: 'hidden', borderRadius: '4px'}}>
-            <img 
-              src="https://images.unsplash.com/photo-1594381898411-846e7d193883?q=80&w=1974&auto=format&fit=crop" 
-              alt="Home Technical Detail" 
-              style={{width: '100%', height: '100%', objectFit: 'cover'}}
-            />
+          
+          <div className="specs-image-v3">
+            <img src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?q=80&w=2069&auto=format&fit=crop" alt="Home Fitness Specs" />
           </div>
         </div>
       </div>
