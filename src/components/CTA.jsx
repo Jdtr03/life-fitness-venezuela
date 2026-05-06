@@ -4,15 +4,29 @@ const CTA = () => {
   const [isFormExpanded, setIsFormExpanded] = useState(false);
   const formRef = useRef(null);
 
+  // EFECTO 1: Scroll automático al abrir el formulario
+  // EFECTO: Cerrar al navegar (Limpieza)
   useEffect(() => {
-    if (isFormExpanded && formRef.current) {
+    return () => {
+      setIsFormExpanded(false);
+    };
+  }, []);
+
+  // EFECTO: Scroll al abrir
+  useEffect(() => {
+    if (isFormExpanded) {
       const timer = setTimeout(() => {
-        const elementPosition = formRef.current.getBoundingClientRect().top + window.pageYOffset;
-        window.scrollTo({
-          top: elementPosition - 100,
-          behavior: 'smooth'
-        });
-      }, 400);
+        // Buscamos directamente el ID que pusimos arriba
+        const elemento = document.getElementById('titulo-contacto');
+
+        if (elemento) {
+          elemento.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, 700);
+
       return () => clearTimeout(timer);
     }
   }, [isFormExpanded]);
@@ -141,10 +155,9 @@ const CTA = () => {
           transform: translateY(-2px);
         }
 
-        /* --- BOTÓN ROJO DE ENVÍO --- */
         .submit-final-btn {
           width: 100%;
-          background: #a6192e; /* Cambiado a rojo */
+          background: #a6192e;
           color: #fff;
           padding: 22px;
           border: none;
@@ -159,7 +172,7 @@ const CTA = () => {
         }
 
         .submit-final-btn:hover {
-          background: #8b1426; /* Un rojo más brillante al pasar el mouse */
+          background: #8b1426;
           transform: translateY(-3px);
           box-shadow: 0 15px 30px rgba(166, 25, 46, 0.4);
         }
@@ -188,7 +201,18 @@ const CTA = () => {
 
       <div className={`form-collapse-container ${isFormExpanded ? 'is-active' : ''}`} ref={formRef}>
         <div className="form-light-3d-box">
-          <h3 className="form-title-center">Solicitar Asesoría Experta</h3>
+          {/* Dentro del JSX de CTA */}
+
+          <h3
+            id="titulo-contacto" // ID específico para CTA
+            ref={formRef}        // La referencia para el useEffect
+            className="form-title-center"
+            style={{
+              scrollMarginTop: '120px' // Compensación para el menú
+            }}
+          >
+            Solicitar Asesoría Experta
+          </h3>
           <form className="inputs-grid" onSubmit={(e) => e.preventDefault()}>
             <input type="text" placeholder="Nombre" required />
             <input type="text" placeholder="Apellido" required />

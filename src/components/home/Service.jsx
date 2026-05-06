@@ -12,19 +12,37 @@ const Service = () => {
     "Asesoría técnica en todos nuestros equipos"
   ];
 
+  // EFECTO 1: Scroll automático al abrir el formulario
   useEffect(() => {
     if (isFormExpanded && formRef.current) {
       const timer = setTimeout(() => {
-        const elementPosition = formRef.current.getBoundingClientRect().top + window.pageYOffset;
-        const offset = 100;
-        window.scrollTo({
-          top: elementPosition - offset,
-          behavior: 'smooth'
-        });
-      }, 500);
+        // Obtenemos el ID directamente del elemento que tiene el ref
+        const idDestino = formRef.current.id;
+        const elemento = document.getElementById(idDestino);
+
+        if (elemento) {
+          elemento.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, 700);
+
       return () => clearTimeout(timer);
     }
   }, [isFormExpanded]);
+
+  // No olvides el efecto de limpieza que hablamos al inicio (para cerrar al navegar)
+  useEffect(() => {
+    return () => setIsFormExpanded(false);
+  }, []);
+  // --- NUEVO EFECTO: Resetear al cambiar de sección/página ---
+  useEffect(() => {
+    // Al desmontar el componente (navegar a otra parte), el formulario se cierra
+    return () => {
+      setIsFormExpanded(false);
+    };
+  }, []);
 
   const toggleForm = () => setIsFormExpanded(!isFormExpanded);
 
@@ -36,6 +54,7 @@ const Service = () => {
           grid-template-columns: 1.2fr 0.8fr;
           gap: 4rem;
           align-items: center;
+          padding: 0 2rem;
         }
 
         .service-img {
@@ -114,7 +133,6 @@ const Service = () => {
           background: #8b1426;
         }
 
-        /* --- MEJORAS RESPONSIVE --- */
         @media (max-width: 992px) {
           .service-grid { grid-template-columns: 1fr; gap: 2rem; }
           .service-visual { order: -1; display: flex; justify-content: center; }
@@ -123,26 +141,14 @@ const Service = () => {
         }
 
         @media (max-width: 768px) {
-          .service-form-card {
-            padding: 2rem 1.5rem; /* Menos padding en móviles */
-          }
-          
-          .form-row {
-            grid-template-columns: 1fr; /* Apila Nombre/Apellido y Celular/Email */
-            gap: 1.2rem;
-          }
-          
+          .service-form-card { padding: 2rem 1.5rem; }
+          .form-row { grid-template-columns: 1fr; gap: 1.2rem; }
           .section-title { font-size: 1.8rem; }
         }
 
         @media (max-width: 480px) {
-          .form-expansion-area.expanded {
-            padding-bottom: 2rem;
-          }
-          .btn-confirm {
-            font-size: 0.9rem;
-            padding: 1rem;
-          }
+          .form-expansion-area.expanded { padding-bottom: 2rem; }
+          .btn-confirm { font-size: 0.9rem; padding: 1rem; }
         }
       `}</style>
 
@@ -177,8 +183,20 @@ const Service = () => {
           className={`form-expansion-area ${isFormExpanded ? 'expanded' : ''}`}
           style={{ height: isFormExpanded ? 'auto' : '0' }}
         >
-          <div className="service-form-card" ref={formRef}>
-            <h3 style={{ color: 'white', textAlign: 'center', marginBottom: '2.5rem', textTransform: 'uppercase', letterSpacing: '1px', fontSize: '1.4rem' }}>
+          <div className="service-form-card">
+            <h3
+              id="titulo-servicio"
+              ref={formRef}
+              style={{
+                color: 'white',
+                textAlign: 'center',
+                marginBottom: '2.5rem',
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                fontSize: '1.4rem',
+                scrollMarginTop: '120px' // Esto soluciona el solapamiento con el menú
+              }}
+            >
               Datos de la solicitud
             </h3>
             <form className="actual-service-form" onSubmit={(e) => e.preventDefault()}>
