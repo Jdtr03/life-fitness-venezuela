@@ -94,7 +94,7 @@ const Navbar = () => {
                     onMouseEnter={() => link.hasSubmenu && setIsProductsOpen(true)}
                     onMouseLeave={() => link.hasSubmenu && setIsProductsOpen(false)}
                   >
-                    <HashLink smooth to={link.href} style={linkStyle} className="nav-menu-link">
+                    <HashLink to={link.href} style={linkStyle} className="nav-menu-link">
                       {link.text}
                       <span className="hover-line"></span>
                     </HashLink>
@@ -105,13 +105,13 @@ const Navbar = () => {
                         <div className="mega-menu-content">
                           {productData.map((section, idx) => (
                             <div key={section.mainTitle} className="main-section">
-                              <HashLink smooth to={section.mainHref} className="main-category-link" onClick={() => setIsProductsOpen(false)}>
+                              <HashLink to={section.mainHref} className="main-category-link" onClick={() => setIsProductsOpen(false)}>
                                 {section.mainTitle}
                               </HashLink>
                               <div className="sub-grid">
                                 {section.subCategories.map(sub => (
                                   <div key={sub.title} className="sub-column">
-                                    <HashLink smooth to={sub.subHref} className="sub-category-link" onClick={() => setIsProductsOpen(false)}>
+                                    <HashLink to={sub.subHref} className="sub-category-link" onClick={() => setIsProductsOpen(false)}>
                                       {sub.title}
                                     </HashLink>
                                     <ul>{sub.items.map(item => <li key={item}>{item}</li>)}</ul>
@@ -130,7 +130,7 @@ const Navbar = () => {
             </div>
 
             <div className="nav-action">
-              <HashLink smooth to="/#contacto" className="btn-cotizar-pc">COTIZAR</HashLink>
+              <HashLink to="/#contacto" className="btn-cotizar-pc">COTIZAR</HashLink>
             </div>
           </div>
         </div>
@@ -152,12 +152,12 @@ const Navbar = () => {
                   <div className={`mobile-submenu-acc ${isMobileProductsOpen ? 'open' : ''}`}>
                     {productData.map(section => (
                       <div key={section.mainTitle} style={{ marginBottom: '20px' }}>
-                        <HashLink smooth to={section.mainHref} className="mobile-main-t-link" onClick={() => setIsMenuOpen(false)}>
+                        <HashLink to={section.mainHref} className="mobile-main-t-link" onClick={() => setIsMenuOpen(false)}>
                           {section.mainTitle}
                         </HashLink>
                         {section.subCategories.map(sub => (
                           <div key={sub.title} style={{ paddingLeft: '15px', marginTop: '10px' }}>
-                            <HashLink smooth to={sub.subHref} className="mobile-sub-t-link" onClick={() => setIsMenuOpen(false)}>
+                            <HashLink to={sub.subHref} className="mobile-sub-t-link" onClick={() => setIsMenuOpen(false)}>
                               {sub.title}
                             </HashLink>
                             {sub.items.map(item => <p key={item} style={{ color: '#888', fontSize: '13px', margin: '5px 0' }}>{item}</p>)}
@@ -168,21 +168,20 @@ const Navbar = () => {
                   </div>
                 </>
               ) : (
-                <HashLink smooth to={link.href} className="sidebar-link-item" onClick={() => setIsMenuOpen(false)}>
+                <HashLink to={link.href} className="sidebar-link-item" onClick={() => setIsMenuOpen(false)}>
                   {link.text}
                 </HashLink>
               )}
             </li>
           ))}
           <li style={{ marginTop: '30px' }}>
-            <HashLink smooth to="/#contacto" className="sidebar-btn-red" onClick={() => setIsMenuOpen(false)}>COTIZAR</HashLink>
+            <HashLink to="/#contacto" className="sidebar-btn-red" onClick={() => setIsMenuOpen(false)}>COTIZAR</HashLink>
           </li>
         </ul>
       </div>
       {isMenuOpen && <div className="sidebar-overlay" onClick={() => setIsMenuOpen(false)}></div>}
 
       <style>{`
-        html { scroll-behavior: smooth; }
         [id] { scroll-margin-top: 85px; }
         .navbar-new { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: #000; }
         .desktop-nav-container { display: block; }

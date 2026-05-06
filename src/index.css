@@ -37,9 +37,7 @@ body {
   width: 100%;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html {}
 
 h1,
 h2,
@@ -688,7 +686,7 @@ ul {
 .catalog-hero-v3 {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 110vh;
   background-size: cover;
   background-position: center;
   display: flex;
@@ -781,7 +779,6 @@ ul {
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
   gap: 20px;
   padding: 20px 0 40px;
   scrollbar-width: none;
@@ -1000,4 +997,19 @@ ul {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Configuración para pantallas menores o iguales a 16 pulgadas (~1600px) */
+@media screen and (max-width: 1600px) {
+  .main-content {
+    zoom: 0.9;
+    /* Nota: 'zoom' funciona en Chrome, Edge y Safari. 
+       Para Firefox (que no soporta zoom), usamos transform pero con precaución. */
+  }
+}
+
+/* Ajuste opcional para asegurar que el Navbar ocupe el ancho completo 
+   y no se vea afectado por el margen que podría dejar el zoom en algunos navegadores */
+body {
+  overflow-x: hidden;
 }

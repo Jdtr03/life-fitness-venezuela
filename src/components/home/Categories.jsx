@@ -1,5 +1,4 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 const Categories = () => {
   const cats = [
@@ -96,7 +95,7 @@ const Categories = () => {
               </p>
 
               <div className="cat-btns" style={{ display: 'flex', gap: '8px' }}>
-                <Link to={cat.href} className="btn btn-primary" style={{
+                <HashLink to={cat.href} className="btn btn-primary" style={{
                   padding: '10px 20px',
                   fontSize: '0.7rem',
                   fontWeight: '700',
@@ -106,7 +105,7 @@ const Categories = () => {
                   display: 'inline-block'
                 }}>
                   Ver Catálogo
-                </Link>
+                </HashLink>
               </div>
             </div>
           </div>

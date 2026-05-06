@@ -8,7 +8,7 @@ const Hero = () => {
     <header id="hero" className="hero" style={{
       position: 'relative',
       width: '100%',
-      height: '100vh',
+      height: '110vh',
       backgroundColor: '#1a1a1a', // Fondo oscuro de respaldo
       backgroundImage: `url(${imagenFondo})`,
       backgroundSize: 'cover',

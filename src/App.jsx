@@ -16,7 +16,7 @@ const ScrollToTop = () => {
       const id = hash.replace('#', '');
       const element = document.getElementById(id);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        element.scrollIntoView();
       }
     }
   }, [pathname, hash]);
@@ -29,11 +29,13 @@ function App() {
     <>
       <ScrollToTop />
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/equipos-hogar" element={<EquiposHogar />} />
-        <Route path="/equipos-gimnasio" element={<EquiposGimnasio />} />
-      </Routes>
+      <div className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/equipos-hogar" element={<EquiposHogar />} />
+          <Route path="/equipos-gimnasio" element={<EquiposGimnasio />} />
+        </Routes>
+      </div>
     </>
   );
 }
