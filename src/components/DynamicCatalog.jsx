@@ -24,7 +24,7 @@ const DynamicCatalog = ({ products, title }) => {
                   <div key={p.id} className="carousel-item-v3">
                     <div className="product-card-v3">
                       <div className="product-img-wrapper-v3">
-                        <img src={p.img} alt={p.Titles} />
+                        <img src={p.img} alt={p.Titles} loading="lazy" />
                         <span className="product-brand-tag-v3">
                           {p.Brand}
                         </span>
