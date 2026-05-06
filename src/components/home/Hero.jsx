@@ -1,8 +1,8 @@
 import React from 'react';
+import heroHome from '../../assets/hero_home.png';
 
 const Hero = () => {
-  // Asegúrate de que este nombre coincida con tu archivo en public/fotos/
-  const imagenFondo = "../../src/assets/hero_home.png";
+  const imagenFondo = heroHome;
 
   return (
     <header id="hero" className="hero" style={{

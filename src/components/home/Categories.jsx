@@ -1,11 +1,12 @@
 import { HashLink } from 'react-router-hash-link';
+import gymHogar from '../../assets/GYM_HOGAR.jpeg';
 
 const Categories = () => {
   const cats = [
     {
       title: "EQUIPOS PARA HOGAR",
       desc: "Ingeniería de vanguardia y tecnología aplicada al entrenamiento cardiovascular de alto rendimiento.",
-      img: "../../src/assets/GYM_HOGAR.JPEG",
+      img: gymHogar,
       href: "/equipos-hogar#hero",
       btn1: "Equipos de Fuerza",
       btn2: "Equipo de Cardio "

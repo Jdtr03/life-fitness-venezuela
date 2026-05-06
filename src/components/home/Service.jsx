@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import servicioTecnicoImg from '../../assets/Servicio_Tecnico.jpeg';
 
 const Service = () => {
   const [isFormExpanded, setIsFormExpanded] = useState(false);
@@ -176,7 +177,7 @@ const Service = () => {
         </div>
 
         <div className="service-visual">
-          <img src="../../src/assets/servicio_Tecnico.jpeg" alt="Service" className="service-img" />
+          <img src={servicioTecnicoImg} alt="Service" className="service-img" />
         </div>
 
         <div
