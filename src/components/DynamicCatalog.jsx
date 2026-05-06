@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 const DynamicCatalog = ({ products, title }) => {
   // Agrupar productos por SubCategory
@@ -61,4 +61,4 @@ const DynamicCatalog = ({ products, title }) => {
   );
 };
 
-export default DynamicCatalog;
+export default memo(DynamicCatalog);

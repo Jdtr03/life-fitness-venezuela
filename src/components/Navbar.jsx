@@ -7,6 +7,10 @@ const Navbar = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
 
+  // Funciones de precarga para mejorar la respuesta al clic
+  const prefetchGimnasio = () => import('../pages/Equipos_Gimnasio');
+  const prefetchHogar = () => import('../pages/Equipos_Hogar');
+
   // Se agregaron rutas absolutas (con /#) para que funcionen desde cualquier subpágina
   const menuLinks = [
     { text: 'NOSOTROS', href: '/#nosotros' },
@@ -105,13 +109,23 @@ const Navbar = () => {
                         <div className="mega-menu-content">
                           {productData.map((section, idx) => (
                             <div key={section.mainTitle} className="main-section">
-                              <HashLink to={section.mainHref} className="main-category-link" onClick={() => setIsProductsOpen(false)}>
+                              <HashLink 
+                                to={section.mainHref} 
+                                className="main-category-link" 
+                                onClick={() => setIsProductsOpen(false)}
+                                onMouseEnter={section.mainHref.includes('gimnasio') ? prefetchGimnasio : prefetchHogar}
+                              >
                                 {section.mainTitle}
                               </HashLink>
                               <div className="sub-grid">
                                 {section.subCategories.map(sub => (
                                   <div key={sub.title} className="sub-column">
-                                    <HashLink to={sub.subHref} className="sub-category-link" onClick={() => setIsProductsOpen(false)}>
+                                    <HashLink 
+                                      to={sub.subHref} 
+                                      className="sub-category-link" 
+                                      onClick={() => setIsProductsOpen(false)}
+                                      onMouseEnter={sub.subHref.includes('gimnasio') ? prefetchGimnasio : prefetchHogar}
+                                    >
                                       {sub.title}
                                     </HashLink>
                                     <ul>{sub.items.map(item => <li key={item}>{item}</li>)}</ul>

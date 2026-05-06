@@ -1,9 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import EquiposHogar from './pages/Equipos_Hogar';
-import EquiposGimnasio from './pages/Equipos_Gimnasio';
+
+// Carga perezosa de páginas para optimizar el bundle inicial
+const Home = lazy(() => import('./pages/Home'));
+const EquiposHogar = lazy(() => import('./pages/Equipos_Hogar'));
+const EquiposGimnasio = lazy(() => import('./pages/Equipos_Gimnasio'));
 
 // Componente para forzar el scroll al inicio en cada cambio de ruta
 const ScrollToTop = () => {
@@ -30,11 +32,13 @@ function App() {
       <ScrollToTop />
       <Navbar />
       <div className="main-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/equipos-hogar" element={<EquiposHogar />} />
-          <Route path="/equipos-gimnasio" element={<EquiposGimnasio />} />
-        </Routes>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/equipos-hogar" element={<EquiposHogar />} />
+            <Route path="/equipos-gimnasio" element={<EquiposGimnasio />} />
+          </Routes>
+        </Suspense>
       </div>
     </>
   );

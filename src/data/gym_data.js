@@ -17,7 +17,7 @@ export const gymData = [
     Category: "Fuerza",
     SubCategory: "Selectorizado",
     usage: "Gimnasio",
-    img: "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=2070&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=800&auto=format&fit=crop",
     Titles: "Signature Series Chest Press",
     Desc: "Diseño elegante y ajustes intuitivos para un entrenamiento de pecho superior.",
     Manual: "/manuals/signature-chest.pdf"
@@ -28,7 +28,7 @@ export const gymData = [
     Category: "Fuerza",
     SubCategory: "Placas",
     usage: "Gimnasio",
-    img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop",
     Titles: "Plate-Loaded Leg Press",
     Desc: "El estándar de oro para el entrenamiento de pierna pesado. Durabilidad indestructible.",
     Manual: "/manuals/plate-leg-press.pdf"
@@ -54,7 +54,7 @@ export const gymData = [
     Category: "Fuerza",
     SubCategory: "Multigimnasios",
     usage: "Hogar",
-    img: "https://images.unsplash.com/photo-1594381898411-846e7d193883?q=80&w=1974&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1594381898411-846e7d193883?q=80&w=800&auto=format&fit=crop",
     Titles: "G7 Dual Adjustable Pulley",
     Desc: "Versatilidad total en un diseño compacto. La estación de fuerza definitiva para casa.",
     Manual: "/manuals/g7-pulley.pdf"

@@ -13,7 +13,7 @@ const Categories = () => {
     {
       title: "EQUIPOS PARA GIMNASIOS",
       desc: "Biomecánica avanzada y durabilidad extrema para un entrenamiento de fuerza efectivo y seguro.",
-      img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop",
       href: "/equipos-gimnasio#hero",
       btn1: "Equipos de Fuerza ",
       btn2: "Equipos de CArdio "
