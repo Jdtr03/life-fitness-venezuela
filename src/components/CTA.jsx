@@ -1,61 +1,223 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const CTA = () => {
-  // Estilos en línea para asegurar el cambio de fondo y colores
-  const sectionStyle = {
-    backgroundColor: '#ffffff', // Fondo blanco
-    padding: '80px 20px',
-    textAlign: 'center',
-    borderTop: '1px solid #f0f0f0'
-  };
+  const [isFormExpanded, setIsFormExpanded] = useState(false);
+  const formRef = useRef(null);
 
-  const titleStyle = {
-    color: '#1a1a1a', // Gris casi negro
-    fontSize: '2.5rem',
-    fontWeight: '800',
-    marginBottom: '20px',
-    textTransform: 'uppercase'
-  };
-
-  const descStyle = {
-    color: '#4a4a4a', // Gris suave
-    fontSize: '1.1rem',
-    maxWidth: '600px',
-    margin: '0 auto 30px auto',
-    lineHeight: '1.6'
-  };
-
-  const btnStyle = {
-    backgroundColor: '#000000', // Botón negro sólido
-    color: '#ffffff',
-    padding: '15px 40px',
-    fontSize: '1rem',
-    fontWeight: 'bold',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    transition: '0.3s'
-  };
+  useEffect(() => {
+    if (isFormExpanded && formRef.current) {
+      const timer = setTimeout(() => {
+        const elementPosition = formRef.current.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+          top: elementPosition - 100,
+          behavior: 'smooth'
+        });
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, [isFormExpanded]);
 
   return (
-    <section className="cta" style={sectionStyle}>
-      <div className="container cta-container">
-        <div className="cta-content">
-          <h2 className="cta-title" style={titleStyle}>
-            ¿LISTO PARA ELEVAR TU GIMNASIO?
-          </h2>
-          <p className="cta-desc" style={descStyle}>
-            Nuestros expertos están listos para asesorarte en el diseño y equipamiento de tu centro fitness.
+    <section id="contacto" style={{ backgroundColor: '#f0f2f5', padding: '100px 20px' }}>
+      <style>{`
+        /* TARJETA NEGRA */
+        .cta-card-black {
+          background-color: #111;
+          border-radius: 16px;
+          padding: 70px 80px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          max-width: 1200px;
+          margin: 0 auto;
+          color: white;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .cta-text-group {
+          flex: 1;
+          padding-right: 50px;
+        }
+
+        .cta-title-main {
+          font-size: 3.5rem;
+          font-weight: 900;
+          line-height: 1;
+          margin: 0 0 20px 0;
+          text-transform: uppercase;
+          letter-spacing: -1px;
+        }
+
+        .cta-paragraph {
+          font-size: 1.2rem;
+          color: #aaa;
+          margin: 0;
+          max-width: 550px;
+        }
+
+        .cta-button-red {
+          background-color: #a6192e;
+          color: white;
+          padding: 22px 45px;
+          border: none;
+          border-radius: 6px;
+          font-weight: 800;
+          font-size: 1rem;
+          cursor: pointer;
+          white-space: nowrap;
+          text-transform: uppercase;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(166, 25, 46, 0.4);
+        }
+
+        .cta-button-red:hover {
+          background-color: #8b1426;
+          transform: translateY(-3px);
+          box-shadow: 0 8px 25px rgba(166, 25, 46, 0.5);
+        }
+
+        /* FORMULARIO CLARO CON EFECTO 3D */
+        .form-collapse-container {
+          max-height: 0;
+          overflow: hidden;
+          transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+          opacity: 0;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .form-collapse-container.is-active {
+          max-height: 1200px;
+          opacity: 1;
+          margin-top: 40px;
+          padding-bottom: 20px;
+        }
+
+        .form-light-3d-box {
+          background: linear-gradient(145deg, #ffffff, #f0f0f0);
+          padding: 60px;
+          border-radius: 20px;
+          color: #1a1a1a;
+          box-shadow: 0 20px 50px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05);
+          border: 1px solid rgba(255, 255, 255, 0.8);
+          position: relative;
+        }
+
+        .form-title-center {
+          text-align: center;
+          font-size: 2.2rem;
+          font-weight: 900;
+          margin-bottom: 40px;
+          text-transform: uppercase;
+          color: #000;
+          letter-spacing: 1px;
+        }
+
+        .inputs-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 25px;
+        }
+
+        .span-2 { grid-column: span 2; }
+
+        .form-light-3d-box input, .form-light-3d-box select {
+          width: 100%;
+          padding: 18px;
+          background: #ffffff;
+          border: 2px solid #eee;
+          color: #000;
+          border-radius: 8px;
+          font-size: 1rem;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .form-light-3d-box input:focus, .form-light-3d-box select:focus {
+          outline: none;
+          border-color: #a6192e;
+          box-shadow: 0 0 0 4px rgba(166, 25, 46, 0.1);
+          transform: translateY(-2px);
+        }
+
+        /* --- BOTÓN ROJO DE ENVÍO --- */
+        .submit-final-btn {
+          width: 100%;
+          background: #a6192e; /* Cambiado a rojo */
+          color: #fff;
+          padding: 22px;
+          border: none;
+          border-radius: 8px;
+          font-weight: 900;
+          font-size: 1.1rem;
+          cursor: pointer;
+          margin-top: 20px;
+          text-transform: uppercase;
+          transition: all 0.3s ease;
+          box-shadow: 0 10px 20px rgba(166, 25, 46, 0.2);
+        }
+
+        .submit-final-btn:hover {
+          background: #8b1426; /* Un rojo más brillante al pasar el mouse */
+          transform: translateY(-3px);
+          box-shadow: 0 15px 30px rgba(166, 25, 46, 0.4);
+        }
+
+        @media (max-width: 1024px) {
+          .cta-card-black { flex-direction: column; text-align: center; padding: 50px 30px; }
+          .cta-text-group { padding-right: 0; margin-bottom: 30px; }
+          .cta-title-main { font-size: 2.8rem; }
+          .inputs-grid { grid-template-columns: 1fr; }
+          .span-2 { grid-column: span 1; }
+          .form-light-3d-box { padding: 40px 25px; }
+        }
+      `}</style>
+
+      <div className="cta-card-black">
+        <div className="cta-text-group">
+          <h2 className="cta-title-main">¿Listo para elevar tu gimnasio?</h2>
+          <p className="cta-paragraph">
+            Nuestros consultores expertos están listos para diseñar una solución a medida para su centro deportivo o espacio personal.
           </p>
         </div>
-        <button
-          className="btn btn-primary cta-btn"
-          style={btnStyle}
-          onMouseOver={(e) => e.target.style.backgroundColor = '#333'}
-          onMouseOut={(e) => e.target.style.backgroundColor = '#000'}
-        >
-          Hablar con un Experto
+        <button className="cta-button-red" onClick={() => setIsFormExpanded(!isFormExpanded)}>
+          {isFormExpanded ? 'CERRAR FORMULARIO' : 'Hablar con un Experto'}
         </button>
+      </div>
+
+      <div className={`form-collapse-container ${isFormExpanded ? 'is-active' : ''}`} ref={formRef}>
+        <div className="form-light-3d-box">
+          <h3 className="form-title-center">Solicitar Asesoría Experta</h3>
+          <form className="inputs-grid" onSubmit={(e) => e.preventDefault()}>
+            <input type="text" placeholder="Nombre" required />
+            <input type="text" placeholder="Apellido" required />
+
+            <div className="span-2">
+              <input type="text" placeholder="Empresa o Nombre del Gimnasio" required />
+            </div>
+
+            <input type="tel" placeholder="Número de Celular" required />
+            <input type="email" placeholder="Correo Electrónico" required />
+
+            <select required>
+              <option value="">¿Cuál es tu interés principal?</option>
+              <option value="hogar">Equipamiento para el Hogar</option>
+              <option value="gimnasio">Equipamiento Comercial / Gimnasio</option>
+            </select>
+
+            <select required>
+              <option value="">Tipo de Equipamiento</option>
+              <option value="fuerza">Máquinas de Fuerza</option>
+              <option value="cardio">Equipos de Cardio</option>
+              <option value="ambas">Solución Integral (Ambas)</option>
+            </select>
+
+            <div className="span-2">
+              <button type="submit" className="submit-final-btn">Enviar mi Solicitud</button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   );

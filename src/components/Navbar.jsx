@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
 
+  // Se agregaron rutas absolutas (con /#) para que funcionen desde cualquier subpágina
   const menuLinks = [
-    { text: 'NOSOTROS', href: '#nosotros' },
-    { text: 'PRODUCTOS', href: '#productos', hasSubmenu: true },
-    { text: 'SERVICIO TÉCNICO', href: '#servicio-tecnico' },
-    { text: 'CONTACTO', href: '#contacto' }
+    { text: 'NOSOTROS', href: '/#nosotros' },
+    { text: 'PRODUCTOS', href: '#', hasSubmenu: true },
+    { text: 'SERVICIO TÉCNICO', href: '/#servicio-tecnico' },
+    { text: 'CONTACTO', href: '/#contacto' }
   ];
 
   const productData = [
     {
       mainTitle: "Equipamiento de Gimnasio",
-      mainHref: "/equipos-gimnasio#hero",
+      mainHref: "/equipos-gimnasio#hero", // Siempre al hero
       subCategories: [
         {
           title: "Equipos de Cardio",
@@ -32,7 +34,7 @@ const Navbar = () => {
     },
     {
       mainTitle: "Equipamiento de Hogar",
-      mainHref: "/equipos-hogar#hero",
+      mainHref: "/equipos-hogar#hero", // Siempre al hero
       subCategories: [
         {
           title: "Equipo de cardio",
@@ -57,7 +59,7 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar-new">
-        {/* --- VERSIÓN MÓVIL (RESQUETANDO TU DISEÑO) --- */}
+        {/* --- VERSIÓN MÓVIL --- */}
         <div className="mobile-nav-container">
           <div className="mobile-box-red">
             <Link to="/"><img src="/fotos/header-white-lf.svg" alt="Life Fitness" className="logo-mobile-lf" /></Link>
@@ -72,10 +74,9 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* --- VERSIÓN PC (ESTRUCTURA FIJA ORIGINAL SIN MODIFICAR) --- */}
+        {/* --- VERSIÓN PC --- */}
         <div className="desktop-nav-container">
           <div className="nav-grid">
-            {/* Polígono Rojo Izquierda */}
             <div className="brand-red-polygon">
               <Link to="/"><img src="/fotos/header-white-lf.svg" alt="Life Fitness" className="logo-lf" /></Link>
             </div>
@@ -84,41 +85,35 @@ const Navbar = () => {
               <Link to="/"><img src="/fotos/header-white-hammer.svg" alt="Hammer Strength" className="logo-hammer" /></Link>
             </div>
 
-            {/* Menú de Navegación */}
             <div className="nav-menu-wrapper">
               <ul className="nav-menu">
                 {menuLinks.map((link) => (
                   <li
                     key={link.text}
                     className="nav-menu-item"
-                    // --- NUEVA LÓGICA DE EVENTOS (SIN TOCAR EL DISEÑO) ---
                     onMouseEnter={() => link.hasSubmenu && setIsProductsOpen(true)}
                     onMouseLeave={() => link.hasSubmenu && setIsProductsOpen(false)}
                   >
-                    <a href={link.href} style={linkStyle} className="nav-menu-link">
+                    <HashLink smooth to={link.href} style={linkStyle} className="nav-menu-link">
                       {link.text}
                       <span className="hover-line"></span>
-                    </a>
+                    </HashLink>
 
-                    {/* MEGA MENÚ EMERGENTE */}
                     {link.hasSubmenu && isProductsOpen && (
                       <div className="mega-menu-pc">
-                        {/* 
-                          SOLUCIÓN TÉCNICA:
-                          He añadido este div 'mega-menu-safe-area' que es un pseudo-elemento invisible
-                          que rellena el hueco entre la barra fija (80px) y el panel del menú.
-                          Técnicamente, el mouse nunca sale del área activa al bajar en diagonal.
-                        */}
                         <div className="mega-menu-safe-area"></div>
-
                         <div className="mega-menu-content">
                           {productData.map((section, idx) => (
                             <div key={section.mainTitle} className="main-section">
-                              <Link to={section.mainHref} className="main-category-link" onClick={() => setIsProductsOpen(false)}>{section.mainTitle}</Link>
+                              <HashLink smooth to={section.mainHref} className="main-category-link" onClick={() => setIsProductsOpen(false)}>
+                                {section.mainTitle}
+                              </HashLink>
                               <div className="sub-grid">
                                 {section.subCategories.map(sub => (
                                   <div key={sub.title} className="sub-column">
-                                    <Link to={sub.subHref} className="sub-category-link" onClick={() => setIsProductsOpen(false)}>{sub.title}</Link>
+                                    <HashLink smooth to={sub.subHref} className="sub-category-link" onClick={() => setIsProductsOpen(false)}>
+                                      {sub.title}
+                                    </HashLink>
                                     <ul>{sub.items.map(item => <li key={item}>{item}</li>)}</ul>
                                   </div>
                                 ))}
@@ -134,15 +129,14 @@ const Navbar = () => {
               </ul>
             </div>
 
-            {/* Botón Cotizar Derecha */}
             <div className="nav-action">
-              <a href="#contacto" className="btn-cotizar-pc">COTIZAR</a>
+              <HashLink smooth to="/#contacto" className="btn-cotizar-pc">COTIZAR</HashLink>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* --- SIDEBAR MÓVIL (RESQUETANDO TU DISEÑO) --- */}
+      {/* --- SIDEBAR MÓVIL --- */}
       <div className={`mobile-sidebar-side ${isMenuOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
           <button className="close-btn" onClick={() => setIsMenuOpen(false)}>✕</button>
@@ -158,10 +152,14 @@ const Navbar = () => {
                   <div className={`mobile-submenu-acc ${isMobileProductsOpen ? 'open' : ''}`}>
                     {productData.map(section => (
                       <div key={section.mainTitle} style={{ marginBottom: '20px' }}>
-                        <Link to={section.mainHref} className="mobile-main-t-link" onClick={() => setIsMenuOpen(false)}>{section.mainTitle}</Link>
+                        <HashLink smooth to={section.mainHref} className="mobile-main-t-link" onClick={() => setIsMenuOpen(false)}>
+                          {section.mainTitle}
+                        </HashLink>
                         {section.subCategories.map(sub => (
                           <div key={sub.title} style={{ paddingLeft: '15px', marginTop: '10px' }}>
-                            <Link to={sub.subHref} className="mobile-sub-t-link" onClick={() => setIsMenuOpen(false)}>{sub.title}</Link>
+                            <HashLink smooth to={sub.subHref} className="mobile-sub-t-link" onClick={() => setIsMenuOpen(false)}>
+                              {sub.title}
+                            </HashLink>
                             {sub.items.map(item => <p key={item} style={{ color: '#888', fontSize: '13px', margin: '5px 0' }}>{item}</p>)}
                           </div>
                         ))}
@@ -170,85 +168,54 @@ const Navbar = () => {
                   </div>
                 </>
               ) : (
-                <a href={link.href} className="sidebar-link-item" onClick={() => setIsMenuOpen(false)}>{link.text}</a>
+                <HashLink smooth to={link.href} className="sidebar-link-item" onClick={() => setIsMenuOpen(false)}>
+                  {link.text}
+                </HashLink>
               )}
             </li>
           ))}
           <li style={{ marginTop: '30px' }}>
-            <a href="#contacto" className="sidebar-btn-red" onClick={() => setIsMenuOpen(false)}>COTIZAR</a>
+            <HashLink smooth to="/#contacto" className="sidebar-btn-red" onClick={() => setIsMenuOpen(false)}>COTIZAR</HashLink>
           </li>
         </ul>
       </div>
       {isMenuOpen && <div className="sidebar-overlay" onClick={() => setIsMenuOpen(false)}></div>}
 
       <style>{`
-        /* --- ESTILOS ORIGINALES DE TU BARRA FASE 1 (RESTAURADOS AL 100%) --- */
         html { scroll-behavior: smooth; }
         [id] { scroll-margin-top: 85px; }
         .navbar-new { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: #000; }
         .desktop-nav-container { display: block; }
         .mobile-nav-container { display: none; }
         .nav-grid { display: grid; grid-template-columns: auto auto 1fr auto; height: 80px; align-items: center; padding-right: 40px; }
-        
-        .brand-red-polygon { 
-          background: #cc0000; height: 100%; display: flex; align-items: center; 
-          padding-left: 50px; padding-right: 60px; 
-          clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%); 
-          margin-right: -25px; 
-        }
+        .brand-red-polygon { background: #a6192e; height: 100%; display: flex; align-items: center; padding-left: 50px; padding-right: 60px; clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%); margin-right: -25px; }
         .logo-lf { height: 28px; width: auto; }
         .nav-logo-hammer-pc { padding-left: 50px; }
         .logo-hammer { height: 40px; width: auto; }
-        
         .nav-menu-wrapper { height: 100%; display: flex; align-items: center; }
         .nav-menu { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; height: 100%; }
         .nav-menu-item { height: 100%; display: flex; align-items: center; position: relative; }
-        .hover-line { position: absolute; bottom: 25px; left: 0; width: 0; height: 2px; background: #cc0000; transition: width 0.3s ease; }
+        .hover-line { position: absolute; bottom: 25px; left: 0; width: 0; height: 2px; background: #a6192e; transition: width 0.3s ease; }
         .nav-menu-link:hover .hover-line { width: 100%; }
-        .btn-cotizar-pc { background: #cc0000; color: white; text-decoration: none; padding: 10px 20px; font-weight: 900; font-size: 13px; letter-spacing: 1px; }
-
-        /* --- ESTILOS EXCLUSIVOS DEL MENÚ EMERGENTE Y LA MEJORA DIAGONAL --- */
+        .btn-cotizar-pc { background: #a6192e; color: white; text-decoration: none; padding: 10px 20px; font-weight: 900; font-size: 13px; letter-spacing: 1px; }
         .mega-menu-pc { position: fixed; top: 80px; left: 0; width: 100vw; z-index: 999; }
-        
-        /* 
-          ESTE ES EL PUENTE INVISIBLE (MEJORA DIAGONAL)
-          Rellena el hueco de 80px para que el mouse no "salga" del menú al bajar en diagonal.
-        */
-        .mega-menu-safe-area {
-          position: absolute;
-          top: -30px; /* Cubre el espacio entre el texto y el panel */
-          left: 0;
-          width: 100%;
-          height: 35px;
-          background: transparent;
-        }
-
-        .mega-menu-content { 
-          background: #f5f5f5; color: #000; padding: 40px 0; 
-          box-shadow: 0 15px 30px rgba(0,0,0,0.15); display: flex; 
-          max-width: 1200px; margin: 0 auto;
-          border-bottom-left-radius: 20px;
-          border-bottom-right-radius: 20px;
-          
-        }
-
+        .mega-menu-safe-area { position: absolute; top: -30px; left: 0; width: 100%; height: 35px; background: transparent; }
+        .mega-menu-content { background: #f5f5f5; color: #000; padding: 40px 0; box-shadow: 0 15px 30px rgba(0,0,0,0.15); display: flex; max-width: 1200px; margin: 0 auto; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
         .main-section { flex: 1; padding: 0 40px; position: relative; }
         .main-category-link { display: block; font-size: 18px; font-weight: 800; text-align: center; margin-bottom: 30px; color: #000; text-decoration: none; transition: 0.2s; }
-        .main-category-link:hover { color: #cc0000; }
+        .main-category-link:hover { color: #a6192e; }
         .sub-grid { display: flex; gap: 30px; }
         .sub-column { flex: 1; }
         .sub-category-link { display: block; font-size: 13px; font-weight: 900; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 12px; text-transform: uppercase; color: #222; text-decoration: none; transition: 0.2s; }
-        .sub-category-link:hover { color: #cc0000; border-color: #cc0000; }
+        .sub-category-link:hover { color: #a6192e; border-color: #a6192e; }
         .sub-column ul { list-style: none; padding: 0; }
         .sub-column li { font-size: 13px; padding: 4px 0; color: #555; transition: 0.2s; cursor: pointer; }
-        .sub-column li:hover { color: #cc0000; padding-left: 5px; }
-        .red-divider-line { position: absolute; right: 0; top: 10%; height: 80%; width: 2px; background: #cc0000; }
-
-        /* --- ESTILOS MÓVIL (ORIGINALES SIN MODIFICAR) --- */
+        .sub-column li:hover { color: #a6192e; padding-left: 5px; }
+        .red-divider-line { position: absolute; right: 0; top: 10%; height: 80%; width: 2px; background: #a6192e; }
         @media (max-width: 1100px) {
           .desktop-nav-container { display: none; }
           .mobile-nav-container { display: flex; height: 70px; background: #000; width: 100%; overflow: hidden; }
-          .mobile-box-red { flex: 1; background: #cc0000; clip-path: polygon(0 0, 100% 0, 80% 100%, 0 100%); display: flex; justify-content: center; align-items: center; padding-right: 5%; }
+          .mobile-box-red { flex: 1; background: #a6192e; clip-path: polygon(0 0, 100% 0, 80% 100%, 0 100%); display: flex; justify-content: center; align-items: center; padding-right: 5%; }
           .mobile-box-black { flex: 1.5; background: #000; display: flex; align-items: center; clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%); margin-left: -8%; }
           .mobile-content-right { display: flex; width: 100%; justify-content: space-between; align-items: center; padding: 0 20px 0 12%; }
           .logo-mobile-lf { height: 18px; }
@@ -256,16 +223,14 @@ const Navbar = () => {
           .hamburger-btn-new { display: flex; flex-direction: column; justify-content: space-between; width: 24px; height: 16px; background: none; border: none; cursor: pointer; }
           .hamburger-btn-new .bar { width: 100%; height: 2px; background: white; transition: 0.3s; }
         }
-
-        /* SIDEBAR MÓVIL (ORIGINAL) */
         .mobile-sidebar-side { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: #111; z-index: 2000; transition: 0.4s; padding: 40px; overflow-y: auto; }
         .mobile-sidebar-side.open { right: 0; }
         .sidebar-link-item { color: white; text-decoration: none; font-size: 18px; font-weight: 700; display: flex; justify-content: space-between; margin-bottom: 25px; cursor: pointer; }
-        .mobile-main-t-link { display: block; color: #cc0000; font-weight: 900; border-left: 3px solid #cc0000; padding-left: 10px; margin-bottom: 10px; text-decoration: none; }
+        .mobile-main-t-link { display: block; color: #a6192e; font-weight: 900; border-left: 3px solid #a6192e; padding-left: 10px; margin-bottom: 10px; text-decoration: none; }
         .mobile-sub-t-link { display: block; color: #fff; font-size: 13px; text-transform: uppercase; font-weight: 700; text-decoration: none; margin-bottom: 5px; }
         .mobile-submenu-acc { max-height: 0; overflow: hidden; transition: 0.4s; }
         .mobile-submenu-acc.open { max-height: 1500px; }
-        .sidebar-btn-red { display: block; background: #cc0000; color: white; text-align: center; padding: 15px; text-decoration: none; font-weight: 900; }
+        .sidebar-btn-red { display: block; background: #a6192e; color: white; text-align: center; padding: 15px; text-decoration: none; font-weight: 900; }
         .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1500; }
         .close-btn { background: none; border: none; color: white; font-size: 30px; cursor: pointer; }
       `}</style>

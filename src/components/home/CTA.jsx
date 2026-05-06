@@ -1,23 +1,12 @@
 import React from 'react';
+import CTA from '../CTA.jsx'; // Asegúrate de que esta ruta sea la correcta hacia cta.JS
 
-const CTA = () => {
+const SeccionContactoHome = () => {
   return (
-    <section id="contacto" className="cta-wrapper">
-      <div className="cta-box">
-        <div className="cta-content">
-          <h2 className="cta-title">
-            ¿Listo para elevar tu gimnasio?
-          </h2>
-          <p className="cta-desc">
-            Nuestros consultores expertos están listos para diseñar una solución a medida para su centro deportivo o espacio personal.
-          </p>
-        </div>
-        <button className="btn cta-btn">
-          Hablar con un Experto
-        </button>
-      </div>
-    </section>
+    <div className="home-cta-container" style={{ width: '100%', overflow: 'hidden' }}>
+      <CTA />
+    </div>
   );
 };
 
-export default CTA;
+export default SeccionContactoHome;

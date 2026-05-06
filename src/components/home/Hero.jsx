@@ -50,7 +50,7 @@ const Hero = () => {
           }}>
             EL ESTÁNDAR <br />
             GLOBAL EN <br />
-            <span style={{ color: '#e31837', fontStyle: 'italic' }}>FITNESS</span>
+            <span style={{ color: '#a6192e', fontStyle: 'italic' }}>FITNESS</span>
           </h1>
           <p style={{
             color: '#ccc',
@@ -62,7 +62,7 @@ const Hero = () => {
           </p>
           <div style={{ display: 'flex', gap: '15px' }}>
             <a href="/#productos" className="btn-primary" style={{
-              backgroundColor: '#e31837',
+              backgroundColor: '#a6192e',
               color: 'white',
               padding: '15px 30px',
               border: 'none',
