@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
+import { useProducts } from '../hooks/useProducts';
+import { slugify } from './DynamicCatalog';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
+
+  const { products } = useProducts();
 
   // Funciones de precarga para mejorar la respuesta al clic
   const prefetchGimnasio = () => import('../pages/Equipos_Gimnasio');
@@ -19,36 +23,71 @@ const Navbar = () => {
     { text: 'CONTACTO', href: '/#contacto' }
   ];
 
+  const getSubcategories = (usageType, categoryName, fallback) => {
+    if (!products || products.length === 0) return fallback;
+    const filtered = products.filter(
+      p => (p.usage === usageType || p.usage === 'Ambos') && p.Category === categoryName
+    );
+    if (filtered.length === 0) return fallback;
+
+    const grouped = filtered.reduce((acc, p) => {
+      const sub = p.SubCategory || 'General';
+      if (!acc[sub]) acc[sub] = 0;
+      acc[sub] += 1;
+      return acc;
+    }, {});
+
+    return Object.keys(grouped).sort((a, b) => grouped[b] - grouped[a]);
+  };
+
+  const gimnasioFuerzaSubs = getSubcategories('Gimnasio', 'Fuerza', ['Serie Selectorizada', 'Placas', 'Bancos y Racks', 'Multigimnasios']);
+  const gimnasioCardioSubs = getSubcategories('Gimnasio', 'Cardio', ['Trotadoras', 'Elípticas', 'Bicicletas Verticales', 'Bicicletas Reclinadas', 'Air Bikes', 'Ciclismo Indoor', 'Remos']);
+
+  const hogarFuerzaSubs = getSubcategories('Hogar', 'Fuerza', ['Multigimnasios']);
+  const hogarCardioSubs = getSubcategories('Hogar', 'Cardio', ['Trotadoras', 'Elípticas', 'Bicicletas Verticales', 'Bicicletas Reclinadas', 'Remos']);
+
   const productData = [
     {
       mainTitle: "Equipamiento de Gimnasio",
-      mainHref: "/equipos-gimnasio#hero", // Siempre al hero
+      mainHref: "/equipos-gimnasio#hero",
       subCategories: [
         {
-          title: "Equipos de Cardio",
-          subHref: "/equipos-gimnasio#hero",
-          items: ["Cintas de correr", "Elípticas", "Bicicletas", "Remos"]
+          title: "Equipos de Fuerza",
+          subHref: "/equipos-gimnasio#fuerza",
+          items: gimnasioFuerzaSubs.map(sub => ({
+            name: sub,
+            href: `/equipos-gimnasio#${slugify(sub)}`
+          }))
         },
         {
-          title: "Equipos de Fuerza",
-          subHref: "/equipos-gimnasio#hero",
-          items: ["Selectorizados", "Cargada con placas", "Bancos", "Racks"]
+          title: "Equipos de Cardio",
+          subHref: "/equipos-gimnasio#cardio",
+          items: gimnasioCardioSubs.map(sub => ({
+            name: sub,
+            href: `/equipos-gimnasio#${slugify(sub)}`
+          }))
         }
       ]
     },
     {
       mainTitle: "Equipamiento de Hogar",
-      mainHref: "/equipos-hogar#hero", // Siempre al hero
+      mainHref: "/equipos-hogar#hero",
       subCategories: [
         {
-          title: "Equipo de cardio",
-          subHref: "/equipos-hogar#hero",
-          items: ["Cintas residenciales", "Bicis estáticas"]
+          title: "Equipos de Fuerza",
+          subHref: "/equipos-hogar#fuerza",
+          items: hogarFuerzaSubs.map(sub => ({
+            name: sub,
+            href: `/equipos-hogar#${slugify(sub)}`
+          }))
         },
         {
-          title: "Equipo de Fuerza",
-          subHref: "/equipos-hogar#hero",
-          items: ["Mancuernas", "Barras", "Discos"]
+          title: "Equipos de Cardio",
+          subHref: "/equipos-hogar#cardio",
+          items: hogarCardioSubs.map(sub => ({
+            name: sub,
+            href: `/equipos-hogar#${slugify(sub)}`
+          }))
         }
       ]
     }
@@ -128,7 +167,20 @@ const Navbar = () => {
                                     >
                                       {sub.title}
                                     </HashLink>
-                                    <ul>{sub.items.map(item => <li key={item}>{item}</li>)}</ul>
+                                    <ul className="sub-item-list">
+                                      {sub.items.map(item => (
+                                        <li key={item.name}>
+                                          <HashLink
+                                            to={item.href}
+                                            className="mega-subitem-link"
+                                            onClick={() => setIsProductsOpen(false)}
+                                            onMouseEnter={item.href.includes('gimnasio') ? prefetchGimnasio : prefetchHogar}
+                                          >
+                                            {item.name}
+                                          </HashLink>
+                                        </li>
+                                      ))}
+                                    </ul>
                                   </div>
                                 ))}
                               </div>
@@ -171,10 +223,29 @@ const Navbar = () => {
                         </HashLink>
                         {section.subCategories.map(sub => (
                           <div key={sub.title} style={{ paddingLeft: '15px', marginTop: '10px' }}>
-                            <HashLink to={sub.subHref} className="mobile-sub-t-link" onClick={() => setIsMenuOpen(false)}>
+                            <HashLink 
+                              to={sub.subHref} 
+                              className="mobile-sub-t-link" 
+                              onClick={() => {
+                                setIsProductsOpen(false);
+                                setIsMenuOpen(false);
+                              }}
+                            >
                               {sub.title}
                             </HashLink>
-                            {sub.items.map(item => <p key={item} style={{ color: '#888', fontSize: '13px', margin: '5px 0' }}>{item}</p>)}
+                            {sub.items.map(item => (
+                              <HashLink
+                                key={item.name}
+                                to={item.href}
+                                className="mobile-subitem-link"
+                                onClick={() => {
+                                  setIsProductsOpen(false);
+                                  setIsMenuOpen(false);
+                                }}
+                              >
+                                {item.name}
+                              </HashLink>
+                            ))}
                           </div>
                         ))}
                       </div>
@@ -221,9 +292,10 @@ const Navbar = () => {
         .sub-column { flex: 1; }
         .sub-category-link { display: block; font-size: 13px; font-weight: 900; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 12px; text-transform: uppercase; color: #222; text-decoration: none; transition: 0.2s; }
         .sub-category-link:hover { color: #a6192e; border-color: #a6192e; }
-        .sub-column ul { list-style: none; padding: 0; }
-        .sub-column li { font-size: 13px; padding: 4px 0; color: #555; transition: 0.2s; cursor: pointer; }
-        .sub-column li:hover { color: #a6192e; padding-left: 5px; }
+        .sub-item-list { list-style: none; padding: 0; margin: 0; }
+        .sub-item-list li { margin: 4px 0; }
+        .mega-subitem-link { font-size: 13px; color: #555; text-decoration: none; transition: all 0.2s ease; display: inline-block; }
+        .mega-subitem-link:hover { color: #a6192e; transform: translateX(3px); font-weight: 600; }
         .red-divider-line { position: absolute; right: 0; top: 10%; height: 80%; width: 2px; background: #a6192e; }
         @media (max-width: 1100px) {
           .desktop-nav-container { display: none; }
@@ -241,6 +313,8 @@ const Navbar = () => {
         .sidebar-link-item { color: white; text-decoration: none; font-size: 18px; font-weight: 700; display: flex; justify-content: space-between; margin-bottom: 25px; cursor: pointer; }
         .mobile-main-t-link { display: block; color: #a6192e; font-weight: 900; border-left: 3px solid #a6192e; padding-left: 10px; margin-bottom: 10px; text-decoration: none; }
         .mobile-sub-t-link { display: block; color: #fff; font-size: 13px; text-transform: uppercase; font-weight: 700; text-decoration: none; margin-bottom: 5px; }
+        .mobile-subitem-link { display: block; color: #aaa; font-size: 13px; margin: 6px 0; text-decoration: none; transition: color 0.2s ease; }
+        .mobile-subitem-link:hover { color: #a6192e; }
         .mobile-submenu-acc { max-height: 0; overflow: hidden; transition: 0.4s; }
         .mobile-submenu-acc.open { max-height: 1500px; }
         .sidebar-btn-red { display: block; background: #a6192e; color: white; text-align: center; padding: 15px; text-decoration: none; font-weight: 900; }

@@ -3,16 +3,18 @@ import Footer from '../components/home/Footer';
 import GimnasioHero from '../components/gimnasio/GimnasioHero';
 import GimnasioSpecs from '../components/gimnasio/GimnasioSpecs';
 import DynamicCatalog from '../components/DynamicCatalog';
-import { gymData } from '../data/gym_data';
+import { useProducts } from '../hooks/useProducts';
 
 export default function EquiposGimnasio() {
-  // Filtrar productos para Gimnasio
-  const gimnasioProducts = gymData.filter(p => p.usage === 'Gimnasio');
+  const { products, loading } = useProducts();
 
-  // Bloque A: Fuerza
+  // Filtrar productos para Línea Comercial / Gimnasio
+  const gimnasioProducts = products.filter(p => p.usage === 'Gimnasio' || p.usage === 'Ambos');
+
+  // Bloque A: Fuerza (Serie Selectorizada, Placas, etc.)
   const fuerzaProducts = gimnasioProducts.filter(p => p.Category === 'Fuerza');
 
-  // Bloque B: Cardio
+  // Bloque B: Cardio (Trotadoras, Elípticas, Bicicletas, Air Bikes, Indoor, Remos)
   const cardioProducts = gimnasioProducts.filter(p => p.Category === 'Cardio');
 
   return (
