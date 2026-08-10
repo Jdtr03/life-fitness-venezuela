@@ -200,24 +200,38 @@ const Service = () => {
             >
               Datos de la solicitud
             </h3>
-            <form className="actual-service-form" onSubmit={(e) => e.preventDefault()}>
+            <form className="actual-service-form" onSubmit={(e) => {
+              e.preventDefault();
+              const formData = new FormData(e.target);
+              const nombre = formData.get('nombre') || '';
+              const apellido = formData.get('apellido') || '';
+              const empresa = formData.get('empresa') || '';
+              const celular = formData.get('celular') || '';
+              const email = formData.get('email') || '';
+              const marca = formData.get('marca') || '';
+              const maquina = formData.get('maquina') || '';
+              const falla = formData.get('falla') || '';
+              const direccion = formData.get('direccion') || '';
+              const msg = `Hola, quisiera agendar un Servicio Técnico.\n*Nombre:* ${nombre} ${apellido}\n*Empresa/Gimnasio:* ${empresa}\n*Celular:* ${celular}\n*Correo:* ${email}\n*Marca:* ${marca}\n*Máquina:* ${maquina}\n*Falla:* ${falla}\n*Dirección:* ${direccion}`;
+              window.open(`https://wa.me/584123361549?text=${encodeURIComponent(msg)}`, '_blank');
+            }}>
               <div className="form-row">
-                <input type="text" placeholder="Nombre" required />
-                <input type="text" placeholder="Apellido" required />
+                <input type="text" name="nombre" placeholder="Nombre" required />
+                <input type="text" name="apellido" placeholder="Apellido" required />
               </div>
-              <input type="text" placeholder="Empresa o Gimnasio (Opcional)" />
+              <input type="text" name="empresa" placeholder="Empresa o Gimnasio (Opcional)" />
               <div className="form-row">
-                <input type="tel" placeholder="Celular" required />
-                <input type="email" placeholder="Correo electrónico" required />
+                <input type="tel" name="celular" placeholder="Celular" required />
+                <input type="email" name="email" placeholder="Correo electrónico" required />
               </div>
-              <select required translate="no" style={{ borderLeft: '4px solid #a6192e' }}>
-                <option value="" disabled selected>Seleccione Marca</option>
+              <select name="marca" required translate="no" style={{ borderLeft: '4px solid #a6192e' }} defaultValue="">
+                <option value="" disabled>Seleccione Marca</option>
                 <option value="LifeFitness">LifeFitness</option>
                 <option value="Hammer Strength">Hammer Strength</option>
               </select>
-              <input type="text" placeholder="Nombre de la máquina" required />
-              <textarea placeholder="Descripción de la falla" rows="3" required></textarea>
-              <input type="text" placeholder="Dirección del servicio" required />
+              <input type="text" name="maquina" placeholder="Nombre de la máquina" required />
+              <textarea name="falla" placeholder="Descripción de la falla" rows="3" required></textarea>
+              <input type="text" name="direccion" placeholder="Dirección del servicio" required />
               <button type="submit" className="btn-confirm">Confirmar Agendamiento</button>
             </form>
           </div>

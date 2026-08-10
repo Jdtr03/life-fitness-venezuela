@@ -1,6 +1,6 @@
 import { HashLink } from 'react-router-hash-link';
-import gymHogar from '../../assets/GYM_HOGAR.jpeg';
-
+import gymHogar from '../../assets/img/HomeGymParkerValvy.webp';
+import gymComercial from '../../assets/img/Digital-Solutions-Insignia-Leg-Extension-Trainer-Woman.webp';
 const Categories = () => {
   const cats = [
     {
@@ -14,7 +14,7 @@ const Categories = () => {
     {
       title: "EQUIPOS PARA GIMNASIOS",
       desc: "Biomecánica avanzada y durabilidad extrema para un entrenamiento de fuerza efectivo y seguro.",
-      img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop",
+      img: gymComercial,
       href: "/equipos-gimnasio#hero",
       btn1: "Equipos de Fuerza ",
       btn2: "Equipos de CArdio "

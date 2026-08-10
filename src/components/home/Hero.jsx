@@ -1,5 +1,5 @@
 import React from 'react';
-import heroHome from '../../assets/hero_home.png';
+import heroHome from '../../assets/img/LFX_Hammer-Strength-HD-Athletic_07.webp';
 
 const Hero = () => {
   const imagenFondo = heroHome;

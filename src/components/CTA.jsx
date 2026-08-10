@@ -213,28 +213,40 @@ const CTA = () => {
           >
             Solicitar Asesoría Experta
           </h3>
-          <form className="inputs-grid" onSubmit={(e) => e.preventDefault()}>
-            <input type="text" placeholder="Nombre" required />
-            <input type="text" placeholder="Apellido" required />
+          <form className="inputs-grid" onSubmit={(e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const nombre = formData.get('nombre') || '';
+            const apellido = formData.get('apellido') || '';
+            const empresa = formData.get('empresa') || '';
+            const celular = formData.get('celular') || '';
+            const email = formData.get('email') || '';
+            const interes = formData.get('interes') || '';
+            const tipo = formData.get('tipo') || '';
+            const msg = `Hola, me interesa solicitar asesoría experta.\n*Nombre:* ${nombre} ${apellido}\n*Empresa/Gimnasio:* ${empresa}\n*Celular:* ${celular}\n*Correo:* ${email}\n*Interés:* ${interes}\n*Tipo:* ${tipo}`;
+            window.open(`https://wa.me/584123361549?text=${encodeURIComponent(msg)}`, '_blank');
+          }}>
+            <input type="text" name="nombre" placeholder="Nombre" required />
+            <input type="text" name="apellido" placeholder="Apellido" required />
 
             <div className="span-2">
-              <input type="text" placeholder="Empresa o Nombre del Gimnasio" required />
+              <input type="text" name="empresa" placeholder="Empresa o Nombre del Gimnasio" required />
             </div>
 
-            <input type="tel" placeholder="Número de Celular" required />
-            <input type="email" placeholder="Correo Electrónico" required />
+            <input type="tel" name="celular" placeholder="Número de Celular" required />
+            <input type="email" name="email" placeholder="Correo Electrónico" required />
 
-            <select required>
+            <select name="interes" required>
               <option value="">¿Cuál es tu interés principal?</option>
-              <option value="hogar">Equipamiento para el Hogar</option>
-              <option value="gimnasio">Equipamiento Comercial / Gimnasio</option>
+              <option value="Equipamiento para el Hogar">Equipamiento para el Hogar</option>
+              <option value="Equipamiento Comercial / Gimnasio">Equipamiento Comercial / Gimnasio</option>
             </select>
 
-            <select required>
+            <select name="tipo" required>
               <option value="">Tipo de Equipamiento</option>
-              <option value="fuerza">Máquinas de Fuerza</option>
-              <option value="cardio">Equipos de Cardio</option>
-              <option value="ambas">Solución Integral (Ambas)</option>
+              <option value="Máquinas de Fuerza">Máquinas de Fuerza</option>
+              <option value="Equipos de Cardio">Equipos de Cardio</option>
+              <option value="Solución Integral (Ambas)">Solución Integral (Ambas)</option>
             </select>
 
             <div className="span-2">

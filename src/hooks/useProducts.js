@@ -32,13 +32,16 @@ function normalizeUsage(rawUsage) {
 function cleanTitle(title, subCatName) {
   if (!title) return 'Producto';
   let t = title.trim();
-  // Si el título empieza por número (ej. "5 Aspire", "6 RS1"), anteponemos la subcategoría sin eliminar el número
-  if (/^\d+\s+/.test(t)) {
-    if (subCatName && !t.toLowerCase().includes(subCatName.toLowerCase())) {
-      return `${subCatName} ${t}`;
-    }
+
+  // Elimina cualquier número al inicio seguido de espacios, puntos o guiones (ej. "5 Aspire" -> "Aspire", "6 RS1" -> "RS1")
+  let cleaned = t.replace(/^\d+[\s\.\-:]*/, '').trim();
+
+  // Si quieres anteponer la subcategoría al título ya limpio
+  if (subCatName && !cleaned.toLowerCase().includes(subCatName.toLowerCase())) {
+    return `${subCatName} ${cleaned}`;
   }
-  return t;
+
+  return cleaned || t;
 }
 
 export function useProducts() {
@@ -77,9 +80,9 @@ export function useProducts() {
           const dbProducts = data.map(p => {
             const usageType = normalizeUsage(p.usage);
             const brandName = p.brands?.name || (p.brand_id === 2 ? 'Hammer Strength' : 'Life Fitness');
-            const subInfo = SUBCAT_MAP[p.subcategory_id] || { 
-              name: p.subcategories?.name || 'General', 
-              category: p.subcategories?.categories?.name || 'Cardio' 
+            const subInfo = SUBCAT_MAP[p.subcategory_id] || {
+              name: p.subcategories?.name || 'General',
+              category: p.subcategories?.categories?.name || 'Cardio'
             };
             const catName = p.subcategories?.categories?.name || subInfo.category;
             const subCatName = p.subcategories?.name || subInfo.name;

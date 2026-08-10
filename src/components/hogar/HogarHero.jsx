@@ -1,8 +1,8 @@
 import React from 'react';
-
+import gymhogar from '../../assets/img/HomGymParkVal.webp';
 const HogarHero = () => {
   return (
-    <section id="hero" className="catalog-hero-v3" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=2070&auto=format&fit=crop')" }}>
+    <section id="hero" className="catalog-hero-v3" style={{ backgroundImage: `url(${gymhogar})` }}>
       <div className="hero-overlay-v3"></div>
       <div className="container hero-container-v3">
         <div className="hero-content-v3">
