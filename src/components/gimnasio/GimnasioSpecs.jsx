@@ -40,7 +40,7 @@ const GimnasioSpecs = () => {
                 className="btn-red-catalog"
                 style={{
                   display: 'inline-block',
-                  backgroundColor: '#e53e3e', // Rojo
+                  backgroundColor: '#a6192e', // Rojo
                   color: '#ffffff',
                   fontWeight: 'bold',
                   padding: '12px 24px',

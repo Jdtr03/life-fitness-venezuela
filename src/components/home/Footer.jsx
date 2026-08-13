@@ -17,11 +17,11 @@ const Footer = () => {
         <div className="footer-links">
           <h4>EQUIPOS</h4>
           <ul>
-            <li><Link to="/equipos-gimnasio">Life Fitness</Link></li>
-            <li><a href="#">Hammer Strength</a></li>
-            <li><a href="#">Cardio</a></li>
-            <li><Link to="/equipos-hogar">Equipamiento de Fuerza</Link></li>
-            <li><Link to="/equipos-hogar">Accesorios</Link></li>
+            <li><Link to="#">Life Fitness</Link></li>
+            <li><Link to="#">Hammer Strength</Link></li>
+            <li><Link to="/equipos-hogar">Cardio</Link></li>
+            <li><Link to="/equipos-gimnasio">Equipamiento de Fuerza</Link></li>
+            <li><Link to="#">Accesorios</Link></li>
           </ul>
         </div>
 
