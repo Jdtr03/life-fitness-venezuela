@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { HashLink } from 'react-router-hash-link';
 import { useProducts } from '../hooks/useProducts';
 import { slugify } from './DynamicCatalog';
 
@@ -49,44 +48,44 @@ const Navbar = () => {
   const productData = [
     {
       mainTitle: "Equipamiento de Gimnasio",
-      mainHref: "/equipos-gimnasio#hero",
+      mainHref: "/gimnasio#hero",
       subCategories: [
         {
           title: "Equipos de Fuerza",
-          subHref: "/equipos-gimnasio#fuerza",
+          subHref: "/gimnasio#fuerza",
           items: gimnasioFuerzaSubs.map(sub => ({
             name: sub,
-            href: `/equipos-gimnasio#${slugify(sub)}`
+            href: `/gimnasio#${slugify(sub)}`
           }))
         },
         {
           title: "Equipos de Cardio",
-          subHref: "/equipos-gimnasio#cardio",
+          subHref: "/gimnasio#cardio",
           items: gimnasioCardioSubs.map(sub => ({
             name: sub,
-            href: `/equipos-gimnasio#${slugify(sub)}`
+            href: `/gimnasio#${slugify(sub)}`
           }))
         }
       ]
     },
     {
       mainTitle: "Equipamiento de Hogar",
-      mainHref: "/equipos-hogar#hero",
+      mainHref: "/hogar#hero",
       subCategories: [
         {
           title: "Equipos de Fuerza",
-          subHref: "/equipos-hogar#fuerza",
+          subHref: "/hogar#fuerza",
           items: hogarFuerzaSubs.map(sub => ({
             name: sub,
-            href: `/equipos-hogar#${slugify(sub)}`
+            href: `/hogar#${slugify(sub)}`
           }))
         },
         {
           title: "Equipos de Cardio",
-          subHref: "/equipos-hogar#cardio",
+          subHref: "/hogar#cardio",
           items: hogarCardioSubs.map(sub => ({
             name: sub,
-            href: `/equipos-hogar#${slugify(sub)}`
+            href: `/hogar#${slugify(sub)}`
           }))
         }
       ]
@@ -137,10 +136,17 @@ const Navbar = () => {
                     onMouseEnter={() => link.hasSubmenu && setIsProductsOpen(true)}
                     onMouseLeave={() => link.hasSubmenu && setIsProductsOpen(false)}
                   >
-                    <HashLink to={link.href} style={linkStyle} className="nav-menu-link">
-                      {link.text}
-                      <span className="hover-line"></span>
-                    </HashLink>
+                    {link.hasSubmenu ? (
+                      <span style={linkStyle} className="nav-menu-link cursor-pointer">
+                        {link.text}
+                        <span className="hover-line"></span>
+                      </span>
+                    ) : (
+                      <Link to={link.href} style={linkStyle} className="nav-menu-link">
+                        {link.text}
+                        <span className="hover-line"></span>
+                      </Link>
+                    )}
 
                     {link.hasSubmenu && isProductsOpen && (
                       <div className="mega-menu-pc">
@@ -148,36 +154,36 @@ const Navbar = () => {
                         <div className="mega-menu-content">
                           {productData.map((section, idx) => (
                             <div key={section.mainTitle} className="main-section">
-                              <HashLink 
+                              <Link 
                                 to={section.mainHref} 
                                 className="main-category-link" 
                                 onClick={() => setIsProductsOpen(false)}
                                 onMouseEnter={section.mainHref.includes('gimnasio') ? prefetchGimnasio : prefetchHogar}
                               >
                                 {section.mainTitle}
-                              </HashLink>
+                              </Link>
                               <div className="sub-grid">
                                 {section.subCategories.map(sub => (
                                   <div key={sub.title} className="sub-column">
-                                    <HashLink 
+                                    <Link 
                                       to={sub.subHref} 
                                       className="sub-category-link" 
                                       onClick={() => setIsProductsOpen(false)}
                                       onMouseEnter={sub.subHref.includes('gimnasio') ? prefetchGimnasio : prefetchHogar}
                                     >
                                       {sub.title}
-                                    </HashLink>
+                                    </Link>
                                     <ul className="sub-item-list">
                                       {sub.items.map(item => (
                                         <li key={item.name}>
-                                          <HashLink
+                                          <Link
                                             to={item.href}
                                             className="mega-subitem-link"
                                             onClick={() => setIsProductsOpen(false)}
                                             onMouseEnter={item.href.includes('gimnasio') ? prefetchGimnasio : prefetchHogar}
                                           >
                                             {item.name}
-                                          </HashLink>
+                                          </Link>
                                         </li>
                                       ))}
                                     </ul>
@@ -196,7 +202,7 @@ const Navbar = () => {
             </div>
 
             <div className="nav-action">
-              <HashLink to="/#contacto" className="btn-cotizar-pc">COTIZAR</HashLink>
+              <Link to="/#contacto" className="btn-cotizar-pc">COTIZAR</Link>
             </div>
           </div>
         </div>
@@ -218,12 +224,12 @@ const Navbar = () => {
                   <div className={`mobile-submenu-acc ${isMobileProductsOpen ? 'open' : ''}`}>
                     {productData.map(section => (
                       <div key={section.mainTitle} style={{ marginBottom: '20px' }}>
-                        <HashLink to={section.mainHref} className="mobile-main-t-link" onClick={() => setIsMenuOpen(false)}>
+                        <Link to={section.mainHref} className="mobile-main-t-link" onClick={() => setIsMenuOpen(false)}>
                           {section.mainTitle}
-                        </HashLink>
+                        </Link>
                         {section.subCategories.map(sub => (
                           <div key={sub.title} style={{ paddingLeft: '15px', marginTop: '10px' }}>
-                            <HashLink 
+                            <Link 
                               to={sub.subHref} 
                               className="mobile-sub-t-link" 
                               onClick={() => {
@@ -232,9 +238,9 @@ const Navbar = () => {
                               }}
                             >
                               {sub.title}
-                            </HashLink>
+                            </Link>
                             {sub.items.map(item => (
-                              <HashLink
+                              <Link
                                 key={item.name}
                                 to={item.href}
                                 className="mobile-subitem-link"
@@ -244,7 +250,7 @@ const Navbar = () => {
                                 }}
                               >
                                 {item.name}
-                              </HashLink>
+                              </Link>
                             ))}
                           </div>
                         ))}
@@ -253,14 +259,14 @@ const Navbar = () => {
                   </div>
                 </>
               ) : (
-                <HashLink to={link.href} className="sidebar-link-item" onClick={() => setIsMenuOpen(false)}>
+                <Link to={link.href} className="sidebar-link-item" onClick={() => setIsMenuOpen(false)}>
                   {link.text}
-                </HashLink>
+                </Link>
               )}
             </li>
           ))}
           <li style={{ marginTop: '30px' }}>
-            <HashLink to="/#contacto" className="sidebar-btn-red" onClick={() => setIsMenuOpen(false)}>COTIZAR</HashLink>
+            <Link to="/#contacto" className="sidebar-btn-red" onClick={() => setIsMenuOpen(false)}>COTIZAR</Link>
           </li>
         </ul>
       </div>

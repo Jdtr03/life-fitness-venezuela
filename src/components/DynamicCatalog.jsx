@@ -45,7 +45,7 @@ const SubCategoryRow = ({ subCategory, items }) => {
   };
 
   return (
-    <div id={slugify(subCategory)} className="subcategory-row-block">
+    <div id={slugify(subCategory)} className="subcategory-row-block scroll-mt-24">
       <div className="subcat-header-v3">
         <div className="subcat-title-wrapper">
           <h3 className="subcat-title">{subCategory}</h3>
@@ -166,7 +166,7 @@ const DynamicCatalog = ({ products = [], title = '' }) => {
   const sectionId = title.toLowerCase().replace(/\s+/g, '-');
 
   return (
-    <section id={sectionId} className="product-section-v3">
+    <section id={sectionId} className="product-section-v3 scroll-mt-24">
       <div className="container">
         {/* Banner de Categoría Principal (Fuerza / Cardio) */}
         <div className="main-cat-banner">

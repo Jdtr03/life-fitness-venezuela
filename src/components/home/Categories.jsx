@@ -1,4 +1,4 @@
-import { HashLink } from 'react-router-hash-link';
+import { Link } from 'react-router-dom';
 import gymHogar from '../../assets/img/HomeGymParkerValvy.webp';
 import gymComercial from '../../assets/img/Digital-Solutions-Insignia-Leg-Extension-Trainer-Woman.webp';
 const Categories = () => {
@@ -7,7 +7,7 @@ const Categories = () => {
       title: "EQUIPOS PARA HOGAR",
       desc: "Ingeniería de vanguardia y tecnología aplicada al entrenamiento cardiovascular de alto rendimiento.",
       img: gymHogar,
-      href: "/equipos-hogar#hero",
+      href: "/hogar#hero",
       btn1: "Equipos de Fuerza",
       btn2: "Equipo de Cardio "
     },
@@ -15,7 +15,7 @@ const Categories = () => {
       title: "EQUIPOS PARA GIMNASIOS",
       desc: "Biomecánica avanzada y durabilidad extrema para un entrenamiento de fuerza efectivo y seguro.",
       img: gymComercial,
-      href: "/equipos-gimnasio#hero",
+      href: "/gimnasio#hero",
       btn1: "Equipos de Fuerza ",
       btn2: "Equipos de CArdio "
     }
@@ -96,7 +96,7 @@ const Categories = () => {
               </p>
 
               <div className="cat-btns" style={{ display: 'flex', gap: '8px' }}>
-                <HashLink to={cat.href} className="btn btn-primary" style={{
+                <Link to={cat.href} className="btn btn-primary" style={{
                   padding: '10px 20px',
                   fontSize: '0.7rem',
                   fontWeight: '700',
@@ -106,7 +106,7 @@ const Categories = () => {
                   display: 'inline-block'
                 }}>
                   Ver Catálogo
-                </HashLink>
+                </Link>
               </div>
             </div>
           </div>

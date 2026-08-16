@@ -2,7 +2,7 @@ import React from 'react';
 import gymhogar from '../../assets/img/HomGymParkVal.webp';
 const HogarHero = () => {
   return (
-    <section id="hero" className="catalog-hero-v3" style={{ backgroundImage: `url(${gymhogar})` }}>
+    <section id="hero" className="catalog-hero-v3 scroll-mt-24" style={{ backgroundImage: `url(${gymhogar})` }}>
       <div className="hero-overlay-v3"></div>
       <div className="container hero-container-v3">
         <div className="hero-content-v3">
