@@ -1,47 +1,56 @@
 # ==============================================================================
-# 1. REDIRECCIONES 301 DE SITELINKS DE GOOGLE (SEO Y NAVEGACIÓN A SECCIONES)
+# LIFE FITNESS VENEZUELA - HTACCESS DE ALTO RENDIMIENTO Y CONTROL TOTAL DE RUTAS
 # ==============================================================================
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Bicicletas / Ciclismo
-  RewriteRule ^bicicletas.*$ /gimnasio#bicicletas-verticales [R=301,NC,NE,L]
-  RewriteRule ^ciclismo-estacionario.*$ /gimnasio#ciclismo-indoor [R=301,NC,NE,L]
-  RewriteRule ^ciclismo.*$ /gimnasio#ciclismo-indoor [R=301,NC,NE,L]
+  # ----------------------------------------------------------------------------
+  # 1. REDIRECCIONES ESPECÍFICAS DE GOOGLE SITELINKS Y URLS ANTIGUAS
+  # ----------------------------------------------------------------------------
+  # Bicicletas / Ciclismo -> Redirige a Gimnasio
+  RewriteRule ^bicicletas/?.*$ /gimnasio#bicicletas-verticales [R=301,NC,NE,L]
+  RewriteRule ^ciclismo-estacionario/?.*$ /gimnasio#ciclismo-indoor [R=301,NC,NE,L]
+  RewriteRule ^ciclismo/?.*$ /gimnasio#ciclismo-indoor [R=301,NC,NE,L]
 
-  # Planos / Diseño de espacios
-  RewriteRule ^planner-desing.*$ /gimnasio#serie-selectorizada [R=301,NC,NE,L]
-  RewriteRule ^planner-design.*$ /gimnasio#serie-selectorizada [R=301,NC,NE,L]
-  RewriteRule ^planos.*$ /gimnasio#serie-selectorizada [R=301,NC,NE,L]
+  # Planos / Diseño de espacios -> Redirige a Gimnasio (Serie Selectorizada)
+  RewriteRule ^planner-desing/?.*$ /gimnasio#serie-selectorizada [R=301,NC,NE,L]
+  RewriteRule ^planner-design/?.*$ /gimnasio#serie-selectorizada [R=301,NC,NE,L]
+  RewriteRule ^planos/?.*$ /gimnasio#serie-selectorizada [R=301,NC,NE,L]
 
-  # Equipos para el Hogar / Domésticos
-  RewriteRule ^equiposdomesticos.*$ /hogar [R=301,NC,NE,L]
-  RewriteRule ^equipos-domesticos.*$ /hogar [R=301,NC,NE,L]
-  RewriteRule ^equipos-para-el-hogar.*$ /hogar [R=301,NC,NE,L]
+  # Equipos Domésticos / Para el Hogar -> Redirige a Hogar
+  RewriteRule ^equiposdomesticos/?.*$ /hogar [R=301,NC,L]
+  RewriteRule ^equipos-domesticos/?.*$ /hogar [R=301,NC,L]
+  RewriteRule ^equipos-para-el-hogar/?.*$ /hogar [R=301,NC,L]
 
-  # Elípticas, Trotadoras, Fuerza
-  RewriteRule ^elipticas.*$ /gimnasio#elipticas [R=301,NC,NE,L]
-  RewriteRule ^caminadoras.*$ /gimnasio#trotadoras [R=301,NC,NE,L]
-  RewriteRule ^trotadoras.*$ /gimnasio#trotadoras [R=301,NC,NE,L]
-  RewriteRule ^multifuerzas.*$ /gimnasio#multigimnasios [R=301,NC,NE,L]
-  RewriteRule ^multigimnasios.*$ /gimnasio#multigimnasios [R=301,NC,NE,L]
+  # Trotadoras, Elípticas, Multifuerzas
+  RewriteRule ^caminadoras/?.*$ /gimnasio#trotadoras [R=301,NC,NE,L]
+  RewriteRule ^trotadoras/?.*$ /gimnasio#trotadoras [R=301,NC,NE,L]
+  RewriteRule ^elipticas/?.*$ /gimnasio#elipticas [R=301,NC,NE,L]
+  RewriteRule ^multifuerzas/?.*$ /gimnasio#multigimnasios [R=301,NC,NE,L]
+  RewriteRule ^multigimnasios/?.*$ /gimnasio#multigimnasios [R=301,NC,NE,L]
 
-  # Páginas Home / Contacto
-  RewriteRule ^pagina-home.*$ / [R=301,NC,NE,L]
-  RewriteRule ^home.*$ / [R=301,NC,NE,L]
-  RewriteRule ^contactanos.*$ /#contacto [R=301,NC,NE,L]
-  RewriteRule ^contacto.*$ /#contacto [R=301,NC,NE,L]
-  RewriteRule ^nosotros.*$ /#nosotros [R=301,NC,NE,L]
-  RewriteRule ^servicio-tecnico.*$ /#servicio-tecnico [R=301,NC,NE,L]
+  # Páginas Home / Contacto antiguas
+  RewriteRule ^pagina-home/?.*$ / [R=301,NC,L]
+  RewriteRule ^home/?.*$ / [R=301,NC,L]
+  RewriteRule ^contactanos/?.*$ /#contacto [R=301,NC,NE,L]
+  RewriteRule ^contacto/?.*$ /#contacto [R=301,NC,NE,L]
 
-  # ==============================================================================
-  # 2. CONFIGURACIÓN PARA SPA (REACT + VITE + REACT ROUTER)
-  # Evita la pantalla en blanco / Error 404 al recargar cualquier subruta
-  # ==============================================================================
+  # ----------------------------------------------------------------------------
+  # 2. PERMITIR ARCHIVOS Y CARPETAS REALES (JS, CSS, Imágenes, PDF, Robots, Sitemap)
+  # ----------------------------------------------------------------------------
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # ----------------------------------------------------------------------------
+  # 3. RUTAS OFICIALES DE LA APLICACIÓN (Carga el index.html de React)
+  # ----------------------------------------------------------------------------
+  RewriteRule ^(gimnasio|hogar|equipos-gimnasio|equipos-hogar)/?$ /index.html [L,NC]
   RewriteRule ^index\.html$ - [L]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME} !-l
-  RewriteRule . /index.html [L]
+
+  # ----------------------------------------------------------------------------
+  # 4. COMODÍN UNIVERSAL: CUALQUIER OTRA URL NO EXISTENTE O SPAM -> REDIRIGE A HOME
+  # ----------------------------------------------------------------------------
+  RewriteRule ^.*$ / [R=301,L]
 </IfModule>
