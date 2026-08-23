@@ -7,7 +7,9 @@ const HASH_ALIASES = {
   'multifuerzas': 'multigimnasios',
   'ciclismo-estacionario': 'ciclismo-indoor',
   'bicicletas': 'bicicletas-verticales',
-  'contactanos': 'contacto'
+  'contactanos': 'contacto',
+  'planos': 'serie-selectorizada',
+  'selectorizada': 'serie-selectorizada'
 };
 
 /**

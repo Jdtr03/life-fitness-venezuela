@@ -3,7 +3,7 @@ import gymhOgar from '../../assets/img/ATMOS_2026_LifeFitness_Treadmill_Right45_
 
 const HogarSpecs = () => {
   // Reemplaza con tu número real (Código de país + número, sin el +)
-  const whatsappNumber = "584123361549";
+  const whatsappNumber = "582129856316";
   const defaultMessage = encodeURIComponent("hola lifefitnes, estoy interesado en implementar un gimnasio en casa");
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${defaultMessage}`;
 

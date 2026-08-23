@@ -213,7 +213,7 @@ const Service = () => {
               const falla = formData.get('falla') || '';
               const direccion = formData.get('direccion') || '';
               const msg = `Hola, quisiera agendar un Servicio Técnico.\n*Nombre:* ${nombre} ${apellido}\n*Empresa/Gimnasio:* ${empresa}\n*Celular:* ${celular}\n*Correo:* ${email}\n*Marca:* ${marca}\n*Máquina:* ${maquina}\n*Falla:* ${falla}\n*Dirección:* ${direccion}`;
-              window.open(`https://wa.me/584123361549?text=${encodeURIComponent(msg)}`, '_blank');
+              window.open(`https://wa.me/582129856316?text=${encodeURIComponent(msg)}`, '_blank');
             }}>
               <div className="form-row">
                 <input type="text" name="nombre" placeholder="Nombre" required />

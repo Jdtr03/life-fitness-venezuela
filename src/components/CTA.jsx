@@ -224,7 +224,7 @@ const CTA = () => {
             const interes = formData.get('interes') || '';
             const tipo = formData.get('tipo') || '';
             const msg = `Hola, me interesa solicitar asesoría experta.\n*Nombre:* ${nombre} ${apellido}\n*Empresa/Gimnasio:* ${empresa}\n*Celular:* ${celular}\n*Correo:* ${email}\n*Interés:* ${interes}\n*Tipo:* ${tipo}`;
-            window.open(`https://wa.me/584123361549?text=${encodeURIComponent(msg)}`, '_blank');
+            window.open(`https://wa.me/582129856316?text=${encodeURIComponent(msg)}`, '_blank');
           }}>
             <input type="text" name="nombre" placeholder="Nombre" required />
             <input type="text" name="apellido" placeholder="Apellido" required />

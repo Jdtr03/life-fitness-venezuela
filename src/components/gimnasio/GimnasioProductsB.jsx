@@ -41,7 +41,7 @@ const GimnasioProductsB = () => {
                     <h3 className="product-name" style={{ fontSize: '1.2rem' }}>{p.name}</h3>
                     <p className="product-description" style={{ fontSize: '0.85rem' }}>{p.desc}</p>
                     <div className="product-actions">
-                      <a href="https://wa.me/584123361549" target="_blank" rel="noreferrer" className="btn-cotizar">Cotizar</a>
+                      <a href="https://wa.me/582129856316" target="_blank" rel="noreferrer" className="btn-cotizar">Cotizar</a>
                       <button className="btn-info">Info</button>
                     </div>
                   </div>

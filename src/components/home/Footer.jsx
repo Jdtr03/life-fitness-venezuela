@@ -40,7 +40,7 @@ const Footer = () => {
           <ul>
             <li>Life Fitness Venezuela: Centro Comercial El Sol, Piso 2 Nivel galería. El Cafetal. </li>
             <li><a href='https://maps.app.goo.gl/Fo7BsFKsRvux9h3x9'>Ver ubicación en Google Maps</a></li>
-            <li>+58 (212) 985-6316 o <a href="https://wa.me/584123361549" target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>+58 (412)336-1549</a></li>
+            <li><a href="https://wa.me/582129856316" target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>+58 (212) 985-6316</a></li>
             <li>venta@lifefitness.com.ve </li>
           </ul>
         </div>

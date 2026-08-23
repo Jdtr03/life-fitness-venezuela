@@ -90,7 +90,7 @@ const SubCategoryRow = ({ subCategory, items }) => {
                     <p className="product-description-v3">{p.Desc}</p>
                     <div className="product-actions-v3">
                       <a
-                        href={`https://wa.me/584123361549?text=${encodedMsg}`}
+                        href={`https://wa.me/582129856316?text=${encodedMsg}`}
                         target="_blank"
                         rel="noreferrer"
                         className="btn-v3 btn-cotizar-v3"
@@ -108,7 +108,7 @@ const SubCategoryRow = ({ subCategory, items }) => {
                         </a>
                       ) : (
                         <a
-                          href={`https://wa.me/584123361549?text=${encodedMsg}`}
+                          href={`https://wa.me/582129856316?text=${encodedMsg}`}
                           target="_blank"
                           rel="noreferrer"
                           className="btn-v3 btn-info-v3"

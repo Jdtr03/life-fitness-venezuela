@@ -6,16 +6,16 @@
   RewriteBase /
 
   # Redirecciones para las URL antiguas/sitelinks indexados en Google hacia la nueva estructura con anclas (#)
-  RewriteRule ^caminadoras/?$ /gimnasio#trotadoras [R=301,NE,L]
-  RewriteRule ^elipticas/?$ /gimnasio#elipticas [R=301,NE,L]
-  RewriteRule ^ciclismo-estacionario/?$ /gimnasio#ciclismo-indoor [R=301,NE,L]
-  RewriteRule ^multifuerzas/?$ /gimnasio#multigimnasios [R=301,NE,L]
-  RewriteRule ^planos/?$ / [R=301,NE,L]
-  RewriteRule ^pagina-home/?$ / [R=301,NE,L]
-  RewriteRule ^home/?$ / [R=301,NE,L]
-  RewriteRule ^contactanos/?$ /#contacto [R=301,NE,L]
-  RewriteRule ^equipos-para-el-hogar/?$ /hogar [R=301,NE,L]
-  RewriteRule ^bicicletas-de-ejercicio-lifecycle/?$ /gimnasio#bicicletas-verticales [R=301,NE,L]
+  RewriteRule ^caminadoras/?.*$ /gimnasio#trotadoras [R=301,NC,NE,L]
+  RewriteRule ^elipticas/?.*$ /gimnasio#elipticas [R=301,NC,NE,L]
+  RewriteRule ^ciclismo-estacionario/?.*$ /gimnasio#ciclismo-indoor [R=301,NC,NE,L]
+  RewriteRule ^multifuerzas/?.*$ /gimnasio#multigimnasios [R=301,NC,NE,L]
+  RewriteRule ^planos/?.*$ /gimnasio#serie-selectorizada [R=301,NC,NE,L]
+  RewriteRule ^pagina-home/?.*$ / [R=301,NC,NE,L]
+  RewriteRule ^home/?.*$ / [R=301,NC,NE,L]
+  RewriteRule ^contactanos/?.*$ /#contacto [R=301,NC,NE,L]
+  RewriteRule ^equipos-para-el-hogar/?.*$ /hogar [R=301,NC,NE,L]
+  RewriteRule ^bicicletas-de-ejercicio-lifecycle/?.*$ /gimnasio#bicicletas-verticales [R=301,NC,NE,L]
 
 # ==============================================================================
 # 2. CONFIGURACIÓN PARA SPA (REACT + VITE + REACT ROUTER)
