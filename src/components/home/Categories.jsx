@@ -1,25 +1,28 @@
-import React from 'react';
-
+import { Link } from 'react-router-dom';
+import gymHogar from '../../assets/img/HomeGymParkerValvy.webp';
+import gymComercial from '../../assets/img/Digital-Solutions-Insignia-Leg-Extension-Trainer-Woman.webp';
 const Categories = () => {
   const cats = [
     {
       title: "EQUIPOS PARA HOGAR",
       desc: "Ingeniería de vanguardia y tecnología aplicada al entrenamiento cardiovascular de alto rendimiento.",
-      img: "../../src/assets/GYM_HOGAR.JPEG",
-      btn1: "Saber más de cardio",
-      btn2: "Ver productos"
+      img: gymHogar,
+      href: "/hogar#hero",
+      btn1: "Equipos de Fuerza",
+      btn2: "Equipo de Cardio "
     },
     {
       title: "EQUIPOS PARA GIMNASIOS",
       desc: "Biomecánica avanzada y durabilidad extrema para un entrenamiento de fuerza efectivo y seguro.",
-      img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop",
-      btn1: "Ver todos los equipos",
-      btn2: "Ver productos"
+      img: gymComercial,
+      href: "/gimnasio#hero",
+      btn1: "Equipos de Fuerza ",
+      btn2: "Equipos de CArdio "
     }
   ];
 
   return (
-    <section className="categories container" style={{
+    <section id="productos" className="categories container" style={{
       maxWidth: '1150px',
       margin: '0 auto',
       padding: '30px 20px'
@@ -93,26 +96,17 @@ const Categories = () => {
               </p>
 
               <div className="cat-btns" style={{ display: 'flex', gap: '8px' }}>
-                <button className="btn btn-primary" style={{
+                <Link to={cat.href} className="btn btn-primary" style={{
                   padding: '10px 20px',
                   fontSize: '0.7rem',
                   fontWeight: '700',
                   textTransform: 'uppercase',
-                  border: 'none'
+                  border: 'none',
+                  textDecoration: 'none',
+                  display: 'inline-block'
                 }}>
-                  {cat.btn1}
-                </button>
-                <button className="btn btn-outline-small" style={{
-                  padding: '10px 20px',
-                  fontSize: '0.7rem',
-                  fontWeight: '700',
-                  textTransform: 'uppercase',
-                  border: '1px solid white',
-                  background: 'rgba(255,255,255,0.1)', // Un poco de fondo para notar el botón
-                  color: 'white'
-                }}>
-                  {cat.btn2}
-                </button>
+                  Ver Catálogo
+                </Link>
               </div>
             </div>
           </div>

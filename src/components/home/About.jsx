@@ -1,8 +1,9 @@
 import React from 'react';
+import aboutImg from '../../assets/img/Sin_titulo.webp';
 
 const About = () => {
   return (
-    <section className="about container">
+    <section id="nosotros" className="about container">
       <div className="about-grid">
         <div className="about-content">
           <h2 className="section-title">
@@ -17,7 +18,7 @@ const About = () => {
           </p>
         </div>
         <div className="about-image">
-          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop" alt="Gym Equipment" />
+          <img src={aboutImg} alt="Life Fitness Equipment" loading="lazy" />
           <div className="image-shadow"></div>
         </div>
       </div>
