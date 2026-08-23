@@ -1,36 +1,51 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-// Mapeo de alias comunes de hashes para asegurar compatibilidad con redirecciones antiguas de SEO
+// Mapeo de alias de hashes Y de rutas legacy para auto-scroll automático
 const HASH_ALIASES = {
   'caminadoras': 'trotadoras',
+  'trotadoras': 'trotadoras',
+  'elipticas': 'elipticas',
   'multifuerzas': 'multigimnasios',
+  'multigimnasios': 'multigimnasios',
   'ciclismo-estacionario': 'ciclismo-indoor',
+  'ciclismo': 'ciclismo-indoor',
+  'ciclismo-indoor': 'ciclismo-indoor',
   'bicicletas': 'bicicletas-verticales',
+  'bicicletas-de-ejercicio-lifecycle': 'bicicletas-verticales',
+  'bicicletas-verticales': 'bicicletas-verticales',
+  'bicicletas-reclinadas': 'bicicletas-reclinadas',
   'contactanos': 'contacto',
+  'contacto': 'contacto',
   'planos': 'serie-selectorizada',
-  'selectorizada': 'serie-selectorizada'
+  'planner-desing': 'serie-selectorizada',
+  'planner-design': 'serie-selectorizada',
+  'selectorizada': 'serie-selectorizada',
+  'serie-selectorizada': 'serie-selectorizada'
 };
 
 /**
  * ScrollToHash Component
- * Escucha cambios en la URL (pathname, hash, key) usando useLocation de react-router-dom.
- * Si se detecta un #hash, busca el elemento por su ID (o alias) y realiza un desplazamiento suave (scrollIntoView({ behavior: 'smooth' })).
- * Si no hay hash, desplaza al inicio de la página.
+ * Detecta tanto hashes (#seccion) como rutas directas (/bicicletas, /caminadoras, etc.)
+ * y realiza un desplazamiento suave automático hacia la sección tan pronto los productos
+ * se carguen en el DOM, sin necesidad de recargar la página.
  */
 const ScrollToHash = () => {
   const location = useLocation();
   const { pathname, hash, key } = location;
 
   useEffect(() => {
-    if (hash) {
-      const rawId = decodeURIComponent(hash.replace('#', '')).toLowerCase();
-      const aliasId = HASH_ALIASES[rawId];
-      let attempts = 0;
-      const maxAttempts = 10;
+    // 1. Obtener el ID objetivo (sea por hash # o por nombre de ruta limpia)
+    const cleanPath = pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+    const rawHashId = hash ? decodeURIComponent(hash.replace('#', '')).toLowerCase() : '';
+    
+    const targetId = rawHashId 
+      ? (HASH_ALIASES[rawHashId] || rawHashId)
+      : (HASH_ALIASES[cleanPath] || null);
 
-      const scrollToElement = () => {
-        const element = document.getElementById(rawId) || (aliasId ? document.getElementById(aliasId) : null);
+    if (targetId) {
+      const scrollToTarget = () => {
+        const element = document.getElementById(targetId);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
           return true;
@@ -38,17 +53,27 @@ const ScrollToHash = () => {
         return false;
       };
 
-      // Si el elemento no se encuentra inmediatamente (por ejemplo durante la carga de productos o renderizado), reintentar brevemente
-      if (!scrollToElement()) {
-        const interval = setInterval(() => {
-          attempts += 1;
-          if (scrollToElement() || attempts >= maxAttempts) {
-            clearInterval(interval);
-          }
-        }, 100);
+      // Si ya está en el DOM, hacer scroll de inmediato
+      if (scrollToTarget()) return;
 
-        return () => clearInterval(interval);
-      }
+      // Si los productos están cargando desde Supabase, observar el DOM y hacer scroll apenas aparezca
+      const observer = new MutationObserver(() => {
+        if (scrollToTarget()) {
+          observer.disconnect();
+        }
+      });
+
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      // Límite de seguridad de 4 segundos
+      const timer = setTimeout(() => {
+        observer.disconnect();
+      }, 4000);
+
+      return () => {
+        observer.disconnect();
+        clearTimeout(timer);
+      };
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
