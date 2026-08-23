@@ -1,40 +1,41 @@
 # ==============================================================================
-# LIFE FITNESS VENEZUELA - HTACCESS DE ALTO RENDIMIENTO Y CONTROL TOTAL DE RUTAS
+# LIFE FITNESS VENEZUELA - HTACCESS CON REDIRECCIONES ABSOLUTAS Y CONTROL TOTAL
 # ==============================================================================
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
   # ----------------------------------------------------------------------------
-  # 1. REDIRECCIONES ESPECÍFICAS DE GOOGLE SITELINKS Y URLS ANTIGUAS
+  # 1. REDIRECCIONES DIRECTAS 301 ESPECÍFICAS (SITELINKS DE GOOGLE)
   # ----------------------------------------------------------------------------
-  # Bicicletas / Ciclismo -> Redirige a Gimnasio
-  RewriteRule ^bicicletas/?.*$ /gimnasio#bicicletas-verticales [R=301,NC,NE,L]
-  RewriteRule ^ciclismo-estacionario/?.*$ /gimnasio#ciclismo-indoor [R=301,NC,NE,L]
-  RewriteRule ^ciclismo/?.*$ /gimnasio#ciclismo-indoor [R=301,NC,NE,L]
+  # Equipos para el Hogar
+  RewriteRule ^/?equipos-para-el-hogar.*$ https://lifefitness.com.ve/hogar [R=301,NC,L]
+  RewriteRule ^/?equiposdomesticos.*$ https://lifefitness.com.ve/hogar [R=301,NC,L]
+  RewriteRule ^/?equipos-domesticos.*$ https://lifefitness.com.ve/hogar [R=301,NC,L]
 
-  # Planos / Diseño de espacios -> Redirige a Gimnasio (Serie Selectorizada)
-  RewriteRule ^planner-desing/?.*$ /gimnasio#serie-selectorizada [R=301,NC,NE,L]
-  RewriteRule ^planner-design/?.*$ /gimnasio#serie-selectorizada [R=301,NC,NE,L]
-  RewriteRule ^planos/?.*$ /gimnasio#serie-selectorizada [R=301,NC,NE,L]
+  # Bicicletas / Ciclismo
+  RewriteRule ^/?bicicletas-de-ejercicio-lifecycle.*$ https://lifefitness.com.ve/gimnasio#bicicletas-verticales [R=301,NC,NE,L]
+  RewriteRule ^/?bicicletas.*$ https://lifefitness.com.ve/gimnasio#bicicletas-verticales [R=301,NC,NE,L]
+  RewriteRule ^/?ciclismo-estacionario.*$ https://lifefitness.com.ve/gimnasio#ciclismo-indoor [R=301,NC,NE,L]
+  RewriteRule ^/?ciclismo.*$ https://lifefitness.com.ve/gimnasio#ciclismo-indoor [R=301,NC,NE,L]
 
-  # Equipos Domésticos / Para el Hogar -> Redirige a Hogar
-  RewriteRule ^equiposdomesticos/?.*$ /hogar [R=301,NC,L]
-  RewriteRule ^equipos-domesticos/?.*$ /hogar [R=301,NC,L]
-  RewriteRule ^equipos-para-el-hogar/?.*$ /hogar [R=301,NC,L]
+  # Planos / Diseño de espacios -> Gimnasio
+  RewriteRule ^/?planner-desing.*$ https://lifefitness.com.ve/gimnasio#serie-selectorizada [R=301,NC,NE,L]
+  RewriteRule ^/?planner-design.*$ https://lifefitness.com.ve/gimnasio#serie-selectorizada [R=301,NC,NE,L]
+  RewriteRule ^/?planos.*$ https://lifefitness.com.ve/gimnasio#serie-selectorizada [R=301,NC,NE,L]
 
   # Trotadoras, Elípticas, Multifuerzas
-  RewriteRule ^caminadoras/?.*$ /gimnasio#trotadoras [R=301,NC,NE,L]
-  RewriteRule ^trotadoras/?.*$ /gimnasio#trotadoras [R=301,NC,NE,L]
-  RewriteRule ^elipticas/?.*$ /gimnasio#elipticas [R=301,NC,NE,L]
-  RewriteRule ^multifuerzas/?.*$ /gimnasio#multigimnasios [R=301,NC,NE,L]
-  RewriteRule ^multigimnasios/?.*$ /gimnasio#multigimnasios [R=301,NC,NE,L]
+  RewriteRule ^/?caminadoras.*$ https://lifefitness.com.ve/gimnasio#trotadoras [R=301,NC,NE,L]
+  RewriteRule ^/?trotadoras.*$ https://lifefitness.com.ve/gimnasio#trotadoras [R=301,NC,NE,L]
+  RewriteRule ^/?elipticas.*$ https://lifefitness.com.ve/gimnasio#elipticas [R=301,NC,NE,L]
+  RewriteRule ^/?multifuerzas.*$ https://lifefitness.com.ve/gimnasio#multigimnasios [R=301,NC,NE,L]
+  RewriteRule ^/?multigimnasios.*$ https://lifefitness.com.ve/gimnasio#multigimnasios [R=301,NC,NE,L]
 
-  # Páginas Home / Contacto antiguas
-  RewriteRule ^pagina-home/?.*$ / [R=301,NC,L]
-  RewriteRule ^home/?.*$ / [R=301,NC,L]
-  RewriteRule ^contactanos/?.*$ /#contacto [R=301,NC,NE,L]
-  RewriteRule ^contacto/?.*$ /#contacto [R=301,NC,NE,L]
+  # Páginas Home / Contacto
+  RewriteRule ^/?pagina-home.*$ https://lifefitness.com.ve/ [R=301,NC,L]
+  RewriteRule ^/?home.*$ https://lifefitness.com.ve/ [R=301,NC,L]
+  RewriteRule ^/?contactanos.*$ https://lifefitness.com.ve/#contacto [R=301,NC,NE,L]
+  RewriteRule ^/?contacto.*$ https://lifefitness.com.ve/#contacto [R=301,NC,NE,L]
 
   # ----------------------------------------------------------------------------
   # 2. PERMITIR ARCHIVOS Y CARPETAS REALES (JS, CSS, Imágenes, PDF, Robots, Sitemap)
@@ -44,13 +45,13 @@
   RewriteRule ^ - [L]
 
   # ----------------------------------------------------------------------------
-  # 3. RUTAS OFICIALES DE LA APLICACIÓN (Carga el index.html de React)
+  # 3. RUTAS OFICIALES DE LA APLICACIÓN (Carga la app React)
   # ----------------------------------------------------------------------------
   RewriteRule ^(gimnasio|hogar|equipos-gimnasio|equipos-hogar)/?$ /index.html [L,NC]
   RewriteRule ^index\.html$ - [L]
 
   # ----------------------------------------------------------------------------
-  # 4. COMODÍN UNIVERSAL: CUALQUIER OTRA URL NO EXISTENTE O SPAM -> REDIRIGE A HOME
+  # 4. COMODÍN UNIVERSAL: CUALQUIER OTRA URL DESCONOCIDA O SPAM -> REDIRIGE A HOME (/)
   # ----------------------------------------------------------------------------
-  RewriteRule ^.*$ / [R=301,L]
+  RewriteRule ^.*$ https://lifefitness.com.ve/ [R=301,L]
 </IfModule>
