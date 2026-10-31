@@ -1,7 +1,5 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { slugify } from './DynamicCatalog';
-
-const ITEMS_PER_PAGE = 10;
 
 const MUSCLE_FILTERS = [
   { id: 'todos', label: 'Todos' },
@@ -17,6 +15,44 @@ export default function SelectorizedGridCatalog({
   const [activeFilter, setActiveFilter] = useState('todos');
   const [currentPage, setCurrentPage] = useState(1);
   const sectionRef = useRef(null);
+  const gridRef = useRef(null);
+
+  // Ajuste inteligente para mostrar siempre 3 filas completas:
+  // 5 columnas (>1350px / ancho >1050px) = 15 productos (3 filas x 5 cols)
+  // 4 columnas (<=1350px / laptops 16" al 100%) = 12 productos (3 filas x 4 cols)
+  const [itemsPerPage, setItemsPerPage] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth > 1350 ? 15 : 12;
+    }
+    return 15;
+  });
+
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      let isFiveCols = window.innerWidth > 1350;
+      if (gridRef.current) {
+        const width = gridRef.current.getBoundingClientRect().width;
+        if (width > 1050) isFiveCols = true;
+        else if (width < 980) isFiveCols = false;
+      }
+      const target = isFiveCols ? 15 : 12;
+      setItemsPerPage((prev) => (prev !== target ? target : prev));
+    };
+
+    updateItemsPerPage();
+    window.addEventListener('resize', updateItemsPerPage);
+
+    let observer = null;
+    if (gridRef.current && typeof ResizeObserver !== 'undefined') {
+      observer = new ResizeObserver(() => updateItemsPerPage());
+      observer.observe(gridRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('resize', updateItemsPerPage);
+      if (observer) observer.disconnect();
+    };
+  }, []);
 
   // Conteo por categoría muscular para mostrar badges informativos
   const counts = useMemo(() => {
@@ -36,12 +72,12 @@ export default function SelectorizedGridCatalog({
     return items.filter(item => item.body_focus === targetLabel);
   }, [items, activeFilter]);
 
-  // Paginación (10 productos = 2 filas x 5 columnas)
-  const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE) || 1;
+  // Paginación adaptativa: 3 filas completas según las columnas visibles
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage) || 1;
   const paginatedItems = useMemo(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredItems.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  }, [filteredItems, currentPage]);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return filteredItems.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredItems, currentPage, itemsPerPage]);
 
   const handleFilterChange = (filterId) => {
     setActiveFilter(filterId);
@@ -91,8 +127,8 @@ export default function SelectorizedGridCatalog({
         </div>
       </div>
 
-      {/* CUADRÍCULA DE 5 COLUMNAS */}
-      <div className="selectorized-grid">
+      {/* CUADRÍCULA DE PRODUCTOS */}
+      <div className="selectorized-grid" ref={gridRef}>
         {paginatedItems.map((p) => {
           const encodedMsg = encodeURIComponent(
             `Hola, me interesa solicitar cotización e información sobre el equipo ${p.Titles} (${p.Brand}).`
@@ -202,3 +238,4 @@ export default function SelectorizedGridCatalog({
     </div>
   );
 }
+

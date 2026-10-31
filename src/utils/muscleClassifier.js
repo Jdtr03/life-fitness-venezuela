@@ -27,3 +27,4 @@ export function classifyMuscleFocus(title = '', desc = '') {
   // 3. Tren Superior (Pecho, Espalda, Hombros, Brazos, Bíceps, Tríceps, Deltoides, etc.)
   return 'Tren Superior';
 }
+

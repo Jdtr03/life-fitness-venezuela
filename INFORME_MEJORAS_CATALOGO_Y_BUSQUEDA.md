@@ -98,14 +98,14 @@ Para que el buscador esté disponible en las 3 páginas de forma uniforme y acce
    - En las páginas `Equipos_Gimnasio.jsx` y `Equipos_Hogar.jsx`, una barra de filtro rápido integrada arriba de las categorías para filtrar instantáneamente sin abrir modales.
 
 ```
-+---------------------------------------------------------------------------------------------------------+
-| [ Life Fitness ]  [ Hammer Strength ]      NOSOTROS   PRODUCTOS   BUSCAR [🔍]   CONTACTO     [ COTIZAR ] |
-+---------------------------------------------------------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------+
+| [ Life Fitness ]  [ Hammer Strength ]     NOSOTROS  PRODUCTOS  SERVICIO TECNICO  CONTACTO  BUSCAR [🔍]    [ COTIZAR ] |
++------------------------------------------------------------------------------------------------------------------------+
                                                   │
                                                   ▼
-+─────────────────────────────────────────────────────────────────────────────────────────────────────────+
++────────────────────────────────────────────────────────────────────────────────────────────────────────────────--------+
 |  🔍  Buscar por nombre de equipo, serie, categoría (ej. "Axiom", "Pectoral", "Trotadora")...      [ESC] |
-+─────────────────────────────────────────────────────────────────────────────────────────────────────────+
++────────────────────────────────────────────────────────────────────────────────────────────────────────────────--------+
 |  RESULTADOS ENCONTRADOS (4):                                                                           |
 |  [IMG]  Serie Selectorizada Axiom Pec Fly / Rear Delt   • Fuerza | Gimnasio         [Cotizar] [Ver]     |
 |  [IMG]  Trotadora Integrity Series D-Console             • Cardio | Ambos            [Cotizar] [Ver]     |

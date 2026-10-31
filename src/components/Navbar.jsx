@@ -1,14 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useProducts } from '../hooks/useProducts';
 import { slugify } from './DynamicCatalog';
+import SearchModal from './SearchModal';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const { products } = useProducts();
+
+  // Atajo de teclado global Ctrl+K o Cmd+K para abrir buscador
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // Funciones de precarga para mejorar la respuesta al clic
   const prefetchGimnasio = () => import('../pages/Equipos_Gimnasio');
@@ -109,9 +123,22 @@ const Navbar = () => {
           <div className="mobile-box-black">
             <div className="mobile-content-right">
               <Link to="/"><img src="/fotos/header-white-hammer.svg" alt="Hammer Strength" className="logo-mobile-hammer" /></Link>
-              <button className="hamburger-btn-new" onClick={() => setIsMenuOpen(true)}>
-                <span className="bar"></span><span className="bar"></span><span className="bar"></span>
-              </button>
+              <div className="mobile-nav-actions">
+                <button
+                  type="button"
+                  className="btn-search-mobile"
+                  onClick={() => setIsSearchOpen(true)}
+                  aria-label="Buscar equipos"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </button>
+                <button className="hamburger-btn-new" onClick={() => setIsMenuOpen(true)}>
+                  <span className="bar"></span><span className="bar"></span><span className="bar"></span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -202,6 +229,19 @@ const Navbar = () => {
             </div>
 
             <div className="nav-action">
+              <button
+                type="button"
+                className="btn-search-pc"
+                onClick={() => setIsSearchOpen(true)}
+                title="Buscar equipos (Ctrl + K)"
+                aria-label="Buscar equipos"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <span className="btn-search-text">BUSCAR</span>
+              </button>
               <Link to="/#contacto" className="btn-cotizar-pc">COTIZAR</Link>
             </div>
           </div>
@@ -214,6 +254,22 @@ const Navbar = () => {
           <button className="close-btn" onClick={() => setIsMenuOpen(false)}>✕</button>
         </div>
         <ul className="sidebar-links">
+          <li style={{ marginBottom: '20px' }}>
+            <button
+              type="button"
+              className="sidebar-search-btn"
+              onClick={() => {
+                setIsMenuOpen(false);
+                setIsSearchOpen(true);
+              }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <span>BUSCAR EQUIPOS...</span>
+            </button>
+          </li>
           {menuLinks.map((link) => (
             <li key={link.text}>
               {link.hasSubmenu ? (
@@ -272,6 +328,13 @@ const Navbar = () => {
       </div>
       {isMenuOpen && <div className="sidebar-overlay" onClick={() => setIsMenuOpen(false)}></div>}
 
+      {/* MODAL DE BÚSQUEDA GLOBAL */}
+      <SearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        products={products}
+      />
+
       <style>{`
         [id] { scroll-margin-top: 85px; }
         .navbar-new { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: #000; }
@@ -287,6 +350,28 @@ const Navbar = () => {
         .nav-menu-item { height: 100%; display: flex; align-items: center; position: relative; }
         .hover-line { position: absolute; bottom: 25px; left: 0; width: 0; height: 2px; background: #a6192e; transition: width 0.3s ease; }
         .nav-menu-link:hover .hover-line { width: 100%; }
+        .nav-action { display: flex; align-items: center; gap: 12px; }
+        .btn-search-pc {
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.22);
+          color: #ffffff;
+          padding: 8px 14px;
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          font-weight: 800;
+          font-size: 11px;
+          letter-spacing: 1.2px;
+          cursor: pointer;
+          border-radius: 4px;
+          transition: all 0.25s ease;
+        }
+        .btn-search-pc:hover {
+          background: #a6192e;
+          border-color: #a6192e;
+          color: #ffffff;
+          box-shadow: 0 3px 12px rgba(166, 25, 46, 0.35);
+        }
         .btn-cotizar-pc { background: #a6192e; color: white; text-decoration: none; padding: 10px 20px; font-weight: 900; font-size: 13px; letter-spacing: 1px; }
         .mega-menu-pc { position: fixed; top: 80px; left: 0; width: 100vw; z-index: 999; }
         .mega-menu-safe-area { position: absolute; top: -30px; left: 0; width: 100%; height: 35px; background: transparent; }
@@ -309,6 +394,9 @@ const Navbar = () => {
           .mobile-box-red { flex: 1; background: #a6192e; clip-path: polygon(0 0, 100% 0, 80% 100%, 0 100%); display: flex; justify-content: center; align-items: center; padding-right: 5%; }
           .mobile-box-black { flex: 1.5; background: #000; display: flex; align-items: center; clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%); margin-left: -8%; }
           .mobile-content-right { display: flex; width: 100%; justify-content: space-between; align-items: center; padding: 0 20px 0 12%; }
+          .mobile-nav-actions { display: flex; align-items: center; gap: 14px; }
+          .btn-search-mobile { background: none; border: none; color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 4px; }
+          .btn-search-mobile:hover { color: #a6192e; }
           .logo-mobile-lf { height: 18px; }
           .logo-mobile-hammer { height: 22px; }
           .hamburger-btn-new { display: flex; flex-direction: column; justify-content: space-between; width: 24px; height: 16px; background: none; border: none; cursor: pointer; }
@@ -316,6 +404,27 @@ const Navbar = () => {
         }
         .mobile-sidebar-side { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: #111; z-index: 2000; transition: 0.4s; padding: 40px; overflow-y: auto; }
         .mobile-sidebar-side.open { right: 0; }
+        .sidebar-search-btn {
+          width: 100%;
+          background: #1c1c1c;
+          border: 1px solid #333;
+          color: #fff;
+          padding: 12px 16px;
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-weight: 700;
+          font-size: 13px;
+          cursor: pointer;
+          text-transform: uppercase;
+          transition: all 0.2s ease;
+        }
+        .sidebar-search-btn:hover {
+          border-color: #a6192e;
+          background: #242424;
+          color: #a6192e;
+        }
         .sidebar-link-item { color: white; text-decoration: none; font-size: 18px; font-weight: 700; display: flex; justify-content: space-between; margin-bottom: 25px; cursor: pointer; }
         .mobile-main-t-link { display: block; color: #a6192e; font-weight: 900; border-left: 3px solid #a6192e; padding-left: 10px; margin-bottom: 10px; text-decoration: none; }
         .mobile-sub-t-link { display: block; color: #fff; font-size: 13px; text-transform: uppercase; font-weight: 700; text-decoration: none; margin-bottom: 5px; }
