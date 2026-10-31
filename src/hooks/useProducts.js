@@ -11,7 +11,8 @@ const SUBCAT_MAP = {
   8: { name: 'Ciclismo Indoor', category: 'Cardio' },
   9: { name: 'Remos', category: 'Cardio' },
   10: { name: 'Multigimnasios', category: 'Fuerza' },
-  11: { name: 'Serie Selectorizada', category: 'Fuerza' }
+  11: { name: 'Serie Selectorizada', category: 'Fuerza' },
+  12: { name: 'Bancos ', category: 'Fuerza' }
 };
 
 function normalizeUsage(rawUsage) {
