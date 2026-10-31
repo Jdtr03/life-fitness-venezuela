@@ -1,4 +1,5 @@
 import React, { memo, useRef } from 'react';
+import SelectorizedGridCatalog from './SelectorizedGridCatalog';
 
 // Orden preferido de subcategorías
 const PREFERRED_ORDER = [
@@ -25,8 +26,8 @@ export const slugify = (text) => {
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/\s+/g, '-')
-    .replace(/[^\w\-]+/g, '')
-    .replace(/\-\-+/g, '-');
+    .replace(/[^\w-]+/g, '')
+    .replace(/--+/g, '-');
 };
 
 const SubCategoryRow = ({ subCategory, items }) => {
@@ -183,13 +184,30 @@ const DynamicCatalog = ({ products = [], title = '' }) => {
 
         {/* Filas por Subcategoría */}
         <div className="subcategories-container">
-          {sortedSubcategories.map((subCategory) => (
-            <SubCategoryRow
-              key={subCategory}
-              subCategory={subCategory}
-              items={groupedProducts[subCategory]}
-            />
-          ))}
+          {sortedSubcategories.map((subCategory) => {
+            const items = groupedProducts[subCategory];
+            const isSelectorized = 
+              subCategory.toLowerCase().includes('selectorizada') || 
+              subCategory.toLowerCase().includes('selectorizado');
+
+            if (isSelectorized) {
+              return (
+                <SelectorizedGridCatalog
+                  key={subCategory}
+                  subCategory={subCategory}
+                  items={items}
+                />
+              );
+            }
+
+            return (
+              <SubCategoryRow
+                key={subCategory}
+                subCategory={subCategory}
+                items={items}
+              />
+            );
+          })}
         </div>
       </div>
     </section>

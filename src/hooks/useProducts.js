@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
+import { classifyMuscleFocus } from '../utils/muscleClassifier';
 
 // Diccionario de respaldo para subcategorías según ID en Supabase
 const SUBCAT_MAP = {
@@ -35,7 +36,7 @@ function cleanTitle(title, subCatName) {
   let t = title.trim();
 
   // Elimina cualquier número al inicio seguido de espacios, puntos o guiones (ej. "5 Aspire" -> "Aspire", "6 RS1" -> "RS1")
-  let cleaned = t.replace(/^\d+[\s\.\-:]*/, '').trim();
+  let cleaned = t.replace(/^\d+[\s.:-]*/, '').trim();
 
   // Si quieres anteponer la subcategoría al título ya limpio
   if (subCatName && !cleaned.toLowerCase().includes(subCatName.toLowerCase())) {
@@ -98,6 +99,7 @@ export function useProducts() {
               Titles: cleanTitle(p.title, subCatName),
               Desc: p.description || 'Sin descripción',
               Manual: p.manual_url || null,
+              body_focus: p.body_focus || classifyMuscleFocus(p.title, p.description),
             };
           });
 
