@@ -53,7 +53,7 @@ const Navbar = () => {
     return Object.keys(grouped).sort((a, b) => grouped[b] - grouped[a]);
   };
 
-  const gimnasioFuerzaSubs = getSubcategories('Gimnasio', 'Fuerza', ['Serie Selectorizada', 'Placas', 'Bancos y Racks', 'Multigimnasios']);
+  const gimnasioFuerzaSubs = getSubcategories('Gimnasio', 'Fuerza', ['Serie Selectorizada', 'Placas', 'Bancos', 'Bancos y Racks', 'Multigimnasios']);
   const gimnasioCardioSubs = getSubcategories('Gimnasio', 'Cardio', ['Trotadoras', 'Elípticas', 'Bicicletas Verticales', 'Bicicletas Reclinadas', 'Air Bikes', 'Ciclismo Indoor', 'Remos']);
 
   const hogarFuerzaSubs = getSubcategories('Hogar', 'Fuerza', ['Multigimnasios']);

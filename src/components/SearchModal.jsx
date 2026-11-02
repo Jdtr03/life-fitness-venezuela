@@ -4,11 +4,13 @@ import { slugify } from './DynamicCatalog';
 
 const QUICK_SUGGESTIONS = [
   'Serie Selectorizada',
+  'Bancos',
   'Trotadoras',
   'Elípticas',
   'Tren Superior',
   'Tren Inferior',
   'Abdominales',
+  'Cuerpo Completo',
   'Hammer Strength',
   'Life Fitness'
 ];
@@ -186,7 +188,12 @@ export default function SearchModal({ isOpen, onClose, products = [] }) {
                               {p.Category} • {p.SubCategory}
                             </span>
                             {p.body_focus && (
-                              <span className="search-result-muscle">{p.body_focus}</span>
+                              <span 
+                                className="search-result-muscle"
+                                data-focus={slugify(p.body_focus)}
+                              >
+                                {p.body_focus}
+                              </span>
                             )}
                             <span className="search-result-usage">{p.usage}</span>
                           </div>

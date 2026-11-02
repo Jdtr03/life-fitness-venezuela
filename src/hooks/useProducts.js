@@ -13,7 +13,7 @@ const SUBCAT_MAP = {
   9: { name: 'Remos', category: 'Cardio' },
   10: { name: 'Multigimnasios', category: 'Fuerza' },
   11: { name: 'Serie Selectorizada', category: 'Fuerza' },
-  12: { name: 'Bancos ', category: 'Fuerza' }
+  12: { name: 'Bancos', category: 'Fuerza' }
 };
 
 function normalizeUsage(rawUsage) {
@@ -86,8 +86,8 @@ export function useProducts() {
               name: p.subcategories?.name || 'General',
               category: p.subcategories?.categories?.name || 'Cardio'
             };
-            const catName = p.subcategories?.categories?.name || subInfo.category;
-            const subCatName = p.subcategories?.name || subInfo.name;
+            const catName = (p.subcategories?.categories?.name || subInfo.category || 'Cardio').trim();
+            const subCatName = (p.subcategories?.name || subInfo.name || 'General').trim();
 
             return {
               id: String(p.id),
@@ -99,7 +99,7 @@ export function useProducts() {
               Titles: cleanTitle(p.title, subCatName),
               Desc: p.description || 'Sin descripción',
               Manual: p.manual_url || null,
-              body_focus: p.body_focus || classifyMuscleFocus(p.title, p.description),
+              body_focus: p.body_focus || classifyMuscleFocus(p.title, p.description, subCatName),
             };
           });
 

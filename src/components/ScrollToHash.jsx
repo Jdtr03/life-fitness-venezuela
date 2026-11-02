@@ -21,7 +21,10 @@ const HASH_ALIASES = {
   'planner-desing': 'serie-selectorizada',
   'planner-design': 'serie-selectorizada',
   'selectorizada': 'serie-selectorizada',
-  'serie-selectorizada': 'serie-selectorizada'
+  'serie-selectorizada': 'serie-selectorizada',
+  'banco': 'bancos',
+  'bancos': 'bancos',
+  'bancos-y-racks': 'bancos'
 };
 
 /**

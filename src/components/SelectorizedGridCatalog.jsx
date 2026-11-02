@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { slugify } from './DynamicCatalog';
 
-const MUSCLE_FILTERS = [
+const ALL_FILTERS = [
   { id: 'todos', label: 'Todos' },
   { id: 'superior', label: 'Tren Superior' },
   { id: 'inferior', label: 'Tren Inferior' },
-  { id: 'abdomen', label: 'Abdominales' }
+  { id: 'abdomen', label: 'Abdominales' },
+  { id: 'completo', label: 'Cuerpo Completo' }
 ];
 
 export default function SelectorizedGridCatalog({ 
@@ -54,22 +55,37 @@ export default function SelectorizedGridCatalog({
     };
   }, []);
 
-  // Conteo por categoría muscular para mostrar badges informativos
+  // Conteo reactivo por categoría muscular para mostrar badges informativos
   const counts = useMemo(() => {
-    const summary = { todos: items.length, superior: 0, inferior: 0, abdomen: 0 };
+    const summary = { todos: items.length, superior: 0, inferior: 0, abdomen: 0, completo: 0 };
     items.forEach(p => {
       if (p.body_focus === 'Tren Superior') summary.superior += 1;
       else if (p.body_focus === 'Tren Inferior') summary.inferior += 1;
       else if (p.body_focus === 'Abdominales') summary.abdomen += 1;
+      else if (p.body_focus === 'Cuerpo Completo') summary.completo += 1;
     });
     return summary;
   }, [items]);
 
+  // Mostrar únicamente las pestañas de filtros que tengan equipos (> 0) en esta subcategoría
+  const availableFilters = useMemo(() => {
+    return ALL_FILTERS.filter(f => f.id === 'todos' || (counts[f.id] && counts[f.id] > 0));
+  }, [counts]);
+
+  // Si el filtro activo ya no existe en las opciones disponibles, volver a 'todos'
+  useEffect(() => {
+    if (!availableFilters.some(f => f.id === activeFilter)) {
+      setActiveFilter('todos');
+      setCurrentPage(1);
+    }
+  }, [availableFilters, activeFilter]);
+
   // Filtrado reactivo de productos
   const filteredItems = useMemo(() => {
     if (activeFilter === 'todos') return items;
-    const targetLabel = MUSCLE_FILTERS.find(f => f.id === activeFilter)?.label;
-    return items.filter(item => item.body_focus === targetLabel);
+    const target = ALL_FILTERS.find(f => f.id === activeFilter);
+    if (!target) return items;
+    return items.filter(item => item.body_focus === target.label);
   }, [items, activeFilter]);
 
   // Paginación adaptativa: 3 filas completas según las columnas visibles
@@ -106,25 +122,27 @@ export default function SelectorizedGridCatalog({
           </span>
         </div>
 
-        {/* Pestañas de Enfoque Muscular */}
-        <div className="selectorized-filter-pills" role="tablist" aria-label="Filtro por zona muscular">
-          {MUSCLE_FILTERS.map(filter => {
-            const count = counts[filter.id] || 0;
-            const isActive = activeFilter === filter.id;
-            return (
-              <button
-                key={filter.id}
-                role="tab"
-                aria-selected={isActive}
-                onClick={() => handleFilterChange(filter.id)}
-                className={`selectorized-pill-btn ${isActive ? 'active' : ''}`}
-              >
-                <span>{filter.label}</span>
-                <span className="pill-counter">({count})</span>
-              </button>
-            );
-          })}
-        </div>
+        {/* Pestañas de Enfoque Muscular (se muestran cuando hay variedad de zonas) */}
+        {availableFilters.length > 2 && (
+          <div className="selectorized-filter-pills" role="tablist" aria-label="Filtro por zona muscular">
+            {availableFilters.map(filter => {
+              const count = counts[filter.id] || 0;
+              const isActive = activeFilter === filter.id;
+              return (
+                <button
+                  key={filter.id}
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => handleFilterChange(filter.id)}
+                  className={`selectorized-pill-btn ${isActive ? 'active' : ''}`}
+                >
+                  <span>{filter.label}</span>
+                  <span className="pill-counter">({count})</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* CUADRÍCULA DE PRODUCTOS */}
@@ -150,7 +168,10 @@ export default function SelectorizedGridCatalog({
 
               <div className="selectorized-info">
                 <div className="selectorized-meta-row">
-                  <span className="selectorized-focus-tag">
+                  <span 
+                    className="selectorized-focus-tag"
+                    data-focus={slugify(p.body_focus || '')}
+                  >
                     {p.body_focus || 'Fuerza'}
                   </span>
                 </div>
@@ -239,3 +260,4 @@ export default function SelectorizedGridCatalog({
   );
 }
 
+export { SelectorizedGridCatalog as GridCatalog };

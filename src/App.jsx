@@ -40,6 +40,9 @@ function App() {
             <Route path="/ciclismo" element={<EquiposGimnasio />} />
             <Route path="/multifuerzas" element={<EquiposGimnasio />} />
             <Route path="/multigimnasios" element={<EquiposGimnasio />} />
+            <Route path="/bancos" element={<EquiposGimnasio />} />
+            <Route path="/banco" element={<EquiposGimnasio />} />
+            <Route path="/bancos-y-racks" element={<EquiposGimnasio />} />
 
             {/* Redirecciones de Home / Contacto */}
             <Route path="/contactanos" element={<Home />} />

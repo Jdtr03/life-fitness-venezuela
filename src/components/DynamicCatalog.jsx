@@ -7,6 +7,7 @@ const PREFERRED_ORDER = [
   'Serie Selectorizada',
   'Selectorizado',
   'Placas',
+  'Bancos',
   'Bancos y Racks',
   'Trotadoras',
   'Elípticas',
@@ -189,8 +190,10 @@ const DynamicCatalog = ({ products = [], title = '' }) => {
             const isSelectorized = 
               subCategory.toLowerCase().includes('selectorizada') || 
               subCategory.toLowerCase().includes('selectorizado');
+            const isBancos = subCategory.toLowerCase().includes('banco');
 
-            if (isSelectorized) {
+            // Serie Selectorizada y Bancos (cuando tienen catálogo extenso) usan la cuadrícula moderna con filtros y paginación
+            if (isSelectorized || (isBancos && items.length > 2)) {
               return (
                 <SelectorizedGridCatalog
                   key={subCategory}
