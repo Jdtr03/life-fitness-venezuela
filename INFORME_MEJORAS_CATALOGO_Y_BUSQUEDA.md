@@ -126,33 +126,44 @@ Normalización contra tildes, mayúsculas y caracteres especiales para máxima t
 
 ---
 
-## 4. Estrategia de Datos y Clasificación Muscular (`body_focus`)
+## 4. Estrategia de Datos y Clasificación Muscular (`body_focus`): Asignación Automática y Manual
 
-Para habilitar el filtro de zona corporal en la Serie Selectorizada, se puede implementar bajo dos enfoques complementarios:
+Para definir y clasificar a qué zona del cuerpo pertenece cada producto, el sistema implementa una **triple jerarquía flexible**:
 
-### Enfoque A: Detección Inteligente Automática (Inmediato - Frontend)
-Se crea un mapeador automático en `src/hooks/useProducts.js` o `src/utils/muscleClassifier.js` que categoriza el equipo según palabras clave en su título y descripción:
-
-```javascript
-export function getMuscleFocus(title = '', desc = '') {
-  const text = `${title} ${desc}`.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  
-  if (/pecho|pec|chest|press|hombro|shoulder|deltoid|bicep|tricep|espalda|back|pulldown|row|remo|lat|brazo|arm|dip|curl/i.test(text)) {
-    return 'Tren Superior';
-  }
-  if (/pierna|leg|squat|prensa|press leg|extension|curl leg|femoral|cuadricep|glute|calf|gemelo|abductor|adductor/i.test(text)) {
-    return 'Tren Inferior';
-  }
-  if (/abdom|abdominal|crunch|core|torso|oblicuo|lumbar|back extension/i.test(text)) {
-    return 'Abdominales';
-  }
-  return 'Tren Superior'; // Fallback por defecto en fuerza selectorizada
-}
+```
+1. Columna 'body_focus' en Supabase (Prioridad máxima en backend)
+        │ (si es NULL o no existe)
+        ▼
+2. Diccionario MANUAL_FOCUS_OVERRIDES en src/utils/muscleClassifier.js (Manual en código)
+        │ (si no está especificado)
+        ▼
+3. Clasificador Biomecánico Automático classifyMuscleFocus() (Inferencia contextual)
 ```
 
-### Enfoque B: Campo Nativo en Supabase (Estructural - Backend)
-1. Añadir una columna `body_focus` (tipo `text` o `varchar`) en la tabla `products` de Supabase.
-2. Permitir clasificar con precisión cada uno de los 69 productos desde el panel de Supabase o script SQL.
+### ¿Cómo definir o cambiar manualmente la parte del cuerpo de un producto?
+
+#### Opción 1: Directamente en el Código (`src/utils/muscleClassifier.js`)
+En la parte superior de `src/utils/muscleClassifier.js`, añade el ID del producto o su título en `MANUAL_FOCUS_OVERRIDES`:
+
+```javascript
+export const MANUAL_FOCUS_OVERRIDES = {
+  7: 'Tren Inferior',               // Por ID de producto
+  117: 'Cuerpo Completo',           // Por ID
+  'Trotadora T3': 'Tren Inferior',  // Por nombre exacto
+};
+```
+Valores disponibles: `'Tren Superior'`, `'Tren Inferior'`, `'Abdominales'`, `'Cuerpo Completo'`.
+
+#### Opción 2: Desde el Panel de Supabase (Backend Web)
+1. En el Table Editor de Supabase, entra a la tabla `products`.
+2. Añade la columna `body_focus` de tipo `text` (permite valores NULL).
+3. Escribe en la celda del producto deseado la categoría: `Tren Inferior`, `Tren Superior`, `Abdominales` o `Cuerpo Completo`.
+4. Si dejas la celda vacía (`NULL`), el sistema inferirá la zona automáticamente.
+
+### Estilo de Etiquetas: Rojo Corporativo Unificado
+Todas las etiquetas de enfoque muscular conservan el estilo rojo corporativo:
+* **En el buscador modal:** Fondo translúcido `rgba(166, 25, 46, 0.2)` con tipografía `color: #ff6b7e`.
+* **En las tarjetas:** Tipografía en rojo corporativo `var(--primary, #a6192e)`.
 
 ---
 

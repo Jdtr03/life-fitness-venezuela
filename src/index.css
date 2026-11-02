@@ -1331,22 +1331,6 @@ body {
   letter-spacing: 0.06em;
 }
 
-.selectorized-focus-tag[data-focus="tren-inferior"] {
-  color: #3b82f6;
-}
-
-.selectorized-focus-tag[data-focus="tren-superior"] {
-  color: #e11d48;
-}
-
-.selectorized-focus-tag[data-focus="abdominales"] {
-  color: #ea580c;
-}
-
-.selectorized-focus-tag[data-focus="cuerpo-completo"] {
-  color: #9333ea;
-}
-
 .selectorized-name {
   font-size: 0.88rem;
   font-weight: 800;
@@ -1744,31 +1728,6 @@ body {
   text-transform: uppercase;
   padding: 2px 6px;
   border-radius: 2px;
-  border: 1px solid transparent;
-}
-
-.search-result-muscle[data-focus="tren-inferior"] {
-  background: rgba(37, 99, 235, 0.2);
-  color: #60a5fa;
-  border-color: rgba(96, 165, 250, 0.35);
-}
-
-.search-result-muscle[data-focus="tren-superior"] {
-  background: rgba(166, 25, 46, 0.2);
-  color: #ff6b7e;
-  border-color: rgba(255, 107, 126, 0.35);
-}
-
-.search-result-muscle[data-focus="abdominales"] {
-  background: rgba(234, 88, 12, 0.2);
-  color: #fb923c;
-  border-color: rgba(251, 146, 60, 0.35);
-}
-
-.search-result-muscle[data-focus="cuerpo-completo"] {
-  background: rgba(147, 51, 234, 0.2);
-  color: #c084fc;
-  border-color: rgba(192, 132, 252, 0.35);
 }
 
 .search-result-usage {

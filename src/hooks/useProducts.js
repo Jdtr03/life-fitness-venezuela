@@ -58,15 +58,7 @@ export function useProducts() {
         const { data, error: dbError } = await supabase
           .from('products')
           .select(`
-            id,
-            sku,
-            title,
-            description,
-            usage,
-            img_url,
-            manual_url,
-            brand_id,
-            subcategory_id,
+            *,
             brands ( name ),
             subcategories (
               name,
@@ -99,7 +91,7 @@ export function useProducts() {
               Titles: cleanTitle(p.title, subCatName),
               Desc: p.description || 'Sin descripción',
               Manual: p.manual_url || null,
-              body_focus: p.body_focus || classifyMuscleFocus(p.title, p.description, subCatName),
+              body_focus: p.body_focus || classifyMuscleFocus(p.title, p.description, subCatName, p.id),
             };
           });
 

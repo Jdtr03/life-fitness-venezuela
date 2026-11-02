@@ -134,40 +134,75 @@ El objetivo es transformar la forma en que se presentan los productos voluminoso
 
 ---
 
-## 4. Clasificación Muscular (`body_focus`): ¿Cómo saber a qué grupo pertenece cada una de las 67 máquinas?
+## 4. Clasificación Muscular (`body_focus`): ¿Cómo saber y cambiar a qué grupo pertenece cada equipo?
 
-Para filtrar por zona corporal sin necesidad de reestructurar manualmente la base de datos de inmediato, se utiliza una **función clasificadora automática en frontend** que analiza el título y descripción de cada máquina:
+El sistema cuenta con una arquitectura de triple jerarquía para asignar la zona corporal o enfoque muscular a cada producto (`Tren Superior`, `Tren Inferior`, `Abdominales`, `Cuerpo Completo`):
+
+```
+1. Columna 'body_focus' en Supabase (Prioridad Máxima si existe)
+        │ (si es null o no existe)
+        ▼
+2. Diccionario MANUAL_FOCUS_OVERRIDES en src/utils/muscleClassifier.js (Manual por código)
+        │ (si no está especificado)
+        ▼
+3. Clasificador Biomecánico Automático classifyMuscleFocus() (Inferencia inteligente por subcategoría/título)
+```
+
+---
+
+### 4.1 Método 1 (Recomendado y más rápido): Asignación Manual por Código
+
+En el archivo [`src/utils/muscleClassifier.js`](file:///c:/Users/Lenovo/Desktop/lifefitnes%20venezuela/src/utils/muscleClassifier.js), encontrarás en la parte superior el objeto `MANUAL_FOCUS_OVERRIDES`.
+
+Para cambiar manualmente cualquier producto, simplemente añade su **ID de producto** o su **Título exacto** y la zona muscular deseada:
 
 ```javascript
 // src/utils/muscleClassifier.js
 
-export function classifyMuscleFocus(title = '', desc = '') {
-  const text = `${title} ${desc}`
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
-
-  // 1. Tren Inferior (Piernas, Glúteos, Pantorrillas, Aductores)
-  if (/pierna|leg|squat|prensa|press leg|extension|curl leg|femoral|cuadricep|glute|calf|gemelo|abductor|adductor|tibial|patada/i.test(text)) {
-    return 'Tren Inferior';
-  }
-
-  // 2. Abdominales y Core (Abdomen, Lumbar, Oblicuos, Torso)
-  if (/abdom|crunch|core|torso|oblicuo|lumbar|back extension|rotary/i.test(text)) {
-    return 'Abdominales';
-  }
-
-  // 3. Tren Superior (Pecho, Espalda, Hombros, Brazos, Bíceps, Tríceps)
-  if (/pecho|pec|chest|press|hombro|shoulder|deltoid|bicep|tricep|espalda|back|pulldown|row|remo|lat|brazo|arm|dip|curl|pullover|chin/i.test(text)) {
-    return 'Tren Superior';
-  }
-
-  // Por defecto en máquinas selectorizadas de gimnasio:
-  return 'Tren Superior';
-}
+export const MANUAL_FOCUS_OVERRIDES = {
+  // Ejemplos de uso:
+  7: 'Tren Inferior',               // Asigna el producto ID 7 a Tren Inferior
+  117: 'Cuerpo Completo',           // Asigna el Flexibility Trainer a Cuerpo Completo
+  120: 'Tren Superior',             // Asigna la torre Leg Raise/Dip/Chin a Tren Superior
+  'Trotadora T3': 'Tren Inferior',  // También puedes usar el nombre exacto
+};
 ```
 
-> **Opción Futura en Backend (Supabase):** Si más adelante deseas asignar la categoría manualmente desde el panel de Supabase, puedes crear la columna `body_focus text` en la tabla `products` y el sistema usará `p.body_focus || classifyMuscleFocus(p.title, p.description)`.
+#### Valores de Enfoque Válidos:
+* `'Tren Inferior'` (Cuádriceps, glúteos, isquiotibiales, gemelos, trotadoras, bicicletas)
+* `'Tren Superior'` (Pectoral, espalda, hombros, bíceps, tríceps, bancos de press)
+* `'Abdominales'` (Core, recto abdominal, lumbares, hiperextensión, elevación de piernas)
+* `'Cuerpo Completo'` (Elípticas, remos, air bikes, multigimnasios, estiramiento)
+
+Al guardar el archivo, los cambios se reflejan al instante tanto en el buscador global como en las pestañas del catálogo.
+
+---
+
+### 4.2 Método 2: Asignación Manual desde la Base de Datos (Supabase)
+
+Si prefieres gestionar las zonas musculares desde el panel web de Supabase sin tocar código:
+
+1. Ingresa a tu panel de **Supabase** y ve al **Table Editor**.
+2. Selecciona la tabla **`products`**.
+3. Haz clic en **Insert Column** (Añadir columna):
+   * **Name:** `body_focus`
+   * **Type:** `text` (o `varchar`)
+   * **Default value:** déjalo vacío / `NULL`
+4. En cualquier fila de producto donde desees fijar una zona específica, escribe directamente en la celda:
+   * `Tren Inferior`
+   * `Tren Superior`
+   * `Abdominales`
+   * `Cuerpo Completo`
+5. Si dejas la celda vacía (`NULL`), el sistema usará automáticamente el clasificador inteligente.
+
+> **Nota Técnica:** En [`src/hooks/useProducts.js`](file:///c:/Users/Lenovo/Desktop/lifefitnes%20venezuela/src/hooks/useProducts.js), la consulta utiliza `select('*')`, por lo que detecta la columna `body_focus` automáticamente sin necesidad de modificar el código frontend.
+
+---
+
+### 4.3 Estilo Visual de las Etiquetas
+Todas las etiquetas de enfoque muscular (`Tren Superior`, `Tren Inferior`, `Abdominales` y `Cuerpo Completo`) conservan el diseño corporativo rojo unificado:
+* **En el buscador:** Fondo rojo translúcido (`rgba(166, 25, 46, 0.2)`) con texto rojo destacado (`#ff6b7e`).
+* **En las tarjetas del catálogo:** Tipografía técnica roja corporativa (`var(--primary, #a6192e)`).
 
 ---
 

@@ -1,4 +1,27 @@
 /**
+ * =======================================================================
+ * DICCIONARIO DE ASIGNACIÓN MANUAL (OVERRIDE DIRECTO)
+ * =======================================================================
+ * Si deseas cambiar o forzar manualmente la parte del cuerpo de cualquier
+ * producto específico sin depender del clasificador automático, solo
+ * debes agregar aquí el ID del producto (número o texto) o parte del título:
+ *
+ * Valores recomendados:
+ * - 'Tren Superior'
+ * - 'Tren Inferior'
+ * - 'Abdominales'
+ * - 'Cuerpo Completo'
+ *
+ * Ejemplos:
+ *   7: 'Tren Inferior',              // Por ID de producto
+ *   117: 'Cuerpo Completo',          // Flexibility Trainer
+ *   'Trotadora T3': 'Tren Inferior', // Por nombre exacto
+ */
+export const MANUAL_FOCUS_OVERRIDES = {
+  // Agrega tus personalizaciones aquí si deseas forzar algún equipo específico
+};
+
+/**
  * Clasificador biomecánico inteligente y riguroso de enfoque corporal / muscular.
  * Analiza el título, la descripción y la subcategoría del equipo para determinar
  * de forma precisa qué grupo muscular o zona del cuerpo se beneficia:
@@ -7,7 +30,14 @@
  * - 'Abdominales' (Core, Pared Abdominal, Hiperextensión Lumbar, Elevación de Piernas)
  * - 'Cuerpo Completo' (Elípticas, Remos, Air Bikes, Multigimnasios, Entrenamiento Funcional)
  */
-export function classifyMuscleFocus(title = '', desc = '', subCatName = '') {
+export function classifyMuscleFocus(title = '', desc = '', subCatName = '', productId = null) {
+  // 0. Asignación manual prioritaria por ID o por título
+  if (productId && MANUAL_FOCUS_OVERRIDES[productId]) {
+    return MANUAL_FOCUS_OVERRIDES[productId];
+  }
+  if (title && MANUAL_FOCUS_OVERRIDES[title.trim()]) {
+    return MANUAL_FOCUS_OVERRIDES[title.trim()];
+  }
   const t = (title || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   const d = (desc || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   const s = (subCatName || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
