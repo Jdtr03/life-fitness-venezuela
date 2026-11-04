@@ -97,16 +97,16 @@ const SubCategoryRow = ({ subCategory, items }) => {
 
         {items.length > 3 && (
           <div className="carousel-nav-btns">
-            <button 
-              onClick={scrollLeft} 
-              aria-label={`Anterior en ${subCategory}`} 
+            <button
+              onClick={scrollLeft}
+              aria-label={`Anterior en ${subCategory}`}
               className="carousel-btn prev-btn"
             >
               &#10094;
             </button>
-            <button 
-              onClick={scrollRight} 
-              aria-label={`Siguiente en ${subCategory}`} 
+            <button
+              onClick={scrollRight}
+              aria-label={`Siguiente en ${subCategory}`}
               className="carousel-btn next-btn"
             >
               &#10095;
@@ -146,10 +146,10 @@ const SubCategoryRow = ({ subCategory, items }) => {
                         Cotizar
                       </a>
                       {p.Manual ? (
-                        <a 
-                          href={p.Manual} 
-                          target="_blank" 
-                          rel="noreferrer" 
+                        <a
+                          href={p.Manual}
+                          target="_blank"
+                          rel="noreferrer"
                           className="btn-v3 btn-info-v3"
                         >
                           Manual / Ficha
@@ -223,8 +223,8 @@ const DynamicCatalog = ({ products = [], title = '' }) => {
             LÍNEA DE <span className="highlight-text">{title.toUpperCase()}</span>
           </h2>
           <p className="main-cat-desc">
-            {title.toLowerCase() === 'fuerza' 
-              ? 'Equipamiento diseñado con biomecánica de vanguardia y resistencia superior.' 
+            {title.toLowerCase() === 'fuerza'
+              ? 'Equipamiento diseñado con biomecánica de vanguardia y resistencia superior.'
               : 'Tecnología cardiovascular de alto rendimiento con consolas interactivas.'}
           </p>
         </div>
@@ -233,8 +233,8 @@ const DynamicCatalog = ({ products = [], title = '' }) => {
         <div className="subcategories-container">
           {sortedSubcategories.map((subCategory) => {
             const items = groupedProducts[subCategory];
-            const isSelectorized = 
-              subCategory.toLowerCase().includes('selectorizada') || 
+            const isSelectorized =
+              subCategory.toLowerCase().includes('selectorizada') ||
               subCategory.toLowerCase().includes('selectorizado');
             const isBancos = subCategory.toLowerCase().includes('banco');
 

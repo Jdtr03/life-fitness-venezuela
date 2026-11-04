@@ -164,12 +164,12 @@ const Navbar = () => {
                     onMouseLeave={() => link.hasSubmenu && setIsProductsOpen(false)}
                   >
                     {link.hasSubmenu ? (
-                      <span style={linkStyle} className="nav-menu-link cursor-pointer">
+                      <span className="nav-menu-link cursor-pointer">
                         {link.text}
                         <span className="hover-line"></span>
                       </span>
                     ) : (
-                      <Link to={link.href} style={linkStyle} className="nav-menu-link">
+                      <Link to={link.href} className="nav-menu-link">
                         {link.text}
                         <span className="hover-line"></span>
                       </Link>
@@ -348,6 +348,19 @@ const Navbar = () => {
         .nav-menu-wrapper { height: 100%; display: flex; align-items: center; }
         .nav-menu { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; height: 100%; }
         .nav-menu-item { height: 100%; display: flex; align-items: center; position: relative; }
+        .nav-menu-link {
+          color: white;
+          text-decoration: none;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 1.5px;
+          position: relative;
+          display: flex;
+          align-items: center;
+          height: 100%;
+          padding: 0 5px;
+          transition: all 0.3s ease;
+        }
         .hover-line { position: absolute; bottom: 25px; left: 0; width: 0; height: 2px; background: #a6192e; transition: width 0.3s ease; }
         .nav-menu-link:hover .hover-line { width: 100%; }
         .nav-action { display: flex; align-items: center; gap: 12px; }
@@ -388,6 +401,24 @@ const Navbar = () => {
         .mega-subitem-link { font-size: 13px; color: #555; text-decoration: none; transition: all 0.2s ease; display: inline-block; }
         .mega-subitem-link:hover { color: #a6192e; transform: translateX(3px); font-weight: 600; }
         .red-divider-line { position: absolute; right: 0; top: 10%; height: 80%; width: 2px; background: #a6192e; }
+
+        /* Ajuste responsivo ~0.90x para laptops de 15"-16" y pantallas intermedias */
+        @media (min-width: 1101px) and (max-width: 1600px) {
+          [id] { scroll-margin-top: 75px; }
+          .navbar-new { height: 70px; }
+          .nav-grid { height: 70px; padding-right: 25px; }
+          .brand-red-polygon { padding-left: 36px; padding-right: 48px; margin-right: -20px; }
+          .logo-lf { height: 23px; }
+          .nav-logo-hammer-pc { padding-left: 28px; }
+          .logo-hammer { height: 32px; }
+          .nav-menu { gap: 18px; }
+          .nav-menu-link { font-size: 11px; letter-spacing: 1px; padding: 0 4px; }
+          .hover-line { bottom: 20px; }
+          .nav-action { gap: 8px; }
+          .btn-search-pc { padding: 6px 11px; font-size: 10px; letter-spacing: 0.8px; }
+          .btn-cotizar-pc { padding: 7px 15px; font-size: 11px; letter-spacing: 0.8px; }
+          .mega-menu-pc { top: 70px; }
+        }
         @media (max-width: 1100px) {
           .desktop-nav-container { display: none; }
           .mobile-nav-container { display: flex; height: 70px; background: #000; width: 100%; overflow: hidden; }
