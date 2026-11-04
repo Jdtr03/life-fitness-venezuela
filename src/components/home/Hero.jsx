@@ -1,14 +1,14 @@
 import React from 'react';
+import heroHome from '../../assets/img/LFX_Hammer-Strength-HD-Athletic_07.webp';
 
 const Hero = () => {
-  // Asegúrate de que este nombre coincida con tu archivo en public/fotos/
-  const imagenFondo = "../../src/assets/hero_home.png";
+  const imagenFondo = heroHome;
 
   return (
-    <header className="hero" style={{
+    <header id="hero" className="hero" style={{
       position: 'relative',
       width: '100%',
-      height: '100vh',
+      height: '110vh',
       backgroundColor: '#1a1a1a', // Fondo oscuro de respaldo
       backgroundImage: `url(${imagenFondo})`,
       backgroundSize: 'cover',
@@ -40,6 +40,7 @@ const Hero = () => {
       }}>
         <div className="animate-fade">
           <h1 style={{
+
             color: 'white',
             fontSize: '3.5rem',
             lineHeight: '1.1',
@@ -49,7 +50,7 @@ const Hero = () => {
           }}>
             EL ESTÁNDAR <br />
             GLOBAL EN <br />
-            <span style={{ color: '#e31837', fontStyle: 'italic' }}>FITNESS</span>
+            <span style={{ color: '#a6192e', fontStyle: 'italic' }}>FITNESS</span>
           </h1>
           <p style={{
             color: '#ccc',
@@ -60,29 +61,33 @@ const Hero = () => {
             Transformamos espacios deportivos en Venezuela con tecnología de vanguardia y diseño ergonómico superior.
           </p>
           <div style={{ display: 'flex', gap: '15px' }}>
-            <button className="btn-primary" style={{
-              backgroundColor: '#e31837',
+            <a href="/#productos" className="btn-primary" style={{
+              backgroundColor: '#a6192e',
               color: 'white',
               padding: '15px 30px',
               border: 'none',
               fontWeight: 'bold',
-              cursor: 'pointer'
-            }}>Explorar Productos</button>
-            <button className="btn-outline" style={{
+              cursor: 'pointer',
+              textDecoration: 'none',
+              display: 'inline-block'
+            }}>Explorar Productos</a>
+            <a href="/#nosotros" className="btn-outline" style={{
               backgroundColor: 'transparent',
               color: 'white',
               padding: '15px 30px',
               border: '1px solid white',
               fontWeight: 'bold',
-              cursor: 'pointer'
-            }}>Nuestra Historia</button>
+              cursor: 'pointer',
+              textDecoration: 'none',
+              display: 'inline-block'
+            }}>Nuestra Historia</a>
           </div>
         </div>
       </div>
 
       {/* Columna Derecha (Vacía para lucir la imagen) */}
       <div style={{ zIndex: 2 }}></div>
-    </header>
+    </header >
   );
 };
 
