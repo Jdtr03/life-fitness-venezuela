@@ -41,9 +41,16 @@ const SubCategoryRow = ({ subCategory, items }) => {
       const el = document.getElementById(`product-${targetId}`);
       if (el && carouselRef.current && carouselRef.current.contains(el)) {
         setTimeout(() => {
-          el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+          const carousel = carouselRef.current;
+          if (carousel) {
+            const elRect = el.getBoundingClientRect();
+            const carouselRect = carousel.getBoundingClientRect();
+            const targetLeft = carousel.scrollLeft + (elRect.left - carouselRect.left) - (carouselRect.width / 2) + (elRect.width / 2);
+            carousel.scrollTo({ left: targetLeft, behavior: 'smooth' });
+          }
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
           el.classList.add('product-highlight-glow');
-          setTimeout(() => el.classList.remove('product-highlight-glow'), 2500);
+          setTimeout(() => el.classList.remove('product-highlight-glow'), 2800);
         }, 180);
       }
     };
@@ -52,7 +59,10 @@ const SubCategoryRow = ({ subCategory, items }) => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const urlItemId = params.get('item');
-      if (urlItemId) handleTargetItem(urlItemId);
+      if (urlItemId) {
+        handleTargetItem(urlItemId);
+        setTimeout(() => handleTargetItem(urlItemId), 450);
+      }
     }
 
     // 2. Detección por evento 'focus-product-item'
@@ -110,8 +120,8 @@ const SubCategoryRow = ({ subCategory, items }) => {
           {items.map((p) => {
             const encodedMsg = encodeURIComponent(`Hola, me interesa solicitar cotización e información sobre el equipo ${p.Titles} (${p.Brand}).`);
             return (
-              <div key={p.id} id={`product-${p.id}`} className="carousel-item-v3">
-                <div className="product-card-v3">
+              <div key={p.id} className="carousel-item-v3" data-item-id={p.id}>
+                <div id={`product-${p.id}`} className="product-card-v3">
                   <div className="product-img-wrapper-v3">
                     <img src={p.img} alt={p.Titles} loading="lazy" />
                     <span className="product-brand-tag-v3">
@@ -119,6 +129,11 @@ const SubCategoryRow = ({ subCategory, items }) => {
                     </span>
                   </div>
                   <div className="product-info-v3">
+                    {p.body_focus && (
+                      <span className="product-focus-tag-v3">
+                        {p.body_focus}
+                      </span>
+                    )}
                     <h4 className="product-name-v3">{p.Titles}</h4>
                     <p className="product-description-v3">{p.Desc}</p>
                     <div className="product-actions-v3">
