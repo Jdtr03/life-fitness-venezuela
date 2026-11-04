@@ -1,4 +1,4 @@
-import React, { memo, useRef } from 'react';
+import React, { memo, useRef, useEffect } from 'react';
 import SelectorizedGridCatalog from './SelectorizedGridCatalog';
 
 // Orden preferido de subcategorías
@@ -33,6 +33,37 @@ export const slugify = (text) => {
 
 const SubCategoryRow = ({ subCategory, items }) => {
   const carouselRef = useRef(null);
+
+  // Sincronización para centrar y resaltar producto seleccionado en el carrusel
+  useEffect(() => {
+    const handleTargetItem = (targetId) => {
+      if (!targetId) return;
+      const el = document.getElementById(`product-${targetId}`);
+      if (el && carouselRef.current && carouselRef.current.contains(el)) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+          el.classList.add('product-highlight-glow');
+          setTimeout(() => el.classList.remove('product-highlight-glow'), 2500);
+        }, 180);
+      }
+    };
+
+    // 1. Detección por URL
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const urlItemId = params.get('item');
+      if (urlItemId) handleTargetItem(urlItemId);
+    }
+
+    // 2. Detección por evento 'focus-product-item'
+    const onFocusEvent = (e) => {
+      const { productId } = e.detail || {};
+      if (productId) handleTargetItem(productId);
+    };
+
+    window.addEventListener('focus-product-item', onFocusEvent);
+    return () => window.removeEventListener('focus-product-item', onFocusEvent);
+  }, [items]);
 
   const scrollLeft = () => {
     if (carouselRef.current) {
@@ -79,7 +110,7 @@ const SubCategoryRow = ({ subCategory, items }) => {
           {items.map((p) => {
             const encodedMsg = encodeURIComponent(`Hola, me interesa solicitar cotización e información sobre el equipo ${p.Titles} (${p.Brand}).`);
             return (
-              <div key={p.id} className="carousel-item-v3">
+              <div key={p.id} id={`product-${p.id}`} className="carousel-item-v3">
                 <div className="product-card-v3">
                   <div className="product-img-wrapper-v3">
                     <img src={p.img} alt={p.Titles} loading="lazy" />

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { slugify } from './DynamicCatalog';
 
 const ALL_FILTERS = [
@@ -17,6 +18,7 @@ export default function SelectorizedGridCatalog({
   const [currentPage, setCurrentPage] = useState(1);
   const sectionRef = useRef(null);
   const gridRef = useRef(null);
+  const location = useLocation();
 
   // Ajuste inteligente para mostrar siempre 3 filas completas:
   // 5 columnas (>1350px / ancho >1050px) = 15 productos (3 filas x 5 cols)
@@ -95,6 +97,59 @@ export default function SelectorizedGridCatalog({
     return filteredItems.slice(startIndex, startIndex + itemsPerPage);
   }, [filteredItems, currentPage, itemsPerPage]);
 
+  // Sincronización automática cuando el usuario busca y toca un producto en el buscador
+  useEffect(() => {
+    const handleTargetProduct = (targetId) => {
+      if (!targetId) return;
+      const index = items.findIndex(p => String(p.id) === String(targetId));
+      if (index === -1) return;
+
+      const targetProduct = items[index];
+
+      // Si el filtro actual ocultaría el producto, cambiar a 'todos'
+      if (activeFilter !== 'todos') {
+        const activeLabel = ALL_FILTERS.find(f => f.id === activeFilter)?.label;
+        if (targetProduct.body_focus !== activeLabel) {
+          setActiveFilter('todos');
+        }
+      }
+
+      // Calcular la página correspondiente
+      const targetPage = Math.floor(index / itemsPerPage) + 1;
+      setCurrentPage(targetPage);
+
+      // Desplazar y resaltar con animación suave
+      setTimeout(() => {
+        const el = document.getElementById(`product-${targetId}`);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.classList.add('product-highlight-glow');
+          setTimeout(() => el.classList.remove('product-highlight-glow'), 2500);
+        } else if (sectionRef.current) {
+          sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 180);
+    };
+
+    // 1. Detección por URL (?item=XYZ)
+    const params = new URLSearchParams(location.search);
+    const urlItemId = params.get('item');
+    if (urlItemId) {
+      handleTargetProduct(urlItemId);
+    }
+
+    // 2. Detección por evento personalizado 'focus-product-item'
+    const onFocusEvent = (e) => {
+      const { productId } = e.detail || {};
+      if (productId) {
+        handleTargetProduct(productId);
+      }
+    };
+
+    window.addEventListener('focus-product-item', onFocusEvent);
+    return () => window.removeEventListener('focus-product-item', onFocusEvent);
+  }, [location.search, items, itemsPerPage, activeFilter]);
+
   const handleFilterChange = (filterId) => {
     setActiveFilter(filterId);
     setCurrentPage(1);
@@ -153,7 +208,7 @@ export default function SelectorizedGridCatalog({
           );
 
           return (
-            <div key={p.id} className="selectorized-card">
+            <div key={p.id} id={`product-${p.id}`} className="selectorized-card">
               <div className="selectorized-img-box">
                 <img 
                   src={p.img} 

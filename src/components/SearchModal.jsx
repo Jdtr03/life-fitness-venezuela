@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { slugify } from './DynamicCatalog';
 
 const QUICK_SUGGESTIONS = [
@@ -19,6 +19,7 @@ export default function SearchModal({ isOpen, onClose, products = [] }) {
   const [query, setQuery] = useState('');
   const inputRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClose = useCallback(() => {
     setQuery('');
@@ -79,10 +80,44 @@ export default function SearchModal({ isOpen, onClose, products = [] }) {
 
   const handleNavigateToProduct = (product) => {
     handleClose();
-    const isHogarOnly = product.usage === 'Hogar';
-    const basePath = isHogarOnly ? '/hogar' : '/gimnasio';
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = '';
+    }
+
+    const currentPath = location.pathname.toLowerCase();
+    let basePath = '/gimnasio';
+
+    if (currentPath.includes('hogar')) {
+      if (product.usage === 'Hogar' || product.usage === 'Ambos') {
+        basePath = '/hogar';
+      } else {
+        basePath = '/gimnasio';
+      }
+    } else if (currentPath.includes('gimnasio')) {
+      if (product.usage === 'Gimnasio' || product.usage === 'Ambos') {
+        basePath = '/gimnasio';
+      } else {
+        basePath = '/hogar';
+      }
+    } else {
+      basePath = product.usage === 'Hogar' ? '/hogar' : '/gimnasio';
+    }
+
     const hash = slugify(product.SubCategory || 'productos');
-    navigate(`${basePath}#${hash}`);
+    const targetUrl = `${basePath}?item=${product.id}#${hash}`;
+
+    // Disparar evento global para componentes reactivos que ya estén montados
+    window.dispatchEvent(
+      new CustomEvent('focus-product-item', {
+        detail: {
+          productId: String(product.id),
+          subCategory: product.SubCategory,
+          sectionId: hash
+        }
+      })
+    );
+
+    navigate(targetUrl);
   };
 
   return (
@@ -168,7 +203,16 @@ export default function SearchModal({ isOpen, onClose, products = [] }) {
                     );
 
                     return (
-                      <div key={p.id} className="search-result-row">
+                      <div 
+                        key={p.id} 
+                        className="search-result-row"
+                        onClick={() => handleNavigateToProduct(p)}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') handleNavigateToProduct(p);
+                        }}
+                      >
                         <div className="search-result-thumb">
                           <img
                             src={p.img}
@@ -208,12 +252,16 @@ export default function SearchModal({ isOpen, onClose, products = [] }) {
                             target="_blank"
                             rel="noreferrer"
                             className="search-btn-cotizar"
+                            onClick={(e) => e.stopPropagation()}
                           >
                             Cotizar
                           </a>
                           <button
                             type="button"
-                            onClick={() => handleNavigateToProduct(p)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleNavigateToProduct(p);
+                            }}
                             className="search-btn-ver"
                           >
                             Ver en Catálogo

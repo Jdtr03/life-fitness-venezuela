@@ -35,7 +35,7 @@ const HASH_ALIASES = {
  */
 const ScrollToHash = () => {
   const location = useLocation();
-  const { pathname, hash, key } = location;
+  const { pathname, hash, key, search } = location;
 
   useEffect(() => {
     // 1. Obtener el ID objetivo (sea por hash # o por nombre de ruta limpia)
@@ -46,12 +46,29 @@ const ScrollToHash = () => {
       ? (HASH_ALIASES[rawHashId] || rawHashId)
       : (HASH_ALIASES[cleanPath] || null);
 
-    if (targetId) {
+    const searchParams = new URLSearchParams(search);
+    const targetItemId = searchParams.get('item');
+
+    if (targetItemId || targetId) {
       const scrollToTarget = () => {
-        const element = document.getElementById(targetId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-          return true;
+        // Priorizar el elemento específico del producto si existe en el DOM
+        if (targetItemId) {
+          const productEl = document.getElementById(`product-${targetItemId}`);
+          if (productEl) {
+            productEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            productEl.classList.add('product-highlight-glow');
+            setTimeout(() => productEl.classList.remove('product-highlight-glow'), 2500);
+            return true;
+          }
+        }
+
+        // Si aún no está el producto o se busca la sección general
+        if (targetId) {
+          const element = document.getElementById(targetId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+            return true;
+          }
         }
         return false;
       };
@@ -80,7 +97,7 @@ const ScrollToHash = () => {
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [pathname, hash, key]);
+  }, [pathname, hash, key, search]);
 
   return null;
 };
